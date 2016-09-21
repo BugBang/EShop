@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/ll_exit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:padding="10dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="19dp"
+            android:layout_height="19dp"
+            android:background="@mipmap/login_back"
+            />
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:gravity="center"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="88dp">
+        <EditText
+            android:id="@+id/act_login_et_username"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@null"
+            android:textColor="#323232"
+            android:textSize="15sp"
+            android:textColorHint="#b0b0b0"
+            android:hint="请输入手机号/用户名"
+            />
+
+        <LinearLayout
+            android:visibility="invisible"
+            android:id="@+id/ll_edit_clear"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageButton
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_margin="5dp"
+                android:background="@mipmap/edittext_clear"
+                />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#b0b0b0"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        >
+        <EditText
+            android:id="@+id/act_login_et_password"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:background="@null"
+            android:textColor="#323232"
+            android:textSize="15sp"
+            android:inputType="textPassword"
+            android:textColorHint="#b0b0b0"
+            android:hint="请输入登录密码"
+            />
+
+        <LinearLayout
+            android:id="@+id/iv_eyes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_width="14dp"
+                android:layout_height="10dp"
+                android:background="@mipmap/login_eyes"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#b0b0b0"
+        />
+
+    <Button
+        android:id="@+id/act_login_btn_login"
+        android:layout_marginTop="56dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@mipmap/login_log_bg"
+        android:text="登录"
+        android:textSize="16sp"
+        android:textColor="#ffffff"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center_horizontal|bottom"
+        android:orientation="horizontal"
+        android:paddingBottom="44dp"
+        >
+        <TextView
+            android:id="@+id/act_login_tv_forget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="忘记密码"
+            android:textColor="#c6c6c6"
+            android:textSize="14sp" />
+        <View
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_width="0.5dp"
+            android:layout_height="14dp"
+            android:background="#c6c6c6"
+            />
+        <TextView
+            android:id="@+id/act_login_tv_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="快速注册"
+            android:textColor="#c6c6c6"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

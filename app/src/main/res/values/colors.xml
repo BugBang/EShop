@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="color_main">#f34f2f</color>
+    <color name="black">#FF000000</color>
+    <color name="dkgray">#FF444444</color>
+    <color name="ltgray">#FFCCCCCC</color>
+    <color name="red">#FFFF0000</color>
+    <color name="green">#FF00FF00</color>
+    <color name="blue">#FF0000FF</color>
+    <color name="yellow">#FFFFFF00</color>
+    <color name="cyan">#FF00FFFF</color>
+    <color name="magenta">#FFFF00FF</color>
+    <color name="orange">#ffff6600</color>
+    <color name="gray">#ff666666</color>
+    <color name="low_gray">#ffcccccc</color>
+    <color name="lightgray">#ff999999</color>
+    <color name="white">#ffffffff</color>
+    <color name="transparent">#00ffffff</color>
+    <!-- item选中是的颜色 -->
+    <color name="item_pressed">#fff5f5f5</color>
+    <!-- slidingmenu背景色 -->
+    <color name="slidingmenu_background">#f34f2f</color>
+    <!-- 标题栏背景颜色 -->
+    <!--<color name="bg_title">#bb2921</color>-->
+    <color name="bg_title">#007bff</color>
+    <color name="bg_gray">#F4F2F3</color>
+    <color name="bg_blue_deep">#0D6DAE</color>
+
+    <!-- 环形进度条颜色配置 -->
+    <color name="bg_pgb_round_normal">#D5D5D5</color>
+    <color name="bg_pgb_round_progress_redddd">#e91227</color>
+    <color name="bg_pgb_round_progress_orange">#FF8F27</color>
+    <color name="bg_pgb_round_progress_red">#FFFF0000</color>
+
+    <!-- 主要字体颜色 -->
+    <color name="text_blue">#209BF0</color>
+    <color name="text_orange">#FA6602</color>
+    <color name="text_orange_deep">#FF6B00</color>
+    <color name="text_gray">#959595</color>
+    <color name="text_black">#3B3B3B</color>
+    <color name="text_black_deep">#060606</color>
+    <color name="text_green_light">#4876CF</color>
+    <color name="text_user_level">#FFF39E</color>
+    <color name="text_new1">#333333</color>
+    <color name="text_new2">#b2b2b2</color>
+
+    <!-- 菜单正常字体颜色 -->
+    <color name="text_menu_normal">#C7C7C7</color>
+    <!-- 菜单选中字体颜色 -->
+    <color name="text_menu_select">#51AAE7</color>
+    <!-- 横分割线颜色 -->
+    <color name="line_horizontal">#D0D0D0</color>
+    <!-- 点击颜色变化 -->
+    <color name="pressed">#323232</color>
+    <color name="normal">#4a4a4a</color>
+
+    <color name="radiobg_press">#43859d</color>
+    <color name="radiobg_normal">#555555</color>
+    <color name="biankuang">#a40000</color>
+    <!-- button_shape 背景色 -->
+    <color name="button_shape">#cc3432</color>
+    <color name="edittext_hint_color">#d0d0d0</color>
+
+</resources>

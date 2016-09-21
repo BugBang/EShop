@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">EShop</string>
+    <string name="bottom_project_text">分期</string>
+    <string name="bottom_me_text">我</string>
+    <string name="bottom_more_text">更多</string>
+    <string name="logout">退出登录</string>
+    <string name="order_handle">订单管理</string>
+    <string name="login">登录</string>
+    <string name="pwd_forget">忘记密码</string>
+    <string name="log_register">快速注册</string>
+    <string name="login_user_hint">请输入手机号/用户名</string>
+    <string name="log_pwe_hint">请输入登录密码</string>
+    <string name="title">壹点商城</string>
+    <string name="fragment_me_sub_titile">会理财,懂生活的人都在这里</string>
+    <string name="modify_password">修改密码</string>
+</resources>
