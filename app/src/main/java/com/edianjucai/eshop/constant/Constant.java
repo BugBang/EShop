@@ -26,6 +26,11 @@ public class Constant{
         public static final String RESET_PASSWORD_CODE = "reset_password_code";
     }
 
+    public static final class View {
+        public static final String MY_TOP_HEIGHT = "my_top_height";
+        public static final String MY_LOGIN_HEIGHT = "my_login_height";
+    }
+
 	public static final class ResponseDataType {
 		public static final int BASE64 = 0;
 		public static final int JSON = 1;

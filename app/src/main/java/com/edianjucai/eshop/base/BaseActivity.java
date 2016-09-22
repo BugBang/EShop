@@ -8,8 +8,10 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 
 import com.edianjucai.eshop.app.App;
 import com.edianjucai.eshop.event.EventMsg;
@@ -107,6 +109,19 @@ public abstract class BaseActivity extends FragmentActivity {
 
     protected void handleIntent(Intent intent) {
 
+    }
+
+
+    // 点击空白区域 自动隐藏软键盘
+    public boolean onTouchEvent(MotionEvent event) {
+        if(null != this.getCurrentFocus()){
+            /**
+             * 点击空白位置 隐藏软键盘
+             */
+            InputMethodManager mInputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            return mInputMethodManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
+        }
+        return super .onTouchEvent(event);
     }
 
 
