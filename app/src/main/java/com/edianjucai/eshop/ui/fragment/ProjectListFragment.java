@@ -1,24 +1,40 @@
 package com.edianjucai.eshop.ui.fragment;
 
 import android.content.Context;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 
 import com.bumptech.glide.Glide;
 import com.edianjucai.eshop.CustomView.CarouselView;
 import com.edianjucai.eshop.R;
+import com.edianjucai.eshop.adapter.CarouselViewAdapter;
+import com.edianjucai.eshop.adapter.GridListAdapter;
 import com.edianjucai.eshop.base.BaseFragment;
+import com.edianjucai.eshop.model.entity.ProjectListModel;
+import com.edianjucai.eshop.ui.view.ProjectListView;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 
 import butterknife.BindView;
 
 /**
  * Created by user on 2016-09-12.
  */
-public class ProjectListFragment extends BaseFragment {
+public class ProjectListFragment extends BaseFragment implements AdapterView.OnItemClickListener,ProjectListView{
 
     @BindView(R.id.top_ad_view)
     CarouselView mTopAdView;
+    @BindView(R.id.gv_project_list)
+    GridView mGvProjectList;
+    @BindView(R.id.pull_refresh)
+    PullToRefreshScrollView mPullToRefreshScrollView;
+
+    private PosterAdapter mPosterAdapter;
 
     String[] mStrings = new String[]{
             "http://112.74.194.230/public/avatar/temp/2059virtual_avatar_middle.jpg",
@@ -35,16 +51,70 @@ public class ProjectListFragment extends BaseFragment {
 
     @Override
     public void doBusiness(final Context mContext) {
-        PosterAdapter adapter = new PosterAdapter(mContext);
-        mTopAdView.setAdapter(adapter);
+        initRefresh();
+        initListener();
+        mPosterAdapter = new PosterAdapter(mContext);
+        mGvProjectList.setAdapter(new GridListAdapter(mActivity));
+        mTopAdView.setAdapter(mPosterAdapter);
+    }
 
+    private void initListener() {
+        mGvProjectList.setOnItemClickListener(this);
+    }
+
+    private void initRefresh() {
+        mPullToRefreshScrollView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ScrollView>() {
+            @Override
+            public void onRefresh(PullToRefreshBase<ScrollView> refreshView) {
+                $Log("onRefresh");
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mPullToRefreshScrollView.onRefreshComplete();
+                        $Log("onRefreshComplete");
+                    }
+                },3000);
+            }
+        });
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        $Log("position="+position);
     }
 
 
-    class PosterAdapter implements CarouselView.Adapter {
+    @Override
+    public void setProjectListData(ProjectListModel projectListModel) {
+
+    }
+
+    @Override
+    public void startRequest() {
+
+    }
+
+    @Override
+    public void finishRequest() {
+
+    }
+
+    @Override
+    public void successRequest() {
+
+    }
+
+    @Override
+    public void failRequest(String showErr) {
+
+    }
+
+    class PosterAdapter implements CarouselViewAdapter {
 
         Context mContext;
         private LayoutInflater inflater;
+
         public PosterAdapter(Context context) {
             this.mContext = context;
             inflater = LayoutInflater.from(context);

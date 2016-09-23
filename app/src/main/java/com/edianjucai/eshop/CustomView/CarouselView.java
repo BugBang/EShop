@@ -14,6 +14,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.edianjucai.eshop.R;
+import com.edianjucai.eshop.adapter.CarouselViewAdapter;
 import com.edianjucai.eshop.util.DpPxUtils;
 
 import java.util.Timer;
@@ -30,7 +31,7 @@ public class CarouselView extends FrameLayout implements ViewPager.OnPageChangeL
     private int currentPosition =0;
     private ViewPager viewPager;
     private LinearLayout carouselLayout;
-    private Adapter adapter;
+    private CarouselViewAdapter adapter;
     private int pageItemWidth;
     private boolean isUserTouched = false;
     private Timer mTimer = new Timer();
@@ -120,7 +121,7 @@ public class CarouselView extends FrameLayout implements ViewPager.OnPageChangeL
         mTimer.schedule(mTimerTask, 3000, 3000);
     }
 
-    public void setAdapter(Adapter adapter){
+    public void setAdapter(CarouselViewAdapter adapter){
         this.adapter = adapter;
         if (adapter!=null){
             init();
@@ -212,9 +213,4 @@ public class CarouselView extends FrameLayout implements ViewPager.OnPageChangeL
         }
     }
 
-    public interface Adapter{
-        boolean isEmpty();
-        View getView(int position);
-        int getCount();
-    }
 }
