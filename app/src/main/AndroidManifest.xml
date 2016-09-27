@@ -33,7 +33,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.edianjucai.eshop.ui.activity.HomeActivity"
+            android:name="com.edianjucai.eshop.ui.activity.InitActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
@@ -43,6 +43,12 @@
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity> <activity
+            android:name="com.edianjucai.eshop.ui.activity.HomeActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            >
         </activity>
 
         <activity
@@ -59,6 +65,12 @@
         </activity>
         <activity
             android:name="com.edianjucai.eshop.ui.activity.ChangePasswordActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan">
+        </activity>
+        <activity
+            android:name="com.edianjucai.eshop.ui.activity.GuideActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">

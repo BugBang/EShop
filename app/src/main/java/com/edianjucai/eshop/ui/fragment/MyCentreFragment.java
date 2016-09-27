@@ -361,7 +361,7 @@ public class MyCentreFragment extends BaseFragment implements MyCenterView {
      */
     private void setTopSpaceZoomIn(int duration) {
         AnimUtil.ScaleAnimator(0.6f,1f,0.6f,1f,mTvTitle,duration);
-        AnimUtil.ValueAnimator((float)(mTopSpaceHeight*0.4),mTopSpaceHeight,mTopSpace,duration);
+        AnimUtil.ValueAnimator((float)(mTopSpaceHeight*0.35),mTopSpaceHeight,mTopSpace,duration);
     }
 
     /**
@@ -370,6 +370,6 @@ public class MyCentreFragment extends BaseFragment implements MyCenterView {
      */
     private void setTopSpaceZoomOut(int duration) {
         AnimUtil.ScaleAnimator(1f,0.6f,1f,0.6f,mTvTitle,duration);
-        AnimUtil.ValueAnimator(mTopSpaceHeight,(float)(mTopSpaceHeight*0.4),mTopSpace,duration);
+        AnimUtil.ValueAnimator(mTopSpaceHeight,(float)(mTopSpaceHeight*0.35),mTopSpace,duration);
     }
 }

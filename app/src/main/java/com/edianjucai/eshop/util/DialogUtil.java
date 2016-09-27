@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.edianjucai.eshop.CustomView.ProgressDialog;
 import com.edianjucai.eshop.R;
+import com.edianjucai.eshop.app.App;
 
 /**
  * Created by user on 2016-09-19.
@@ -16,13 +17,11 @@ import com.edianjucai.eshop.R;
 public class DialogUtil {
     private Activity mActivity = null;
 
-    public DialogUtil(Activity activity)
-    {
+    public DialogUtil(Activity activity) {
         this.mActivity = activity;
     }
 
-    public Dialog alert(CharSequence title, CharSequence message)
-    {
+    public Dialog alert(CharSequence title, CharSequence message) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
         builder.setTitle(title);
@@ -39,16 +38,13 @@ public class DialogUtil {
         return dialog;
     }
 
-    public Dialog alert(int title, int message)
-    {
+    public Dialog alert(int title, int message) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
         builder.setTitle(title);
         builder.setMessage(message);
-        builder.setNegativeButton("确定", new DialogInterface.OnClickListener()
-        {
-            public void onClick(DialogInterface dialog, int which)
-            {
+        builder.setNegativeButton("确定", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
             }
         });
@@ -57,38 +53,29 @@ public class DialogUtil {
         return dialog;
     }
 
-    public  Dialog confirm(CharSequence title, CharSequence message, DialogInterface.OnClickListener confirmListener, DialogInterface.OnClickListener cancelListener)
-    {
-        AlertDialog.Builder builder = new AlertDialog.Builder(mActivity,AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
+    public  Dialog confirm(CharSequence title, CharSequence message,
+                           DialogInterface.OnClickListener confirmListener, DialogInterface.OnClickListener cancelListener) {AlertDialog.Builder builder = new AlertDialog.Builder(mActivity,AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
         builder.setTitle(title);
         builder.setMessage(message);
 
-        try
-        {
+        try {
             builder.setPositiveButton("确定", confirmListener);
-        } catch (Exception e)
-        {
-            builder.setPositiveButton("确定", new DialogInterface.OnClickListener()
-            {
+        } catch (Exception e) {
+            builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 
                 @Override
-                public void onClick(DialogInterface dialog, int which)
-                {
+                public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
                 }
             });
         }
-        try
-        {
+        try {
             builder.setNegativeButton("取消", cancelListener);
-        } catch (Exception e)
-        {
-            builder.setNegativeButton("取消", new DialogInterface.OnClickListener()
-            {
+        } catch (Exception e) {
+            builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
 
                 @Override
-                public void onClick(DialogInterface dialog, int which)
-                {
+                public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
                 }
             });
@@ -99,37 +86,28 @@ public class DialogUtil {
         return dialog;
     }
 
-    public Dialog confirm(int title, int message, DialogInterface.OnClickListener confirmListener, DialogInterface.OnClickListener cancelListener)
-    {
+    public Dialog confirm(int title, int message, DialogInterface.OnClickListener confirmListener, DialogInterface.OnClickListener cancelListener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
         builder.setTitle(title);
         builder.setMessage(message);
-        try
-        {
+        try {
             builder.setPositiveButton("确定", confirmListener);
-        } catch (Exception e)
-        {
-            builder.setPositiveButton("确定", new DialogInterface.OnClickListener()
-            {
+        } catch (Exception e) {
+            builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 
                 @Override
-                public void onClick(DialogInterface dialog, int which)
-                {
+                public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
                 }
             });
         }
-        try
-        {
+        try {
             builder.setNegativeButton("取消", cancelListener);
-        } catch (Exception e)
-        {
-            builder.setNegativeButton("取消", new DialogInterface.OnClickListener()
-            {
+        } catch (Exception e) {
+            builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
 
                 @Override
-                public void onClick(DialogInterface dialog, int which)
-                {
+                public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
                 }
             });
@@ -141,39 +119,30 @@ public class DialogUtil {
     }
 
     // 弹出自定义的窗体
-    public Dialog showView(CharSequence title, View view, DialogInterface.OnClickListener confirmListener, DialogInterface.OnClickListener cancelListener)
-    {
+    public Dialog showView(CharSequence title, View view, DialogInterface.OnClickListener confirmListener, DialogInterface.OnClickListener cancelListener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
         if (title != "")
             builder.setTitle(title);
         builder.setView(view);
 
-        try
-        {
+        try {
             builder.setPositiveButton("确定", confirmListener);
-        } catch (Exception e)
-        {
-            builder.setPositiveButton("确定", new DialogInterface.OnClickListener()
-            {
+        } catch (Exception e) {
+            builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 
                 @Override
-                public void onClick(DialogInterface dialog, int which)
-                {
+                public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
                 }
             });
         }
-        try
-        {
+        try {
             builder.setNegativeButton("取消", cancelListener);
-        } catch (Exception e)
-        {
-            builder.setNegativeButton("取消", new DialogInterface.OnClickListener()
-            {
+        } catch (Exception e) {
+            builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
 
                 @Override
-                public void onClick(DialogInterface dialog, int which)
-                {
+                public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
                 }
             });
@@ -184,39 +153,30 @@ public class DialogUtil {
         return dialog;
     }
 
-    public Dialog showView(int title, View view, DialogInterface.OnClickListener confirmListener, DialogInterface.OnClickListener cancelListener)
-    {
+    public Dialog showView(int title, View view, DialogInterface.OnClickListener confirmListener, DialogInterface.OnClickListener cancelListener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
         if (title != 0)
             builder.setTitle(title);
         builder.setView(view);
 
-        try
-        {
+        try {
             builder.setPositiveButton("确定", confirmListener);
-        } catch (Exception e)
-        {
-            builder.setPositiveButton("确定", new DialogInterface.OnClickListener()
-            {
+        } catch (Exception e) {
+            builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 
                 @Override
-                public void onClick(DialogInterface dialog, int which)
-                {
+                public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
                 }
             });
         }
-        try
-        {
+        try {
             builder.setNegativeButton("取消", cancelListener);
-        } catch (Exception e)
-        {
-            builder.setNegativeButton("取消", new DialogInterface.OnClickListener()
-            {
+        } catch (Exception e) {
+            builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
 
                 @Override
-                public void onClick(DialogInterface dialog, int which)
-                {
+                public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
                 }
             });
@@ -228,8 +188,7 @@ public class DialogUtil {
     }
 
     // 弹出自定义的信息
-    public Dialog showMsg(CharSequence title, CharSequence message)
-    {
+    public Dialog showMsg(CharSequence title, CharSequence message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
         if (title != "")
             builder.setTitle(title);
@@ -239,8 +198,7 @@ public class DialogUtil {
         return dialog;
     }
 
-    public Dialog showMsg(int title, int message)
-    {
+    public Dialog showMsg(int title, int message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
         if (title != 0)
             builder.setTitle(title);
@@ -250,9 +208,8 @@ public class DialogUtil {
         return dialog;
     }
 
-    public Dialog showLoading(String message)
-    {
-        ProgressDialog dialog = new ProgressDialog(mActivity, R.style.dialogBase);
+    public static Dialog showLoading(String message) {
+        ProgressDialog dialog = new ProgressDialog(App.getApplication(), R.style.dialogBase);
         TextView txt = dialog.getmTxtMsg();
         if (message != null && txt != null)
         {

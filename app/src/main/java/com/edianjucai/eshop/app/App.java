@@ -8,6 +8,7 @@ import com.edianjucai.eshop.dao.LocalUserModelDao;
 import com.edianjucai.eshop.event.EventMsg;
 import com.edianjucai.eshop.event.EventTag;
 import com.edianjucai.eshop.model.entity.LocalUser;
+import com.edianjucai.eshop.model.entity.RuntimeConfigModel;
 import com.ta.util.netstate.TANetChangeObserver;
 import com.ta.util.netstate.TANetWorkUtil;
 
@@ -27,6 +28,7 @@ public class App extends Application implements TANetChangeObserver{
 
     private LocalUser mLocalUser = null;
 
+    private RuntimeConfigModel mRuntimeConfig = new RuntimeConfigModel();
     @Override
     public void onCreate() {
         super.onCreate();
@@ -79,6 +81,9 @@ public class App extends Application implements TANetChangeObserver{
 
     }
 
+    public RuntimeConfigModel getmRuntimeConfig() {
+        return mRuntimeConfig;
+    }
 
 
     @Subscribe(threadMode = ThreadMode.PostThread)
