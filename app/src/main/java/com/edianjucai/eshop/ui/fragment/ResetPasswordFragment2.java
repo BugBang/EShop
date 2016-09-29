@@ -1,6 +1,7 @@
 package com.edianjucai.eshop.ui.fragment;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Paint;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +16,8 @@ import com.edianjucai.eshop.constant.Constant;
 import com.edianjucai.eshop.presenter.impl.ResetPasswordPresenterlmpl2;
 import com.edianjucai.eshop.presenter.usb.ResetPasswordPresenter2;
 import com.edianjucai.eshop.ui.view.ResetPasswordView2;
+import com.edianjucai.eshop.util.DialogUtil;
+import com.edianjucai.eshop.util.IntentUtil;
 import com.edianjucai.eshop.util.ToastUtils;
 
 import butterknife.BindView;
@@ -40,6 +43,8 @@ public class ResetPasswordFragment2 extends BaseFragment implements ResetPasswor
     private String mResetPassCode;
     private String mResetPassWord;
 
+    private DialogUtil mDialogUtil;
+
 
     private ResetPasswordPresenter2 mResetPasswordPresenter2;
 
@@ -54,6 +59,7 @@ public class ResetPasswordFragment2 extends BaseFragment implements ResetPasswor
 
     @Override
     public void doBusiness(Context mContext) {
+        mDialogUtil = new DialogUtil(mActivity);
         mResetPasswordPresenter2 = new ResetPasswordPresenterlmpl2(this);
         initData();
         initUI();
@@ -83,11 +89,32 @@ public class ResetPasswordFragment2 extends BaseFragment implements ResetPasswor
                 }
                 break;
             case R.id.tv_call_center:
+                clickServicePhone();
                 break;
             case R.id.ll_edit_clear:
                 clearEditText();
                 break;
         }
+    }
+
+    private void clickServicePhone() {
+        // TODO: 2016-09-27 从数据库取出客服电话
+        mDialogUtil.confirm("提示", "确定拨打客服电话?", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                if ("075586966868" != null) {
+                    startActivity(IntentUtil.getCallNumberIntent("075586966868"));
+                } else {
+                    ToastUtils.showToast("未找到客服电话");
+                }
+            }
+        }, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
     }
 
     private boolean checkData() {

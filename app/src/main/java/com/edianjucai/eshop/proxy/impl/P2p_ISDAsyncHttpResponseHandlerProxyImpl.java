@@ -26,56 +26,48 @@ public class P2p_ISDAsyncHttpResponseHandlerProxyImpl implements ISDAsyncHttpRes
 	@Override
 	public Object beforeOnStartInRequestThread()
 	{
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Object afterOnStartInRequestThread()
 	{
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Object beforeOnStartInMainThread(Object result)
 	{
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Object afterOnStartInMainThread(Object result)
 	{
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Object beforeOnProgressInRequestThread(long totalSize, long currentSize, long speed)
 	{
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Object afterOnProgressInRequestThread(long totalSize, long currentSize, long speed)
 	{
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Object beforeOnProgressInMainThread(long totalSize, long currentSize, long speed, Object result)
 	{
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Object afterOnProgressInMainThread(long totalSize, long currentSize, long speed, Object result)
 	{
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -101,21 +93,18 @@ public class P2p_ISDAsyncHttpResponseHandlerProxyImpl implements ISDAsyncHttpRes
 	@Override
 	public Object afterOnFailureInRequestThread(Throwable error, String content)
 	{
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Object beforeOnFailureInMainThread(Throwable error, String content, Object result)
 	{
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Object afterOnFailureInMainThread(Throwable error, String content, Object result)
 	{
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -133,49 +122,42 @@ public class P2p_ISDAsyncHttpResponseHandlerProxyImpl implements ISDAsyncHttpRes
 	@Override
 	public Object afterOnSuccessInRequestThread(int statusCode, Header[] headers, String content)
 	{
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Object beforeOnSuccessInMainThread(int statusCode, Header[] headers, String content, Object result)
 	{
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Object afterOnSuccessInMainThread(int statusCode, Header[] headers, String content, Object result)
 	{
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Object beforeOnFinishInRequestThread()
 	{
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Object afterOnFinishInRequestThread()
 	{
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Object beforeOnFinishInMainThread(Object result)
 	{
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Object afterOnFinishInMainThread(Object result)
 	{
-		// TODO Auto-generated method stub
 		return null;
 	}
 

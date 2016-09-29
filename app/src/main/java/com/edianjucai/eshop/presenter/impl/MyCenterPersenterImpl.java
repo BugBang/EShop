@@ -1,5 +1,6 @@
 package com.edianjucai.eshop.presenter.impl;
 
+import com.edianjucai.eshop.model.entity.LoginModel;
 import com.edianjucai.eshop.model.impl.MyCenterModeImpl;
 import com.edianjucai.eshop.model.mode.MyCenterMode;
 import com.edianjucai.eshop.presenter.usb.LoginPresenter;
@@ -35,8 +36,8 @@ public class MyCenterPersenterImpl implements LoginPresenter,OnLoginListener {
     }
 
     @Override
-    public void onSuccess() {
-        mMyCenterView.loginSuccess();
+    public void onSuccess(LoginModel actModel) {
+        mMyCenterView.loginSuccess(actModel);
         mMyCenterView.hideLoading();
     }
 

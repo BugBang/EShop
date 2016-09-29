@@ -10,7 +10,9 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.edianjucai.eshop.R;
 import com.edianjucai.eshop.app.App;
@@ -18,6 +20,7 @@ import com.edianjucai.eshop.base.BaseActivity;
 import com.edianjucai.eshop.base.BaseFragment;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Created by user on 2016-09-26.
@@ -43,6 +46,10 @@ public class WebViewActivity extends BaseActivity {
     ProgressBar mActProjectDetailWebviewPgbProgress;
     @BindView(R.id.act_project_detail_webview_web)
     WebView mActProjectDetailWebviewWeb;
+    @BindView(R.id.iv_back)
+    LinearLayout mIvBack;
+    @BindView(R.id.tv_title)
+    TextView mTvTitle;
 
     private String mStrUrl = null;
     private String mStrTitle = null;
@@ -112,8 +119,9 @@ public class WebViewActivity extends BaseActivity {
         settings.setJavaScriptEnabled(true);
         settings.setSupportZoom(true);
         settings.setBuiltInZoomControls(true);
+        //        settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
         // settings.setUseWideViewPort(true);
-        // settings.setLoadWithOverviewMode(true);
+        //         settings.setLoadWithOverviewMode(true);
         mActProjectDetailWebviewWeb.setWebViewClient(new ProjectDetailWebviewActivity_WebViewClient());
         mActProjectDetailWebviewWeb.setWebChromeClient(new ProjectDetailWebviewActivity_WebChromeClient());
     }
@@ -130,6 +138,11 @@ public class WebViewActivity extends BaseActivity {
         }
     }
 
+
+    @OnClick(R.id.iv_back)
+    public void onClick() {
+        finish();
+    }
 
 
     class ProjectDetailWebviewActivity_WebViewClient extends WebViewClient {
@@ -179,25 +192,9 @@ public class WebViewActivity extends BaseActivity {
     }
 
     private void initTitle() {
-//        if (mStrTitle != null) {
-//            mTitle.setTitle(mStrTitle);
-//        }
-//
-//        mTitle.setLeftButton("返回", R.drawable.selector_back_button, new OnLeftButtonClickListener() {
-//
-//            @Override
-//            public void onLeftBtnClick(View button) {
-//                finishActivity(true);
-//            }
-//        }, null);
-//
-//        mTitle.setRightButtonText("刷新", new OnRightButtonClickListener() {
-//
-//            @Override
-//            public void onRightBtnClick(View button) {
-//                startLoadData();
-//            }
-//        }, R.color.transparent, null);
+        if (mStrTitle != null) {
+            mTvTitle.setText(mStrTitle);
+        }
     }
 
     @Override

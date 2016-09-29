@@ -9,13 +9,12 @@ import android.widget.TextView;
 
 import com.edianjucai.eshop.CustomView.ProgressDialog;
 import com.edianjucai.eshop.R;
-import com.edianjucai.eshop.app.App;
 
 /**
  * Created by user on 2016-09-19.
  */
 public class DialogUtil {
-    private Activity mActivity = null;
+    private  Activity mActivity = null;
 
     public DialogUtil(Activity activity) {
         this.mActivity = activity;
@@ -54,7 +53,8 @@ public class DialogUtil {
     }
 
     public  Dialog confirm(CharSequence title, CharSequence message,
-                           DialogInterface.OnClickListener confirmListener, DialogInterface.OnClickListener cancelListener) {AlertDialog.Builder builder = new AlertDialog.Builder(mActivity,AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
+                                 DialogInterface.OnClickListener confirmListener, DialogInterface.OnClickListener cancelListener) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mActivity,AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
         builder.setTitle(title);
         builder.setMessage(message);
 
@@ -208,8 +208,8 @@ public class DialogUtil {
         return dialog;
     }
 
-    public static Dialog showLoading(String message) {
-        ProgressDialog dialog = new ProgressDialog(App.getApplication(), R.style.dialogBase);
+    public  Dialog showLoading(String message) {
+        ProgressDialog dialog = new ProgressDialog(mActivity, R.style.dialogBase);
         TextView txt = dialog.getmTxtMsg();
         if (message != null && txt != null)
         {

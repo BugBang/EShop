@@ -1,21 +1,23 @@
 package com.edianjucai.eshop.ui.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 
 import com.bumptech.glide.Glide;
 import com.edianjucai.eshop.CustomView.CarouselView;
+import com.edianjucai.eshop.CustomView.MyGridView;
 import com.edianjucai.eshop.R;
 import com.edianjucai.eshop.adapter.CarouselViewAdapter;
 import com.edianjucai.eshop.adapter.GridListAdapter;
 import com.edianjucai.eshop.base.BaseFragment;
 import com.edianjucai.eshop.model.entity.ProjectListModel;
+import com.edianjucai.eshop.ui.activity.CompanyActivity;
 import com.edianjucai.eshop.ui.view.ProjectListView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
@@ -30,10 +32,11 @@ public class ProjectListFragment extends BaseFragment implements AdapterView.OnI
     @BindView(R.id.top_ad_view)
     CarouselView mTopAdView;
     @BindView(R.id.gv_project_list)
-    GridView mGvProjectList;
+    MyGridView mGvProjectList;
     @BindView(R.id.pull_refresh)
     PullToRefreshScrollView mPullToRefreshScrollView;
 
+    private ScrollView mScrollView;
     private PosterAdapter mPosterAdapter;
 
     String[] mStrings = new String[]{
@@ -51,6 +54,8 @@ public class ProjectListFragment extends BaseFragment implements AdapterView.OnI
 
     @Override
     public void doBusiness(final Context mContext) {
+        mScrollView = mPullToRefreshScrollView.getRefreshableView();
+        mScrollView.smoothScrollTo(0, 0); // 滑动到顶部
         initRefresh();
         initListener();
         mPosterAdapter = new PosterAdapter(mContext);
@@ -82,6 +87,8 @@ public class ProjectListFragment extends BaseFragment implements AdapterView.OnI
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         $Log("position="+position);
+        Intent intent = new Intent(mActivity, CompanyActivity.class);
+        startActivity(intent);
     }
 
 

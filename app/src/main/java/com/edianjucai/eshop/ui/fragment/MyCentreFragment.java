@@ -2,6 +2,7 @@ package com.edianjucai.eshop.ui.fragment;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Handler;
 import android.text.InputType;
@@ -17,15 +18,18 @@ import com.edianjucai.eshop.FunctionImpl.TextWatcherImpl;
 import com.edianjucai.eshop.R;
 import com.edianjucai.eshop.app.App;
 import com.edianjucai.eshop.base.BaseFragment;
+import com.edianjucai.eshop.constant.ApkConstant;
 import com.edianjucai.eshop.constant.Constant;
 import com.edianjucai.eshop.event.EventMsg;
 import com.edianjucai.eshop.event.EventTag;
 import com.edianjucai.eshop.model.entity.LocalUser;
+import com.edianjucai.eshop.model.entity.LoginModel;
 import com.edianjucai.eshop.presenter.impl.MyCenterPersenterImpl;
 import com.edianjucai.eshop.presenter.usb.LoginPresenter;
 import com.edianjucai.eshop.ui.activity.ChangePasswordActivity;
 import com.edianjucai.eshop.ui.activity.RegisterActivity;
 import com.edianjucai.eshop.ui.activity.ResetPasswordActivity;
+import com.edianjucai.eshop.ui.activity.WebViewActivity;
 import com.edianjucai.eshop.ui.view.MyCenterView;
 import com.edianjucai.eshop.util.AnimUtil;
 import com.edianjucai.eshop.util.ColorUtil;
@@ -62,6 +66,8 @@ public class MyCentreFragment extends BaseFragment implements MyCenterView {
     TextView mTvUserName;
     @BindView(R.id.tv_title)
     TextView mTvTitle;
+    @BindView(R.id.tv_sub_title)
+    TextView mTvSubTitle;
     @BindView(R.id.act_login_btn_login)
     Button mActLoginBtnLogin;
     @BindView(R.id.login_space)
@@ -97,6 +103,7 @@ public class MyCentreFragment extends BaseFragment implements MyCenterView {
     }
 
     private void initData() {
+
         int defult = (int) SharedPreferencesUtils.getParam(mActivity,Constant.View.MY_LOGIN_HEIGHT,-1);
         if (defult == -1){
             mLoginSpace.post(new Runnable() {
@@ -123,6 +130,7 @@ public class MyCentreFragment extends BaseFragment implements MyCenterView {
         mDialogUtil = new DialogUtil(mActivity);
         mLocalUser = App.getApplication().getmLocalUser();
         if (mLocalUser != null) {
+            mTvUserName.setText(mLocalUser.getUserName());
             setTopSpaceZoomOut(0);
             setLoginSpaceGone();
             setTopColor();
@@ -164,7 +172,15 @@ public class MyCentreFragment extends BaseFragment implements MyCenterView {
                 }
                 break;
             case R.id.item_order_handle:
-                $Log("item_order_handle");
+                mLocalUser = App.getApplication().getmLocalUser();
+                Intent intent = new Intent(mActivity, WebViewActivity.class);
+                intent.putExtra(WebViewActivity.EXTRA_URL,
+                        ApkConstant.SERVER_API_URL_PRE+ApkConstant.SERVER_API_URL_MID+
+                                "/wap/index.php?ctl=loan_order&email2="+mLocalUser.getUserName()+"&pwd2="+mLocalUser.getUserPassword()+"&from2=app");
+                $Log( ApkConstant.SERVER_API_URL_PRE+ApkConstant.SERVER_API_URL_MID+
+                        "/wap/index.php?ctl=loan_order&email2="+mLocalUser.getUserName()+"&pwd2="+mLocalUser.getUserPassword()+"&from2=app");
+                intent.putExtra(WebViewActivity.EXTRA_TITLE,"订单管理");
+                startActivity(intent);
                 break;
             case R.id.item_modify_password:
                 UiUtils.showNormal(mActivity, ChangePasswordActivity.class,false);
@@ -261,7 +277,8 @@ public class MyCentreFragment extends BaseFragment implements MyCenterView {
     }
 
     @Override
-    public void loginSuccess() {
+    public void loginSuccess(LoginModel actModel) {
+        setUserName(actModel);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -274,6 +291,12 @@ public class MyCentreFragment extends BaseFragment implements MyCenterView {
         setTopBackColor(Color.WHITE,Color.parseColor("#0080ff"));
         startAmin(mLoginSpaceHeight, 0, 1.0f, 0.0f);
         setTopSpaceZoomOut(800);
+    }
+
+    private void setUserName(LoginModel actModel) {
+        if (actModel!=null){
+            mTvUserName.setText(actModel.getUser_name());
+        }
     }
 
     private void setTopBackColor(final int startColor, final int endColor) {
@@ -360,7 +383,7 @@ public class MyCentreFragment extends BaseFragment implements MyCenterView {
      * @param duration 动画时间
      */
     private void setTopSpaceZoomIn(int duration) {
-        AnimUtil.ScaleAnimator(0.6f,1f,0.6f,1f,mTvTitle,duration);
+        AnimUtil.ScaleAnimator(0.5f,1f,0.5f,1f,mTvTitle,duration);
         AnimUtil.ValueAnimator((float)(mTopSpaceHeight*0.35),mTopSpaceHeight,mTopSpace,duration);
     }
 
@@ -369,7 +392,7 @@ public class MyCentreFragment extends BaseFragment implements MyCenterView {
      * @param duration 动画时间
      */
     private void setTopSpaceZoomOut(int duration) {
-        AnimUtil.ScaleAnimator(1f,0.6f,1f,0.6f,mTvTitle,duration);
+        AnimUtil.ScaleAnimator(1f,0.5f,1f,0.5f,mTvTitle,duration);
         AnimUtil.ValueAnimator(mTopSpaceHeight,(float)(mTopSpaceHeight*0.35),mTopSpace,duration);
     }
 }

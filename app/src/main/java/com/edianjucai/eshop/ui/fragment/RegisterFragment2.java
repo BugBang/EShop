@@ -1,6 +1,7 @@
 package com.edianjucai.eshop.ui.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +15,7 @@ import com.edianjucai.eshop.base.BaseFragment;
 import com.edianjucai.eshop.constant.Constant;
 import com.edianjucai.eshop.presenter.impl.RegisterPersenterlmpl2;
 import com.edianjucai.eshop.presenter.usb.RegisterPresenter2;
+import com.edianjucai.eshop.ui.activity.WebViewActivity;
 import com.edianjucai.eshop.ui.view.RegisterView2;
 import com.edianjucai.eshop.util.DataUtil;
 import com.edianjucai.eshop.util.ToastUtils;
@@ -83,9 +85,16 @@ public class RegisterFragment2 extends BaseFragment implements RegisterView2{
                 }
                 break;
             case R.id.tv_deal:
-
+                goRegisteDealWeb();
                 break;
         }
+    }
+
+    private void goRegisteDealWeb() {
+        Intent intent = new Intent(mActivity,WebViewActivity.class);
+        intent.putExtra(WebViewActivity.EXTRA_ARTICLE_ID, "205");
+        intent.putExtra(WebViewActivity.EXTRA_TITLE, "注册协议");
+        startActivity(intent);
     }
 
 

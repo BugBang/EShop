@@ -1,8 +1,5 @@
 package com.edianjucai.eshop.model.impl;
 
-import android.app.Dialog;
-import android.content.DialogInterface;
-
 import com.alibaba.fastjson.JSON;
 import com.edianjucai.eshop.app.App;
 import com.edianjucai.eshop.event.EventMsg;
@@ -13,9 +10,7 @@ import com.edianjucai.eshop.model.entity.RequestModel;
 import com.edianjucai.eshop.model.mode.MyCenterMode;
 import com.edianjucai.eshop.presenter.usb.OnLoginListener;
 import com.edianjucai.eshop.server.InterfaceServer;
-import com.edianjucai.eshop.util.DialogUtil;
 import com.edianjucai.eshop.util.ModelUtil;
-import com.edianjucai.eshop.util.ToastUtils;
 import com.ta.sunday.http.impl.SDAsyncHttpResponseHandler;
 
 import org.apache.http.Header;
@@ -72,7 +67,7 @@ public class MyCenterModeImpl implements MyCenterMode {
                         case 0:
                             break;
                         case 1:
-                            listener.onSuccess();
+                            listener.onSuccess(actModel);
                             dealLoginSuccess(actModel, passWord);
                             break;
 

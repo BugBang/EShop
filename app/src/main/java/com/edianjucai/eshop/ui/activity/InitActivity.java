@@ -71,7 +71,6 @@ public class InitActivity extends BaseActivity {
 
             @Override
             public void onStartInMainThread(Object result) {
-                // TODO Auto-generated method stub
                 super.onStartInMainThread(result);
             }
 
@@ -134,7 +133,6 @@ public class InitActivity extends BaseActivity {
                 editor.putInt("count", ++count);
                 //提交修改
                 editor.commit();
-
             }
         }, 1000 * 2);
 

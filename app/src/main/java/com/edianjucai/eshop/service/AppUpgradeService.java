@@ -20,9 +20,9 @@ import com.edianjucai.eshop.R;
 import com.edianjucai.eshop.model.entity.InitActUpgradeModel;
 import com.edianjucai.eshop.model.entity.RequestModel;
 import com.edianjucai.eshop.server.InterfaceServer;
-import com.edianjucai.eshop.util.DialogUtil;
 import com.edianjucai.eshop.util.ModelUtil;
 import com.edianjucai.eshop.util.PackageUtil;
+import com.edianjucai.eshop.util.SDDialogUtil;
 import com.edianjucai.eshop.util.ToastUtils;
 import com.edianjucai.eshop.util.TypeParseUtil;
 import com.ta.sunday.http.impl.SDAsyncHttpResponseHandler;
@@ -77,7 +77,7 @@ public class AppUpgradeService extends Service {
 	}
 
 	private void initIntentData(Intent intent) {
-		mStartType = intent.getIntExtra(EXTRA_SERVICE_START_TYPE, DEFAULT_START_TYPE);
+        mStartType = intent.getIntExtra(EXTRA_SERVICE_START_TYPE, DEFAULT_START_TYPE);
 	}
 
 	private void testUpgrade() {
@@ -92,13 +92,11 @@ public class AppUpgradeService extends Service {
 		SDAsyncHttpResponseHandler handler = new SDAsyncHttpResponseHandler() {
 
 			Dialog nDialog = null;
-
 			@Override
 			public void onStartInMainThread(Object result) {
-				// TODO Auto-generated method stub
 				super.onStartInMainThread(result);
 				if (mStartType == 1) {
-					nDialog = DialogUtil.showLoading("正在检测新版本...");
+					nDialog = SDDialogUtil.showLoading("正在检测新版本...");
 				}
 			}
 
@@ -117,7 +115,6 @@ public class AppUpgradeService extends Service {
 			public void onSuccessInMainThread(int statusCode, Header[] headers, String content, Object result) {
 				InitActUpgradeModel model = (InitActUpgradeModel) result;
 				if (!ModelUtil.isActModelNull(model)) {
-					// TODO:对初始化返回结果进行处理
 					switch (model.getResponse_code()) {
 					case 0:
 						ToastUtils.showToast("检查新版本失败!");
@@ -188,7 +185,6 @@ public class AppUpgradeService extends Service {
 
 			@Override
 			public void onClick(DialogInterface arg0, int arg1) {
-				// TODO Auto-generated method stub
 				registerDownloder();
 				if (forcedUpgrade == 1) {// 强制升级
 
@@ -205,7 +201,6 @@ public class AppUpgradeService extends Service {
 
 				@Override
 				public void onClick(DialogInterface arg0, int arg1) {
-					// TODO Auto-generated method stub
 					arg0.dismiss();
 				}
 			});
@@ -249,20 +244,17 @@ public class AppUpgradeService extends Service {
 		DownloadManager.getDownloadManager().setDownLoadCallback(new DownLoadCallback() {
 			@Override
 			public void onAdd(String url, Boolean isInterrupt) {
-				// TODO Auto-generated method stub
 				super.onAdd(url, isInterrupt);
 				initNotification();
 			}
 
 			@Override
 			public void onStart() {
-				// TODO Auto-generated method stub
 				super.onStart();
 			}
 
 			@Override
 			public void onLoading(String url, long totalSize, long currentSize, long speed) {
-				// TODO Auto-generated method stub
 				super.onLoading(url, totalSize, currentSize, speed);
 				int progress = (int) ((currentSize * 100) / (totalSize));
 				mNotification.contentView.setProgressBar(R.id.upgradeService_pb, 100, progress, false);
@@ -272,14 +264,12 @@ public class AppUpgradeService extends Service {
 
 			@Override
 			public void onFinish(String url) {
-				// TODO Auto-generated method stub
 				super.onFinish(url);
 
 			}
 
 			@Override
 			public void onSuccess(String url, File file) {
-				// TODO Auto-generated method stub
 				super.onSuccess(url, file);
 				mNotification.contentView.setViewVisibility(R.id.upgradeService_pb, View.GONE);
 				mNotification.defaults = Notification.DEFAULT_SOUND;
@@ -295,7 +285,6 @@ public class AppUpgradeService extends Service {
 
 			@Override
 			public void onFailure(String url, String strMsg) {
-				// TODO Auto-generated method stub
 				super.onFailure(url, strMsg);
                 ToastUtils.showToast("下载失败");
 			}

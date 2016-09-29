@@ -198,12 +198,9 @@ public abstract class BaseActivity extends FragmentActivity {
     }
 
 
-    public void showLoadingDialog(String msg)
-    {
-        if (msg != null)
-        {
-            if (mBaseDialog != null && mBaseDialog.isShowing())
-            {
+    public void showLoadingDialog(String msg) {
+        if (msg != null) {
+            if (mBaseDialog != null && mBaseDialog.isShowing()) {
                 mBaseDialog.dismiss();
                 mBaseDialog = null;
             }
@@ -211,10 +208,8 @@ public abstract class BaseActivity extends FragmentActivity {
         }
     }
 
-    public void hideLoadingDialog()
-    {
-        if (mBaseDialog != null && mBaseDialog.isShowing())
-        {
+    public void hideLoadingDialog() {
+        if (mBaseDialog != null && mBaseDialog.isShowing()) {
             mBaseDialog.dismiss();
         }
     }

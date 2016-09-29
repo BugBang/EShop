@@ -2,19 +2,19 @@ package com.edianjucai.eshop.CustomView;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.widget.GridView;
+import android.widget.ListView;
 
-public class MyGridView extends GridView {
+public class MyListView extends ListView {
 
-	public MyGridView(Context context, AttributeSet attrs, int defStyle) {
+	public MyListView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 	}
 
-	public MyGridView(Context context, AttributeSet attrs) {
+	public MyListView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 	}
 
-	public MyGridView(Context context) {
+	public MyListView(Context context) {
 		super(context);
 	}
 

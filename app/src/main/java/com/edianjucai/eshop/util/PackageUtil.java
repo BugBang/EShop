@@ -76,7 +76,6 @@ public class PackageUtil {
 		try {
 			apkInfo = pm.getPackageInfo(packageName, 0);
 		} catch (NameNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return apkInfo;

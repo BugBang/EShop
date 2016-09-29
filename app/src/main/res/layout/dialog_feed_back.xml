@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:background="@color/transparent"
+              android:gravity="center"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <LinearLayout
+        android:background="@drawable/dialog_feedback_bg"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="250dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:text="意见反馈"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:textColor="#323232"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/et_feet_back"
+            android:layout_marginTop="10dp"
+            android:gravity="top"
+            android:padding="5dp"
+            android:layout_width="match_parent"
+            android:textSize="16sp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:hint="请在此留下您的宝贵意见!  谢谢!"
+            android:background="@drawable/dialog_feedback"
+            />
+        <Button
+            android:id="@+id/bt_submit"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            android:text="提交"
+            android:textColor="#323232"
+            android:background="@drawable/dialog_feedback"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"/>
+    </LinearLayout>
+
+</LinearLayout>

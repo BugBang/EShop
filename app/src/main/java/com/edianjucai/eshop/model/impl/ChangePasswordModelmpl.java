@@ -63,7 +63,6 @@ public class ChangePasswordModelmpl implements ChangePasswordMode {
                             onChangePasswordListener.failChangePassword(actModel.getShow_err());
                             break;
                         case 1:
-                            // TODO:修改密码成功
                             LocalUser user = App.getApplication().getmLocalUser();
                             if (user != null) {
                                 user.setUserPassword(newPwd);

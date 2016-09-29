@@ -31,7 +31,6 @@ public class SDPullToRefreshLinearLayout extends PullToRefreshBase<LinearLayout>
 	@Override
 	public com.handmark.pulltorefresh.library.PullToRefreshBase.Orientation getPullToRefreshScrollDirection()
 	{
-		// TODO Auto-generated method stub
 		return Orientation.VERTICAL;
 	}
 
