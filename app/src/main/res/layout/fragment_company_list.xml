@@ -4,11 +4,26 @@
               android:layout_height="match_parent"
               android:background="#efeff4"
               android:orientation="vertical">
-    <com.edianjucai.eshop.CustomView.TitleView
-        android:id="@+id/title"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        />
+        android:orientation="horizontal"
+        android:layout_height="48dp">
+        <com.edianjucai.eshop.CustomView.TitleView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            />
+        <ImageView
+            android:layout_marginRight="5dp"
+            android:layout_alignParentRight="true"
+            android:id="@+id/iv_search"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:background="@mipmap/login_eyes"
+            />
+
+    </RelativeLayout>
+
 
     <com.handmark.pulltorefresh.library.PullToRefreshScrollView
         android:id="@+id/pull_refresh"
