@@ -14,6 +14,7 @@ import com.edianjucai.eshop.model.entity.InitModel;
 import com.edianjucai.eshop.model.entity.RequestModel;
 import com.edianjucai.eshop.server.InterfaceServer;
 import com.edianjucai.eshop.service.AppUpgradeService;
+import com.edianjucai.eshop.service.LocationService;
 import com.edianjucai.eshop.util.HandlerUtil;
 import com.edianjucai.eshop.util.ModelUtil;
 import com.ta.sunday.http.impl.SDAsyncHttpResponseHandler;
@@ -23,7 +24,7 @@ import org.apache.http.Header;
 import java.util.HashMap;
 import java.util.Map;
 
-public class InitActivity extends BaseActivity {
+public class InitActivity extends BaseActivity  {
     private SharedPreferences preferences;
 
     @Override
@@ -38,8 +39,14 @@ public class InitActivity extends BaseActivity {
 
     @Override
     public void doBusiness(Context mContext) {
+        startMapService();
         requestInitInterface();
         startUpgradeService();
+    }
+
+    private void startMapService() {
+        Intent mapIntent = new Intent(InitActivity.this, LocationService.class);
+        startService(mapIntent);
     }
 
     @Override
@@ -137,5 +144,4 @@ public class InitActivity extends BaseActivity {
         }, 1000 * 2);
 
     }
-
 }

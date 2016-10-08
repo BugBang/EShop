@@ -77,8 +77,7 @@ public class CompanyListFragment extends BaseFragment implements CompanyListView
         mEditTextSearch = (EditText) mEditPopView.findViewById(R.id.et_pop_search);
         mEditPop.setTouchable(true);
         mEditPop.setOutsideTouchable(true);
-        mEditPop.setBackgroundDrawable(new ColorDrawable(
-                0x00000000));
+        mEditPop.setBackgroundDrawable(new ColorDrawable(0x00000000));
 
         mEditPop.getContentView().setFocusableInTouchMode(true);
         mEditPop.getContentView().setFocusable(true);
@@ -95,10 +94,7 @@ public class CompanyListFragment extends BaseFragment implements CompanyListView
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                //                mAdapter.getFilter().filter(s);
-
                 mCompanyListAdapter.getFilter().filter(s);
-                $Log("s="+s);
             }
 
             @Override

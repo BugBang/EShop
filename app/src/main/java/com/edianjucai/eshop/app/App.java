@@ -2,6 +2,7 @@ package com.edianjucai.eshop.app;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 
 import com.edianjucai.eshop.common.CommonInterface;
 import com.edianjucai.eshop.dao.LocalUserModelDao;
@@ -9,6 +10,7 @@ import com.edianjucai.eshop.event.EventMsg;
 import com.edianjucai.eshop.event.EventTag;
 import com.edianjucai.eshop.model.entity.LocalUser;
 import com.edianjucai.eshop.model.entity.RuntimeConfigModel;
+import com.edianjucai.eshop.service.LocationService;
 import com.ta.util.netstate.TANetChangeObserver;
 import com.ta.util.netstate.TANetWorkUtil;
 
@@ -108,5 +110,12 @@ public class App extends Application implements TANetChangeObserver{
 
     @Subscribe(threadMode = ThreadMode.Async)
     public void onMessageEventAsync(EventMsg messageEvent) {
+    }
+
+    @Override
+    public void onTerminate() {
+        Intent mapIntent = new Intent(this, LocationService.class);
+        this.stopService(mapIntent);
+        super.onTerminate();
     }
 }

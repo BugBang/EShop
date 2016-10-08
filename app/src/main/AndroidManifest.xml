@@ -14,16 +14,24 @@
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.MANAGE_DOCUMENTS"/>
     <uses-permission android:name="android.permission.MANAGE_DOCUMENTS"/>
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
     <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
+
+
+    <!--用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <!--用于访问GPS定位-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <!--获取运营商信息，用于支持提供运营商信息相关的接口-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <!--用于访问wifi网络信息，wifi信息会用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <!--这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位-->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
 
     <application
         android:name="com.edianjucai.eshop.app.App"
@@ -32,6 +40,19 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <!--测试key-->
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="1ae3950483e67bd774dbb99e7ba55713">
+        </meta-data>
+
+        <!--正式key-->
+        <!--<meta-data-->
+            <!--android:name="com.amap.api.v2.apikey"-->
+            <!--android:value="224017a7ca8d82e9d109284577d232aa">-->
+        <!--</meta-data>-->
+
         <activity
             android:name="com.edianjucai.eshop.ui.activity.InitActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
@@ -43,7 +64,8 @@
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-        </activity> <activity
+        </activity>
+        <activity
             android:name="com.edianjucai.eshop.ui.activity.HomeActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait"
@@ -87,6 +109,13 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">
         </activity>
+
+        <service
+            android:name="com.edianjucai.eshop.service.AppUpgradeService"/>
+        <service
+            android:name="com.edianjucai.eshop.service.LocationService"/>
+        <service
+            android:name="com.amap.api.location.APSService"/>
     </application>
 
 </manifest>
