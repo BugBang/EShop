@@ -1,9 +1,11 @@
 package com.edianjucai.eshop.service;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 
 import com.amap.api.location.AMapLocation;
@@ -22,6 +24,8 @@ public class LocationService extends Service implements AMapLocationListener{
     public AMapLocationClient mlocationClient = null;
     //声明mLocationOption对象
     public AMapLocationClientOption mLocationOption = null;
+    private TelephonyManager mTm;
+    private String mImei;
 
     @Nullable
     @Override
@@ -47,9 +51,15 @@ public class LocationService extends Service implements AMapLocationListener{
     }
 
     private void init() {
+        //取出手机标识码IMEI
+        mTm = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
+        mImei = mTm.getDeviceId();
+        System.out.println("mImei="+mImei);
+
         mlocationClient = new AMapLocationClient(this);
         //初始化定位参数
         mLocationOption = new AMapLocationClientOption();
+        mLocationOption.setOnceLocation(true);
         //设置定位监听
         mlocationClient.setLocationListener(this);
         //设置定位模式为高精度模式，Battery_Saving为低功耗模式，Device_Sensors是仅设备模式
@@ -77,7 +87,7 @@ public class LocationService extends Service implements AMapLocationListener{
                 amapLocation.getAccuracy();//获取精度信息
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 Date date = new Date(amapLocation.getTime());
-                df.format(date);//定位时间
+                String format = df.format(date);//定位时间
                 amapLocation.getAddress();//地址，如果option中设置isNeedAddress为false，则没有此结果，网络定位结果中会有地址信息，GPS定位不返回地址信息。
                 amapLocation.getCountry();//国家信息
                 amapLocation.getProvince();//省信息
@@ -87,7 +97,7 @@ public class LocationService extends Service implements AMapLocationListener{
                 amapLocation.getStreetNum();//街道门牌号信息
                 amapLocation.getCityCode();//城市编码
                 amapLocation.getAdCode();//地区编码
-                System.out.println( amapLocation.getAddress()+"---"+
+                System.out.println("format="+format+"-----"+ amapLocation.getAddress()+"---"+
                         amapLocation.getCountry()+"---"+
                         amapLocation.getProvince()+"---"+
                         amapLocation.getCity()+"---"+

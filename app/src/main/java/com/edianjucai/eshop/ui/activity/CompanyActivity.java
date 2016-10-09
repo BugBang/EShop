@@ -12,6 +12,7 @@ import com.edianjucai.eshop.ui.fragment.CompanyListFragment;
  * Created by user on 2016-09-29.
  */
 public class CompanyActivity extends BaseActivity{
+
     @Override
     public void initParms(Bundle parms) {
 
@@ -34,6 +35,7 @@ public class CompanyActivity extends BaseActivity{
 
     @Override
     protected BaseFragment getFirstFragment() {
+        mSendData = 1;
         return CompanyListFragment.newInstance();
     }
 }

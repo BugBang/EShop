@@ -12,17 +12,21 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.ScrollView;
 
+import com.bumptech.glide.Glide;
 import com.edianjucai.eshop.CustomView.MyListView;
 import com.edianjucai.eshop.CustomView.TitleView;
 import com.edianjucai.eshop.R;
 import com.edianjucai.eshop.adapter.CompanyListAdapter;
 import com.edianjucai.eshop.base.BaseFragment;
+import com.edianjucai.eshop.constant.ApkConstant;
 import com.edianjucai.eshop.model.entity.CompanyListModel;
 import com.edianjucai.eshop.presenter.impl.CompanyListPresenterImpl;
 import com.edianjucai.eshop.presenter.usb.CompanyListPresenter;
 import com.edianjucai.eshop.ui.view.CompanyListView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -40,6 +44,8 @@ public class CompanyListFragment extends BaseFragment implements CompanyListView
     PullToRefreshScrollView mPullRefresh;
     @BindView(R.id.iv_search)
     ImageView mIvSearch;
+    @BindView(R.id.iv_banner)
+    ImageView mIvBanner;
 
     private ScrollView mScrollView;
     private CompanyListAdapter mCompanyListAdapter;
@@ -49,6 +55,12 @@ public class CompanyListFragment extends BaseFragment implements CompanyListView
     private PopupWindow mEditPop;
     private View mEditPopView;
     private EditText mEditTextSearch;
+    private String mTypeId;
+    private String mStringTitle;
+
+    public static final String TYPE_ID = "type_id";
+    public static final String TITLE = "title";
+    private List<CompanyListModel.CompanyListBannerModel> mBannerList;
 
     public static CompanyListFragment newInstance() {
         return new CompanyListFragment();
@@ -61,12 +73,18 @@ public class CompanyListFragment extends BaseFragment implements CompanyListView
 
     @Override
     public void doBusiness(Context mContext) {
+        initParms();
         initPop();
         mCompanyListPresenter = new CompanyListPresenterImpl(this);
         mScrollView = mPullRefresh.getRefreshableView();
         mScrollView.smoothScrollTo(0, 0); // 滑动到顶部
         initTitle();
         initRefresh();
+    }
+
+    private void initParms() {
+        mTypeId = getArguments().getString(TYPE_ID);
+        mStringTitle = getArguments().getString(TITLE);
     }
 
     private void initPop() {
@@ -106,8 +124,7 @@ public class CompanyListFragment extends BaseFragment implements CompanyListView
 
 
     private void initTitle() {
-        // TODO: 2016-09-29 初始化标题
-        mTitle.setTitle("");
+        mTitle.setTitle(mStringTitle);
         mTitle.setBackButtonListener(new TitleView.OnBackButtonClickListener() {
             @Override
             public void onBackBtnClick(View view) {
@@ -120,20 +137,22 @@ public class CompanyListFragment extends BaseFragment implements CompanyListView
         mPullRefresh.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ScrollView>() {
             @Override
             public void onRefresh(PullToRefreshBase<ScrollView> refreshView) {
-                // TODO: 2016-09-29 传type
-                mCompanyListPresenter.getCompanyList(9);
+                mCompanyListPresenter.getCompanyList(mTypeId);
             }
         });
         mPullRefresh.setRefreshing();
     }
 
     private void initList() {
+
         mCompanyListAdapter = new CompanyListAdapter(mCompanyListModel.getList(), mActivity);
         mListCompany.setAdapter(mCompanyListAdapter);
         mListCompany.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                $Log("postion" + position);
+                // TODO: 2016-10-09 跳转网页
+                $Log("postion" + mCompanyListAdapter.mListModel.get(position).getName());
+                mCompanyListModel.getList().get(position).getName();
             }
         });
     }
@@ -160,6 +179,15 @@ public class CompanyListFragment extends BaseFragment implements CompanyListView
         if (mCompanyListAdapter == null) {
             initList();
         }
+        if (companyListModel!=null){
+            mBannerList = companyListModel.getDeal_cates();
+            for (int i =0;i<mBannerList.size();i++){
+                if (mBannerList.get(i).getId().equals(mTypeId)){
+                    Glide.with(mActivity).load("http://" + ApkConstant.SERVER_API_URL_MID +mBannerList.get(i).getBanner()).into(mIvBanner);
+                }
+            }
+        }
+
         mPullRefresh.onRefreshComplete();
     }
 

@@ -2,7 +2,6 @@ package com.edianjucai.eshop.ui.fragment;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,11 +15,18 @@ import com.edianjucai.eshop.R;
 import com.edianjucai.eshop.adapter.CarouselViewAdapter;
 import com.edianjucai.eshop.adapter.GridListAdapter;
 import com.edianjucai.eshop.base.BaseFragment;
-import com.edianjucai.eshop.model.entity.ProjectListModel;
+import com.edianjucai.eshop.constant.ApkConstant;
+import com.edianjucai.eshop.dao.InitModelDao;
+import com.edianjucai.eshop.model.entity.InitModel;
+import com.edianjucai.eshop.presenter.impl.ProjectListPresenterlmpl;
+import com.edianjucai.eshop.presenter.usb.ProjectListPresenter;
 import com.edianjucai.eshop.ui.activity.CompanyActivity;
+import com.edianjucai.eshop.ui.activity.WebViewActivity;
 import com.edianjucai.eshop.ui.view.ProjectListView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
+
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -39,13 +45,12 @@ public class ProjectListFragment extends BaseFragment implements AdapterView.OnI
     private ScrollView mScrollView;
     private PosterAdapter mPosterAdapter;
 
-    String[] mStrings = new String[]{
-            "http://112.74.194.230/public/avatar/temp/2059virtual_avatar_middle.jpg",
-            "http://img.taopic.com/uploads/allimg/130710/267873-130G011000550.jpg",
-            "http://112.74.194.230/public/avatar/temp/2059virtual_avatar_middle.jpg",
-            "http://112.74.194.230/public/avatar/temp/2059virtual_avatar_middle.jpg",
-            "http://112.74.194.230/public/avatar/temp/2059virtual_avatar_middle.jpg"
-    };
+    private List<InitModel.AdvsModel> mAdvs;
+    private List<InitModel.CateListModel> mCate_list;
+    private ProjectListPresenter mProjectListPresenter;
+    private GridListAdapter mGridListAdapter;
+    private InitModel mInitModel;
+
 
     @Override
     public int bindLayout() {
@@ -54,13 +59,24 @@ public class ProjectListFragment extends BaseFragment implements AdapterView.OnI
 
     @Override
     public void doBusiness(final Context mContext) {
+        initData();
+        mProjectListPresenter = new ProjectListPresenterlmpl(this);
+        mGridListAdapter = new GridListAdapter(mCate_list, mActivity);
         mScrollView = mPullToRefreshScrollView.getRefreshableView();
         mScrollView.smoothScrollTo(0, 0); // 滑动到顶部
         initRefresh();
         initListener();
         mPosterAdapter = new PosterAdapter(mContext);
-        mGvProjectList.setAdapter(new GridListAdapter(mActivity));
+        mGvProjectList.setAdapter(mGridListAdapter);
         mTopAdView.setAdapter(mPosterAdapter);
+    }
+
+    private void initData() {
+        mInitModel = InitModelDao.readInitDB();
+        if (mInitModel!=null){
+            mAdvs = mInitModel.getAdvs();
+            mCate_list = mInitModel.getCate_list();
+        }
     }
 
     private void initListener() {
@@ -71,30 +87,24 @@ public class ProjectListFragment extends BaseFragment implements AdapterView.OnI
         mPullToRefreshScrollView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ScrollView>() {
             @Override
             public void onRefresh(PullToRefreshBase<ScrollView> refreshView) {
-                $Log("onRefresh");
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mPullToRefreshScrollView.onRefreshComplete();
-                        $Log("onRefreshComplete");
-                    }
-                },3000);
+                mProjectListPresenter.requestProjectListData();
             }
         });
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        $Log("position="+position);
         Intent intent = new Intent(mActivity, CompanyActivity.class);
+        intent.putExtra(CompanyListFragment.TYPE_ID,mInitModel.getCate_list().get(position).getId());
+        intent.putExtra(CompanyListFragment.TITLE,mInitModel.getCate_list().get(position).getName());
         startActivity(intent);
     }
 
 
     @Override
-    public void setProjectListData(ProjectListModel projectListModel) {
-
+    public void setProjectListData(InitModel projectListModel) {
+        mGridListAdapter.setData(projectListModel.getCate_list());
+        mGridListAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -104,17 +114,17 @@ public class ProjectListFragment extends BaseFragment implements AdapterView.OnI
 
     @Override
     public void finishRequest() {
-
+        mPullToRefreshScrollView.onRefreshComplete();
     }
 
     @Override
     public void successRequest() {
-
+        mPullToRefreshScrollView.onRefreshComplete();
     }
 
     @Override
-    public void failRequest(String showErr) {
-
+    public void failRequest() {
+        mPullToRefreshScrollView.onRefreshComplete();
     }
 
     class PosterAdapter implements CarouselViewAdapter {
@@ -133,14 +143,17 @@ public class ProjectListFragment extends BaseFragment implements AdapterView.OnI
         }
 
         @Override
-        public View getView(int position) {
+        public View getView(final int position) {
             View view = inflater.inflate(R.layout.top_ad_item, null);
             ImageView imageView = (ImageView) view.findViewById(R.id.image);
-            Glide.with(mContext).load(mStrings[position]).into(imageView);
+            Glide.with(mContext).load("http://" + ApkConstant.SERVER_API_URL_MID +mAdvs.get(position).getImg()).into(imageView);
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    $Log("imageView");
+                    Intent intent = new Intent(mActivity, WebViewActivity.class);
+                    intent.putExtra(WebViewActivity.EXTRA_TITLE,mAdvs.get(position).getTitle());
+                    intent.putExtra(WebViewActivity.EXTRA_URL,mAdvs.get(position).getUrl());
+                    startActivity(intent);
                 }
             });
             return view;
@@ -148,7 +161,7 @@ public class ProjectListFragment extends BaseFragment implements AdapterView.OnI
 
         @Override
         public int getCount() {
-            return mStrings.length;
+            return mAdvs.size();
         }
 
     }

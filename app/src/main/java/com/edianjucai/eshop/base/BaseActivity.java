@@ -45,6 +45,8 @@ public abstract class BaseActivity extends FragmentActivity {
     public DialogUtil mDialogUtil = null;
     public Dialog mBaseDialog = null;
 
+    public int mSendData ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,7 +75,11 @@ public abstract class BaseActivity extends FragmentActivity {
         if (null == getSupportFragmentManager().getFragments()) {
             BaseFragment firstFragment = getFirstFragment();
             if (null != firstFragment) {
-                addFragment(firstFragment);
+                if (mSendData == 1){
+                    addFragment(firstFragment,bundle);
+                }else {
+                    addFragment(firstFragment);
+                }
             }
         }
         doBusiness(this);

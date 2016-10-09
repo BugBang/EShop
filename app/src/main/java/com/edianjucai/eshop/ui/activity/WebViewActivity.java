@@ -14,10 +14,21 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.edianjucai.eshop.R;
 import com.edianjucai.eshop.app.App;
 import com.edianjucai.eshop.base.BaseActivity;
 import com.edianjucai.eshop.base.BaseFragment;
+import com.edianjucai.eshop.model.entity.RequestModel;
+import com.edianjucai.eshop.model.entity.Show_ArticleActModel;
+import com.edianjucai.eshop.server.InterfaceServer;
+import com.edianjucai.eshop.util.ToastUtils;
+import com.ta.sunday.http.impl.SDAsyncHttpResponseHandler;
+
+import org.apache.http.Header;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -69,7 +80,6 @@ public class WebViewActivity extends BaseActivity {
     public void initParms(Bundle parms) {
 
     }
-
     @Override
     public int bindLayout() {
         return R.layout.act_project_detail_webview;
@@ -97,7 +107,9 @@ public class WebViewActivity extends BaseActivity {
         }
 
         if (mStrArticleId != null) {
+            loadArticleDetail(mStrArticleId);
             return;
+
         }
 
         if (mStrUrl != null) {
@@ -195,6 +207,55 @@ public class WebViewActivity extends BaseActivity {
         if (mStrTitle != null) {
             mTvTitle.setText(mStrTitle);
         }
+    }
+
+    protected void loadArticleDetail(String articleId) {
+        Map<String, Object> mapData = new HashMap<String, Object>();
+        mapData.put("act", "show_article");
+        mapData.put("id", articleId);
+        RequestModel model = new RequestModel(mapData);
+        SDAsyncHttpResponseHandler handler = new SDAsyncHttpResponseHandler() {
+            @Override
+            public Object onSuccessInRequestThread(int statusCode, Header[] headers, String content) {
+                Show_ArticleActModel actModel = JSON.parseObject(content, Show_ArticleActModel.class);
+                return actModel;
+            }
+
+            @Override
+            public void onStartInMainThread(Object result) {
+                showLoadingDialog("请稍候...");
+            }
+
+            @Override
+            public void onFinishInMainThread(Object result) {
+                hideLoadingDialog();
+            }
+
+            @Override
+            public void onSuccessInMainThread(int statusCode, Header[] headers, String content, Object result) {
+                Show_ArticleActModel actModel = (Show_ArticleActModel) result;
+                if (actModel!=null) {
+                    if (actModel.getResponse_code() == 1) {
+                        if (TextUtils.isEmpty(actModel.getContent())) {
+                            ToastUtils.showToast("没有文章详情!");
+                        } else {
+                            loadHtmlContent(actModel.getContent());
+                        }
+
+                        if (!TextUtils.isEmpty(actModel.getTitle())) {
+                            mTvTitle.setText(actModel.getTitle());
+                        } else {
+                            if (!TextUtils.isEmpty(mStrTitle)) {
+                                mTvTitle.setText(mStrTitle);
+                            }
+                        }
+                    } else {
+                        ToastUtils.showToast("获取文章详情失败!");
+                    }
+                }
+            }
+        };
+        InterfaceServer.getInstance().requestInterface(model, handler, true);
     }
 
     @Override

@@ -11,7 +11,7 @@
         android:paddingLeft="5dp"
         android:hint="请输入搜索内容"
         android:background="@drawable/bg_search_edit"
-        android:textSize="20sp"
+        android:textSize="15sp"
         />
 
 </LinearLayout>

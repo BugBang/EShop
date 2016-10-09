@@ -13,6 +13,7 @@ import com.edianjucai.eshop.FunctionImpl.TextWatcherImpl;
 import com.edianjucai.eshop.R;
 import com.edianjucai.eshop.base.BaseFragment;
 import com.edianjucai.eshop.constant.Constant;
+import com.edianjucai.eshop.dao.InitModelDao;
 import com.edianjucai.eshop.presenter.impl.ResetPasswordPresenterlmpl2;
 import com.edianjucai.eshop.presenter.usb.ResetPasswordPresenter2;
 import com.edianjucai.eshop.ui.view.ResetPasswordView2;
@@ -98,13 +99,13 @@ public class ResetPasswordFragment2 extends BaseFragment implements ResetPasswor
     }
 
     private void clickServicePhone() {
-        // TODO: 2016-09-27 从数据库取出客服电话
+        final String kf_phone = InitModelDao.readInitDB().getKf_phone();
         mDialogUtil.confirm("提示", "确定拨打客服电话?", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                if ("075586966868" != null) {
-                    startActivity(IntentUtil.getCallNumberIntent("075586966868"));
+                if (kf_phone != null) {
+                    startActivity(IntentUtil.getCallNumberIntent(kf_phone));
                 } else {
                     ToastUtils.showToast("未找到客服电话");
                 }

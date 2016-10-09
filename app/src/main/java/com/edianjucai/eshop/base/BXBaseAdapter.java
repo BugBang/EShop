@@ -14,7 +14,7 @@ import java.util.List;
  */
 public abstract class BXBaseAdapter<T> extends BaseAdapter {
 
-    protected List<T> mListModel = new ArrayList<T>();
+    public List<T> mListModel = new ArrayList<T>();
     protected LayoutInflater mInflater = null;
     protected Activity mActivity = null;
 

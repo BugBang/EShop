@@ -19,7 +19,7 @@ public class CompanyListPresenterImpl implements CompanyListPresenter,OnCompanyL
         mCompanyListMode = new CompanyListModeImpl();
     }
     @Override
-    public void getCompanyList(int id) {
+    public void getCompanyList(String id) {
         mCompanyListMode.getCompanyList(id,this);
     }
 

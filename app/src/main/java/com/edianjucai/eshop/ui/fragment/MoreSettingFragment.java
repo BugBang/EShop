@@ -13,6 +13,9 @@ import android.widget.TextView;
 
 import com.edianjucai.eshop.R;
 import com.edianjucai.eshop.base.BaseFragment;
+import com.edianjucai.eshop.dao.InitModelDao;
+import com.edianjucai.eshop.model.entity.InitModel;
+import com.edianjucai.eshop.ui.activity.WebViewActivity;
 import com.edianjucai.eshop.util.ClearCacheUtil;
 import com.edianjucai.eshop.util.DialogUtil;
 import com.edianjucai.eshop.util.IntentUtil;
@@ -48,6 +51,7 @@ public class MoreSettingFragment extends BaseFragment {
     LinearLayout mLlClearCache;
 
     private DialogUtil mDialogUtil;
+    private InitModel mInitModel;
 
     @Override
     public int bindLayout() {
@@ -56,6 +60,7 @@ public class MoreSettingFragment extends BaseFragment {
 
     @Override
     public void doBusiness(Context mContext) {
+        mInitModel = InitModelDao.readInitDB();
         mDialogUtil = new DialogUtil(mActivity);
         setData();
     }
@@ -68,7 +73,12 @@ public class MoreSettingFragment extends BaseFragment {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ll_about_us:
-                $Log("ll_about_us");
+                if (mInitModel!=null){
+                    Intent intent = new Intent(mActivity, WebViewActivity.class);
+                    int about_info = mInitModel.getAbout_info();
+                    intent.putExtra(WebViewActivity.EXTRA_ARTICLE_ID,about_info+"");
+                    startActivity(intent);
+                }
                 break;
             case R.id.ll_cell_center:
                 clickServicePhone();
@@ -100,31 +110,33 @@ public class MoreSettingFragment extends BaseFragment {
     }
 
     private void clickServiceEmail() {
-        // TODO: 2016-09-27 从数据库取出客服邮箱 
-        if ("ympbx@163.com" != null) {
-            startActivity(Intent.createChooser(IntentUtil.getEmailIntent("ympbx@163.com"), "邮件"));
+        if (mInitModel!=null){
+            String kf_email = mInitModel.getKf_email();
+            startActivity(Intent.createChooser(IntentUtil.getEmailIntent(kf_email), "邮件"));
         }
     }
 
 
     private void clickServicePhone() {
-        // TODO: 2016-09-27 从数据库取出客服电话
-        mDialogUtil.confirm("提示", "确定拨打客服电话?", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                if ("075586966868" != null) {
-                    startActivity(IntentUtil.getCallNumberIntent("075586966868"));
-                } else {
-                    ToastUtils.showToast("未找到客服电话");
+        if (mInitModel!=null){
+            final String kf_phone = mInitModel.getKf_phone();
+            mDialogUtil.confirm("提示", "确定拨打客服电话?", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    if (kf_phone != null) {
+                        startActivity(IntentUtil.getCallNumberIntent(kf_phone));
+                    } else {
+                        ToastUtils.showToast("未找到客服电话");
+                    }
                 }
-            }
-        }, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
+            }, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+        }
     }
 
 

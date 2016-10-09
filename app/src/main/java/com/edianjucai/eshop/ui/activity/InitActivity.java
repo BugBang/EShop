@@ -71,9 +71,8 @@ public class InitActivity extends BaseActivity  {
      */
     private void requestInitInterface() {
         Map<String, Object> mapData = new HashMap<String, Object>();
-        mapData.put("act", "init");
+        mapData.put("act", "shop_init");
         RequestModel model = new RequestModel(mapData);
-
         SDAsyncHttpResponseHandler handler = new SDAsyncHttpResponseHandler() {
 
             @Override
@@ -99,7 +98,6 @@ public class InitActivity extends BaseActivity  {
                         case 1:
                             InitModelDao.saveInitModel(content);
                             break;
-
                         default:
                             break;
                     }

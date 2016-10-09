@@ -280,7 +280,6 @@ public class AppUpgradeService extends Service {
 				mNotificationManager.cancel(mNotificationId);
 				PackageUtil.installApkPackage(getApplicationContext(), file.getPath());
 				ToastUtils.showToast("下载完成");
-
 			}
 
 			@Override

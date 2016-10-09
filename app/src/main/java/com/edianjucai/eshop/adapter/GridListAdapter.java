@@ -1,69 +1,46 @@
 package com.edianjucai.eshop.adapter;
 
-import android.content.Context;
-import android.view.LayoutInflater;
+import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ProgressBar;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.edianjucai.eshop.R;
+import com.edianjucai.eshop.base.BXBaseAdapter;
+import com.edianjucai.eshop.constant.ApkConstant;
+import com.edianjucai.eshop.model.entity.InitModel;
+import com.edianjucai.eshop.util.ViewHolder;
+
+import java.util.List;
 
 /**
  * Created by user on 2016-09-23.
  */
-public class GridListAdapter extends BaseAdapter {
-    private Context mContext;
-    public GridListAdapter(Context context){
-        this.mContext = context;
+public class GridListAdapter extends BXBaseAdapter<InitModel.CateListModel> {
+
+    public GridListAdapter(List<InitModel.CateListModel> listModel, Activity activity) {
+        super(listModel, activity);
     }
-    @Override
-    public int getCount() {
-        return 20;
+
+    public void setData(List<InitModel.CateListModel> listModel){
+        this.mListModel =listModel;
     }
 
     @Override
-    public Object getItem(int position) {
-        return null;
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return 0;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder = null;
+    public View getItemView(int position, View convertView, ViewGroup parent, InitModel.CateListModel model) {
         if (convertView == null) {
-            viewHolder = new ViewHolder();
-            LayoutInflater mInflater = LayoutInflater.from(mContext);
             convertView = mInflater.inflate(R.layout.item_grid_project_list, null);
-
-//            viewHolder.tvTitle = (TextView) convertView
-//                    .findViewById(R.id.tv_title);
-
-            convertView.setTag(viewHolder);
-        } else {
-            viewHolder = (ViewHolder) convertView.getTag();
         }
+        ImageView ivIcon = ViewHolder.get(convertView, R.id.iv_icon);
+        TextView tvTitle = ViewHolder.get(convertView, R.id.tv_title);
 
-        //            // 设置数据
-
-
+        if (model != null) {
+            Glide.with(mActivity).load("http://" + ApkConstant.SERVER_API_URL_MID +model.getIco()).into(ivIcon);
+            tvTitle.setText(model.getName());
+        }
         return convertView;
-    }
-
-    private static class ViewHolder {
-        TextView tvTitle;
-        TextView tvRate;
-        TextView tvMoney;
-        TextView tvMoneyType;
-        TextView tvTime;
-        ProgressBar pbProBar;
-        TextView tvProgress;
-
     }
 }
 

@@ -1,9 +1,7 @@
 package com.edianjucai.eshop.model.impl;
 
-import android.app.Dialog;
-
 import com.alibaba.fastjson.JSON;
-import com.edianjucai.eshop.model.entity.ProjectListModel;
+import com.edianjucai.eshop.model.entity.InitModel;
 import com.edianjucai.eshop.model.entity.RequestModel;
 import com.edianjucai.eshop.model.mode.ProjectListMode;
 import com.edianjucai.eshop.presenter.usb.OnProjectListListener;
@@ -22,17 +20,14 @@ public class ProjectListModelmpl implements ProjectListMode{
     @Override
     public void requestProjectListData(final OnProjectListListener onProjectListListener) {
         Map<String, Object> mapData = new HashMap<String, Object>();
-        mapData.put("act", "");
-
+        mapData.put("act", "shop_init");
         RequestModel model = new RequestModel(mapData);
 
         SDAsyncHttpResponseHandler handler = new SDAsyncHttpResponseHandler() {
-            private Dialog nDialog = null;
-
             @Override
             public Object onSuccessInRequestThread(int statusCode, Header[] headers, String content) {
                 try {
-                    ProjectListModel projectListModel = JSON.parseObject(content, ProjectListModel.class);
+                    InitModel projectListModel = JSON.parseObject(content, InitModel.class);
                     return projectListModel;
                 } catch (Exception e) {
                     return null;
@@ -52,24 +47,14 @@ public class ProjectListModelmpl implements ProjectListMode{
 
             @Override
             public void onSuccessInMainThread(int statusCode, Header[] headers, String content, Object result) {
-                ProjectListModel projectListModel = (ProjectListModel) result;
+                InitModel projectListModel = (InitModel) result;
                 if (projectListModel!=null) {
-                    //成功
-                    onProjectListListener.successRequest();
-                    onProjectListListener.setProjectListData(projectListModel);
-                    //失败
-//                    onProjectListListener.failRequest();
-
-
-//                    switch (actModel.getUser_login_status()) {
-//                        case 0:
-//                            onRegisterListener2.registerFail(actModel.getShow_err());
-//                            break;
-//                        case 1:
-//                            dealRegisteSuccess(actModel,password);
-//                            onRegisterListener2.registerSuccess();
-//                            break;
-//                    }
+                    if (projectListModel.getResponse_code()==1){
+                        onProjectListListener.successRequest();
+                        onProjectListListener.setProjectListData(projectListModel);
+                    }else {
+                        onProjectListListener.failRequest();
+                    }
                 }
             }
         };

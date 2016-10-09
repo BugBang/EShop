@@ -3,7 +3,6 @@ package com.edianjucai.eshop.ui.fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Handler;
 import android.text.InputType;
 import android.view.View;
@@ -32,7 +31,6 @@ import com.edianjucai.eshop.ui.activity.ResetPasswordActivity;
 import com.edianjucai.eshop.ui.activity.WebViewActivity;
 import com.edianjucai.eshop.ui.view.MyCenterView;
 import com.edianjucai.eshop.util.AnimUtil;
-import com.edianjucai.eshop.util.ColorUtil;
 import com.edianjucai.eshop.util.DataUtil;
 import com.edianjucai.eshop.util.DialogUtil;
 import com.edianjucai.eshop.util.SharedPreferencesUtils;
@@ -133,7 +131,7 @@ public class MyCentreFragment extends BaseFragment implements MyCenterView {
             mTvUserName.setText(mLocalUser.getUserName());
             setTopSpaceZoomOut(0);
             setLoginSpaceGone();
-            setTopColor();
+//            setTopColor();
         } else {
             AnimUtil.AlphaAnimator(0.0f,0.0f,mHandleSpace,0);
         }
@@ -142,10 +140,10 @@ public class MyCentreFragment extends BaseFragment implements MyCenterView {
         mActLoginEtPassword.addTextChangedListener(new TextWatcherImpl(mActLoginBtnLogin, mIvEyes, -1, -1));//-1 表示不改变按钮状态
     }
 
-    private void setTopColor() {
-        mTvTitle.setTextColor(Color.WHITE);
-        mTopSpace.setBackgroundColor(Color.parseColor("#0080ff"));
-    }
+//    private void setTopColor() {
+//        mTvTitle.setTextColor(Color.WHITE);
+//        mTopSpace.setBackgroundColor(Color.parseColor("#0080ff"));
+//    }
 
     private void setLoginSpaceGone() {
         mLoginSpace.setVisibility(View.GONE);
@@ -287,8 +285,8 @@ public class MyCentreFragment extends BaseFragment implements MyCenterView {
             }
         }, 800);
 
-        setTitleColor(Color.parseColor("#0080ff"),Color.WHITE);
-        setTopBackColor(Color.WHITE,Color.parseColor("#0080ff"));
+//        setTitleColor(Color.parseColor("#0080ff"),Color.WHITE);
+//        setTopBackColor(Color.WHITE,Color.parseColor("#0080ff"));
         startAmin(mLoginSpaceHeight, 0, 1.0f, 0.0f);
         setTopSpaceZoomOut(800);
     }
@@ -299,17 +297,17 @@ public class MyCentreFragment extends BaseFragment implements MyCenterView {
         }
     }
 
-    private void setTopBackColor(final int startColor, final int endColor) {
-        android.animation.ValueAnimator _valueAnimator = android.animation.ValueAnimator.ofFloat(0, 1).setDuration(800);
-        _valueAnimator.addUpdateListener(new android.animation.ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(android.animation.ValueAnimator animation) {
-                float animatedFraction = (float) animation.getAnimatedValue();
-                mTopSpace.setBackgroundColor((Integer) ColorUtil.evaluateColor(animatedFraction, startColor,endColor));
-            }
-        });
-        _valueAnimator.start();
-    }
+//    private void setTopBackColor(final int startColor, final int endColor) {
+//        android.animation.ValueAnimator _valueAnimator = android.animation.ValueAnimator.ofFloat(0, 1).setDuration(800);
+//        _valueAnimator.addUpdateListener(new android.animation.ValueAnimator.AnimatorUpdateListener() {
+//            @Override
+//            public void onAnimationUpdate(android.animation.ValueAnimator animation) {
+//                float animatedFraction = (float) animation.getAnimatedValue();
+//                mTopSpace.setBackgroundColor((Integer) ColorUtil.evaluateColor(animatedFraction, startColor,endColor));
+//            }
+//        });
+//        _valueAnimator.start();
+//    }
 
 
     @Subscribe(threadMode = ThreadMode.MainThread)
@@ -326,8 +324,8 @@ public class MyCentreFragment extends BaseFragment implements MyCenterView {
 
     private void doLogout() {
         initData();
-        setTitleColor(Color.WHITE, Color.parseColor("#0080ff"));
-        setTopBackColor(Color.parseColor("#0080ff"),Color.WHITE);
+//        setTitleColor(Color.WHITE, Color.parseColor("#0080ff"));
+//        setTopBackColor(Color.parseColor("#0080ff"),Color.WHITE);
         EventBus.getDefault().post(new EventMsg(null, EventTag.EVENT_LOGOUT_SUCCESS));
         mLoginSpace.setVisibility(View.VISIBLE);
         startAmin(0, mLoginSpaceHeight, 0.0f, 1.0f);
@@ -335,36 +333,40 @@ public class MyCentreFragment extends BaseFragment implements MyCenterView {
         ToastUtils.showToast("成功退出帐号!");
     }
 
-    private void setTitleColor(final int startColor, final int endColor) {
-        android.animation.ValueAnimator _valueAnimator = android.animation.ValueAnimator.ofFloat(0, 1).setDuration(800);
-        _valueAnimator.addUpdateListener(new android.animation.ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(android.animation.ValueAnimator animation) {
-                float animatedFraction = (float) animation.getAnimatedValue();
-                mTvTitle.setTextColor((Integer) ColorUtil.evaluateColor(animatedFraction, startColor,endColor));
-            }
-        });
-        _valueAnimator.start();
-    }
+//    private void setTitleColor(final int startColor, final int endColor) {
+//        android.animation.ValueAnimator _valueAnimator = android.animation.ValueAnimator.ofFloat(0, 1).setDuration(800);
+//        _valueAnimator.addUpdateListener(new android.animation.ValueAnimator.AnimatorUpdateListener() {
+//            @Override
+//            public void onAnimationUpdate(android.animation.ValueAnimator animation) {
+//                float animatedFraction = (float) animation.getAnimatedValue();
+//                mTvTitle.setTextColor((Integer) ColorUtil.evaluateColor(animatedFraction, startColor,endColor));
+//            }
+//        });
+//        _valueAnimator.start();
+//    }
 
 
     private void doRegisterSuccess() {
         initData();
-        setTopColor();
+//        setTopColor();
+        mLocalUser = App.getApplication().getmLocalUser();
+        if (mLocalUser != null) {
+            mTvUserName.setText(mLocalUser.getUserName());
+        }
         setLoginSpaceGone();
         setTopSpaceZoomOut(0);
         AnimUtil.AlphaAnimator(1.0f,1.0f,mHandleSpace,0);
     }
 
     private void doChangePasswordSuccess() {
-        setTopColor2();
+//        setTopColor2();
         initData();
         setLoginSpaceVisible();
     }
-    private void setTopColor2() {
-        mTvTitle.setTextColor(Color.parseColor("#0080ff"));
-        mTopSpace.setBackgroundColor(Color.WHITE);
-    }
+//    private void setTopColor2() {
+//        mTvTitle.setTextColor(Color.parseColor("#0080ff"));
+//        mTopSpace.setBackgroundColor(Color.WHITE);
+//    }
 
     private void setLoginSpaceVisible() {
         EventBus.getDefault().post(new EventMsg(null, EventTag.EVENT_LOGOUT_SUCCESS));
@@ -383,8 +385,8 @@ public class MyCentreFragment extends BaseFragment implements MyCenterView {
      * @param duration 动画时间
      */
     private void setTopSpaceZoomIn(int duration) {
-        AnimUtil.ScaleAnimator(0.5f,1f,0.5f,1f,mTvTitle,duration);
-        AnimUtil.ValueAnimator((float)(mTopSpaceHeight*0.35),mTopSpaceHeight,mTopSpace,duration);
+        AnimUtil.ScaleAnimator(0.6f,1f,0.6f,1f,mTvTitle,duration);
+        AnimUtil.ValueAnimator((float)(mTopSpaceHeight*0.45),mTopSpaceHeight,mTopSpace,duration);
     }
 
     /**
@@ -392,7 +394,7 @@ public class MyCentreFragment extends BaseFragment implements MyCenterView {
      * @param duration 动画时间
      */
     private void setTopSpaceZoomOut(int duration) {
-        AnimUtil.ScaleAnimator(1f,0.5f,1f,0.5f,mTvTitle,duration);
-        AnimUtil.ValueAnimator(mTopSpaceHeight,(float)(mTopSpaceHeight*0.35),mTopSpace,duration);
+        AnimUtil.ScaleAnimator(1f,0.6f,1f,0.6f,mTvTitle,duration);
+        AnimUtil.ValueAnimator(mTopSpaceHeight,(float)(mTopSpaceHeight*0.45),mTopSpace,duration);
     }
 }

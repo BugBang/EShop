@@ -18,10 +18,10 @@ import java.util.Map;
  */
 public class CompanyListModeImpl implements CompanyListMode {
     @Override
-    public void getCompanyList(int id, final OnCompanyListListener onCompanyListListener) {
+    public void getCompanyList(String id, final OnCompanyListListener onCompanyListListener) {
         Map<String, Object> mapData = new HashMap<String, Object>();
         mapData.put("act", "commodity_type");
-        mapData.put("id", id);
+        mapData.put("type", id);
         RequestModel model = new RequestModel(mapData);
 
         SDAsyncHttpResponseHandler sdAsync = new SDAsyncHttpResponseHandler() {

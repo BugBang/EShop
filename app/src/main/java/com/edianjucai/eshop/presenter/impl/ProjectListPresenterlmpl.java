@@ -1,6 +1,6 @@
 package com.edianjucai.eshop.presenter.impl;
 
-import com.edianjucai.eshop.model.entity.ProjectListModel;
+import com.edianjucai.eshop.model.entity.InitModel;
 import com.edianjucai.eshop.model.impl.ProjectListModelmpl;
 import com.edianjucai.eshop.model.mode.ProjectListMode;
 import com.edianjucai.eshop.presenter.usb.OnProjectListListener;
@@ -21,13 +21,13 @@ public class ProjectListPresenterlmpl implements ProjectListPresenter,OnProjectL
     }
 
     @Override
-    public void setProjectListData(ProjectListModel projectListModel) {
+    public void setProjectListData(InitModel projectListModel) {
         mProjectListView.setProjectListData(projectListModel);
     }
 
     @Override
     public void startRequest() {
-        mProjectListView.startRequest();
+
     }
 
     @Override
@@ -41,8 +41,8 @@ public class ProjectListPresenterlmpl implements ProjectListPresenter,OnProjectL
     }
 
     @Override
-    public void failRequest(String showErr) {
-        mProjectListView.failRequest(showErr);
+    public void failRequest() {
+        mProjectListView.failRequest();
     }
 
     @Override
