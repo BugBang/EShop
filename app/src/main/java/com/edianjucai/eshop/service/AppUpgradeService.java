@@ -83,7 +83,7 @@ public class AppUpgradeService extends Service {
 	private void testUpgrade() {
 		PackageInfo info = PackageUtil.getCurrentAppPackageInfo(this, this.getPackageName());
 		Map<String, Object> mapData = new HashMap<String, Object>();
-		mapData.put("act", "version");
+		mapData.put("act", "version2");
 		mapData.put("dev_type", "android");
 		mapData.put("version", String.valueOf(info.versionCode));
 
@@ -219,7 +219,7 @@ public class AppUpgradeService extends Service {
 		mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 		mNotification = new Notification();
         // TODO: 2016-09-26 添加图标和XML文件图标
-//        mNotification.icon = R.drawable.icon;
+        mNotification.icon = R.mipmap.edian;
 		mNotification.tickerText = mFileName + "正在下载中";
 		mNotification.contentView = new RemoteViews(getApplication().getPackageName(), R.layout.service_download_view);
 

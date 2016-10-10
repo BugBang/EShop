@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -12,13 +14,18 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.edianjucai.eshop.R;
+import com.edianjucai.eshop.app.App;
 import com.edianjucai.eshop.base.BaseFragment;
 import com.edianjucai.eshop.dao.InitModelDao;
 import com.edianjucai.eshop.model.entity.InitModel;
+import com.edianjucai.eshop.presenter.impl.FeedBackPersenterImpl;
+import com.edianjucai.eshop.presenter.usb.FeedBackPresenter;
 import com.edianjucai.eshop.ui.activity.WebViewActivity;
+import com.edianjucai.eshop.ui.view.FeedBackView;
 import com.edianjucai.eshop.util.ClearCacheUtil;
 import com.edianjucai.eshop.util.DialogUtil;
 import com.edianjucai.eshop.util.IntentUtil;
+import com.edianjucai.eshop.util.PackageUtil;
 import com.edianjucai.eshop.util.ToastUtils;
 
 import butterknife.BindView;
@@ -27,7 +34,7 @@ import butterknife.OnClick;
 /**
  * Created by user on 2016-09-12.
  */
-public class MoreSettingFragment extends BaseFragment {
+public class MoreSettingFragment extends BaseFragment implements FeedBackView{
 
     @BindView(R.id.ll_about_us)
     LinearLayout mLlAboutUs;
@@ -52,6 +59,8 @@ public class MoreSettingFragment extends BaseFragment {
 
     private DialogUtil mDialogUtil;
     private InitModel mInitModel;
+    private FeedBackPresenter mFeedBackPresenter;
+    private AlertDialog mDialog;
 
     @Override
     public int bindLayout() {
@@ -60,9 +69,17 @@ public class MoreSettingFragment extends BaseFragment {
 
     @Override
     public void doBusiness(Context mContext) {
+        initVersion();
+        mFeedBackPresenter = new FeedBackPersenterImpl(this);
         mInitModel = InitModelDao.readInitDB();
         mDialogUtil = new DialogUtil(mActivity);
         setData();
+    }
+
+    private void initVersion() {
+        PackageInfo pi = PackageUtil.getCurrentAppPackageInfo(
+                App.getApplication(), getActivity().getPackageName());
+        mTvUpdateVersion.setText("V" + pi.versionName);
     }
 
     private void setData() {
@@ -87,7 +104,6 @@ public class MoreSettingFragment extends BaseFragment {
                 clickServiceEmail();
                 break;
             case R.id.ll_idea_feedback:
-                $Log("ll_idea_feedback");
                 clickFeedBack();
                 break;
             case R.id.ll_update_version:
@@ -141,19 +157,51 @@ public class MoreSettingFragment extends BaseFragment {
 
 
     private void showAlertDialog() {
-        // TODO: 2016-09-28 添加意见反馈接口
-        final AlertDialog dialog = new AlertDialog.Builder(mActivity).create();
-        dialog.setView(LayoutInflater.from(mActivity).inflate(R.layout.dialog_feed_back, null));
-        dialog.show();
-        dialog.getWindow().setContentView(R.layout.dialog_feed_back);
-        Button _bt = (Button) dialog.findViewById(R.id.bt_submit);
-        final EditText _et = (EditText) dialog.findViewById(R.id.et_feet_back);
+        mDialog = new AlertDialog.Builder(mActivity).create();
+        mDialog.setView(LayoutInflater.from(mActivity).inflate(R.layout.dialog_feed_back, null));
+        mDialog.show();
+        mDialog.getWindow().setContentView(R.layout.dialog_feed_back);
+        Button _bt = (Button) mDialog.findViewById(R.id.bt_submit);
+        final EditText _et = (EditText) mDialog.findViewById(R.id.et_feet_back);
         _bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+                String content = _et.getText().toString();
+                if (TextUtils.isEmpty(content)){
+                    ToastUtils.showToast("内容不可为空");
+                }else {
+                    mFeedBackPresenter.requestFeedBack(content);
+                }
             }
         });
 
+    }
+
+    @Override
+    public void startFeedBack() {
+        showLoadingDialog("反馈中");
+    }
+
+    @Override
+    public void finishFeedBack() {
+        if (mDialog!=null){
+            mDialog.dismiss();
+        }
+        hideLoadingDialog();
+    }
+
+    @Override
+    public void successFeedBack() {
+        ToastUtils.showToast("反馈成功");
+        if (mDialog!=null){
+            mDialog.dismiss();
+        }
+        hideLoadingDialog();
+    }
+
+    @Override
+    public void failFeedBack(String err) {
+        ToastUtils.showToast(err);
+        hideLoadingDialog();
     }
 }

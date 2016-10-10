@@ -23,17 +23,329 @@
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
                 />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ffffff">
+                <TextView
+                    android:gravity="center_vertical"
+                    android:background="#ffffff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="申请流程"
+                    android:textColor="#13334d"
+                    android:textSize="12sp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="20dp"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:background="#ffffff"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="20dp"
+                >
+                <LinearLayout
+                    android:gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+                    <ImageView
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:background="@mipmap/load_flow_01"
+                        />
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="10sp"
+                        android:textColor="#13334d"
+                        android:text="填写申请"
+                        />
+                    <TextView
+                        android:layout_marginTop="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="8sp"
+                        android:textColor="#8a8a8a"
+                        android:text="线上轻松搞定"
+                        />
+
+
+                </LinearLayout>
+                <ImageView
+                    android:layout_marginTop="36dp"
+                    android:layout_width="24dp"
+                    android:layout_height="12dp"
+                    android:background="@mipmap/load_apply_arr"
+                    />
+                <LinearLayout
+                    android:gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+                    <ImageView
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:background="@mipmap/load_flow_02"
+                        />
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="10sp"
+                        android:textColor="#13334d"
+                        android:text="电话回访"
+                        />
+                    <TextView
+                        android:layout_marginTop="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="8sp"
+                        android:textColor="#8a8a8a"
+                        android:text="信贷专员与您联系"
+                        />
+
+
+                </LinearLayout>
+                <ImageView
+                    android:layout_marginTop="36dp"
+                    android:layout_width="24dp"
+                    android:layout_height="12dp"
+                    android:background="@mipmap/load_apply_arr"
+                    />
+                <LinearLayout
+                    android:gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+                    <ImageView
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:background="@mipmap/load_flow_03"
+                        />
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="10sp"
+                        android:textColor="#13334d"
+                        android:text="审批材料"
+                        />
+                    <TextView
+                        android:layout_marginTop="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="8sp"
+                        android:textColor="#8a8a8a"
+                        android:text="批复贷款"
+                        />
+
+
+                </LinearLayout>
+                <ImageView
+                    android:layout_marginTop="36dp"
+                    android:layout_width="24dp"
+                    android:layout_height="12dp"
+                    android:background="@mipmap/load_apply_arr"
+                    />
+                <LinearLayout
+                    android:gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+                    <ImageView
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:background="@mipmap/load_flow_04"
+                        />
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="10sp"
+                        android:textColor="#13334d"
+                        android:text="获取贷款"
+                        />
+                    <TextView
+                        android:layout_marginTop="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="8sp"
+                        android:textColor="#8a8a8a"
+                        android:text="快速放款"
+                        />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ffffff">
+                <TextView
+                    android:gravity="center_vertical"
+                    android:background="#ffffff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="申请贷款"
+                    android:textColor="#13334d"
+                    android:textSize="12sp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#edf2f6"
+                />
 
             <com.edianjucai.eshop.CustomView.MyGridView
                 android:id="@+id/gv_project_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:horizontalSpacing="2dp"
+                android:horizontalSpacing="0.5dp"
                 android:listSelector="@null"
                 android:numColumns="2"
                 android:stretchMode="columnWidth"
-                android:verticalSpacing="2dp">
+                android:verticalSpacing="0.5dp">
             </com.edianjucai.eshop.CustomView.MyGridView>
+
+            <LinearLayout
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="#ffffff">
+                <TextView
+                    android:gravity="center_vertical"
+                    android:background="#ffffff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="借款Q&amp;A"
+                    android:textColor="#13334d"
+                    android:textSize="12sp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="20dp"
+                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="94dp"
+                    android:orientation="vertical"
+                    android:background="@mipmap/load_qa_bg"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="20dp"
+                    >
+                    <TextView
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="13dp"
+                        android:textSize="10sp"
+                        android:textColor="#0099ff"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Q: 借款审核一般需要多长时间?"
+                        />
+                    <TextView
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="13dp"
+                        android:lineSpacingExtra="2dp"
+                        android:textSize="10sp"
+                        android:textColor="#13334d"
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp"
+                        android:text="A: 借款资料提交成功后, 工作人员会在半小时内对驾培贷申请进行审核, 其他贷款申请将在1到3个工作日后进行审核, 审核结果将会以电话的形式通知。"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="108dp"
+                    android:orientation="vertical"
+                    android:background="@mipmap/load_qa_bg"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="20dp"
+                    >
+                    <TextView
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="13dp"
+                        android:textSize="10sp"
+                        android:textColor="#0099ff"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Q: 借款人需要支付哪些费用?"
+                        />
+                    <TextView
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="10dp"
+                        android:textSize="10sp"
+                        android:textColor="#13334d"
+                        android:lineSpacingExtra="2dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:layout_marginBottom="13dp"
+                        android:text="A: 驾培贷类贷款借款人借款成功后，如按月准时归还本金无需任何费用；其他贷款产品借款人首次借款成功后，需支付一定的信息咨询费、信息服务费、风险准备金。风险准备金将在借款人按期全额还款后予以退还(具体费率详见产品介绍)。"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="96dp"
+                    android:orientation="vertical"
+                    android:background="@mipmap/load_qa_bg"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    >
+                    <TextView
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="13dp"
+                        android:textSize="10sp"
+                        android:textColor="#0099ff"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Q: 必须签纸质合同吗?"
+                        />
+                    <TextView
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:textSize="10sp"
+                        android:layout_marginRight="10dp"
+                        android:textColor="#13334d"
+                        android:lineSpacingExtra="2dp"
+                        android:layout_width="match_parent"
+                        android:layout_marginBottom="13dp"
+                        android:layout_height="50dp"
+                        android:text="A: 借款人必须签纸质合同。在网站上签约电子借款合同后, 借款人还须将签过字的纸质版合同邮寄至公司总部, 纸质合同由客户经理提供下载。"
+                        />
+                </LinearLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
     </com.handmark.pulltorefresh.library.PullToRefreshScrollView>

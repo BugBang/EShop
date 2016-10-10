@@ -1,7 +1,6 @@
 package com.edianjucai.eshop.ui.fragment;
 
 import android.content.Context;
-import android.graphics.drawable.ColorDrawable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -9,7 +8,6 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.ScrollView;
 
 import com.bumptech.glide.Glide;
@@ -46,15 +44,16 @@ public class CompanyListFragment extends BaseFragment implements CompanyListView
     ImageView mIvSearch;
     @BindView(R.id.iv_banner)
     ImageView mIvBanner;
+    @BindView(R.id.et_search)
+    EditText mEtSearch;
+    @BindView(R.id.ll_edit_search)
+    LinearLayout mLlSearch;
 
     private ScrollView mScrollView;
     private CompanyListAdapter mCompanyListAdapter;
     private CompanyListPresenter mCompanyListPresenter;
     private CompanyListModel mCompanyListModel;
 
-    private PopupWindow mEditPop;
-    private View mEditPopView;
-    private EditText mEditTextSearch;
     private String mTypeId;
     private String mStringTitle;
 
@@ -74,7 +73,7 @@ public class CompanyListFragment extends BaseFragment implements CompanyListView
     @Override
     public void doBusiness(Context mContext) {
         initParms();
-        initPop();
+        intiEditView();
         mCompanyListPresenter = new CompanyListPresenterImpl(this);
         mScrollView = mPullRefresh.getRefreshableView();
         mScrollView.smoothScrollTo(0, 0); // 滑动到顶部
@@ -87,24 +86,8 @@ public class CompanyListFragment extends BaseFragment implements CompanyListView
         mStringTitle = getArguments().getString(TITLE);
     }
 
-    private void initPop() {
-        mEditPopView = getActivity().getLayoutInflater().inflate(
-                R.layout.pop_edit_search, null);
-        mEditPop = new PopupWindow(mEditPopView,
-                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, true);
-        mEditTextSearch = (EditText) mEditPopView.findViewById(R.id.et_pop_search);
-        mEditPop.setTouchable(true);
-        mEditPop.setOutsideTouchable(true);
-        mEditPop.setBackgroundDrawable(new ColorDrawable(0x00000000));
-
-        mEditPop.getContentView().setFocusableInTouchMode(true);
-        mEditPop.getContentView().setFocusable(true);
-        intiEditView();
-    }
-
-
     private void intiEditView() {
-        mEditTextSearch.addTextChangedListener(new TextWatcher() {
+        mEtSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -192,11 +175,18 @@ public class CompanyListFragment extends BaseFragment implements CompanyListView
     }
 
 
+    private boolean isShow;
     @OnClick({R.id.iv_search})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_search:
-                mEditPop.showAsDropDown(mIvSearch);
+                if (isShow){
+                    mLlSearch.setVisibility(View.GONE);
+                    isShow = !isShow;
+                }else {
+                    mLlSearch.setVisibility(View.VISIBLE);
+                    isShow = !isShow;
+                }
                 break;
         }
     }

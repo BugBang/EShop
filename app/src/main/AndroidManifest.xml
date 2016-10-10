@@ -42,16 +42,16 @@
         android:theme="@style/AppTheme">
 
         <!--测试key-->
-        <meta-data
-            android:name="com.amap.api.v2.apikey"
-            android:value="1ae3950483e67bd774dbb99e7ba55713">
-        </meta-data>
-
-        <!--正式key-->
         <!--<meta-data-->
             <!--android:name="com.amap.api.v2.apikey"-->
-            <!--android:value="224017a7ca8d82e9d109284577d232aa">-->
+            <!--android:value="1ae3950483e67bd774dbb99e7ba55713">-->
         <!--</meta-data>-->
+
+        <!--正式key-->
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="224017a7ca8d82e9d109284577d232aa">
+        </meta-data>
 
         <activity
             android:name="com.edianjucai.eshop.ui.activity.InitActivity"
