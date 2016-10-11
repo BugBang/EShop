@@ -26,8 +26,7 @@ import java.util.Map.Entry;
 /**
  * 接口请求类
  */
-public class InterfaceServer
-{
+public class InterfaceServer {
 
 	private static final String TAG = "InterfaceServer";
 
@@ -35,22 +34,17 @@ public class InterfaceServer
 
 	private List<String> mListNoMd5Act = new ArrayList<String>();
 
-	private InterfaceServer()
-	{
+	private InterfaceServer() {
 		mListNoMd5Act.add("register"); // 注册接口
 		mListNoMd5Act.add("save_reset_pwd"); // 忘记密码接口
 		mListNoMd5Act.add("uc_save_pwd"); // 修改密码接口
 
 	}
 
-	public static InterfaceServer getInstance()
-	{
-		if (mInterfaceServer == null)
-		{
-			synchronized (InterfaceServer.class)
-			{
-				if (mInterfaceServer == null)
-				{
+	public static InterfaceServer getInstance() {
+		if (mInterfaceServer == null) {
+			synchronized (InterfaceServer.class) {
+				if (mInterfaceServer == null) {
 					mInterfaceServer = new InterfaceServer();
 				}
 			}
@@ -58,55 +52,43 @@ public class InterfaceServer
 		return mInterfaceServer;
 	}
 
-	public void requestInterface(RequestModel model, SDAsyncHttpResponseHandler responseListener, boolean isNeedProxy)
-	{
+	public void requestInterface(RequestModel model, SDAsyncHttpResponseHandler responseListener, boolean isNeedProxy) {
 		requestInterface(model, true, responseListener, null, isNeedProxy);
 	}
 	
-	public void requestInterface2(RequestModel model, SDAsyncHttpResponseHandler responseListener, boolean isNeedProxy)
-	{
+	public void requestInterface2(RequestModel model, SDAsyncHttpResponseHandler responseListener, boolean isNeedProxy) {
 		requestInterface2(model, true, responseListener, null, isNeedProxy);
 	}
 
 	public void requestInterface2(RequestModel model, boolean isAsyncRequest, SDAsyncHttpResponseHandler responseListener, AsyncHttpClient httpClient, boolean isNeedProxy) {
 
-		if (TANetWorkUtil.isNetworkAvailable(App.getApplication()))
-		{
-			if (model != null)
-			{
+		if (TANetWorkUtil.isNetworkAvailable(App.getApplication())) {
+			if (model != null) {
 				RequestParams requestParams = getRequestParamsNoJson(model);
 				SDAsyncHttpResponseHandler listener = null;
-				if (isNeedProxy)
-				{
+				if (isNeedProxy) {
 					listener = getDefaultProxy(responseListener, model);
 					// listener = responseListener;
-				} else
-				{
+				} else {
 					listener = responseListener;
 				}
-				if (httpClient != null)
-				{
+				if (httpClient != null) {
 					httpClient.post(ApkConstant.SERVER_API_URL, requestParams, listener);
-				} else
-				{
-					if (isAsyncRequest)
-					{
+				} else {
+					if (isAsyncRequest) {
 						HttpManager.getAsyncHttpClient().post(ApkConstant.SERVER_API_URL, requestParams, listener);
-					} else
-					{
+					} else {
 						HttpManager.getSyncHttpClient().post(ApkConstant.SERVER_API_URL, requestParams, listener);
 					}
 				}
 			}
-		} else
-		{
+		} else {
             ToastUtils.showToast("当前网络不可用!");
 			responseListener.onFinishInMainThread(null);
 		}
 	}
 
-	public void requestInterface(RequestModel model, boolean isAsyncRequest, SDAsyncHttpResponseHandler responseListener, boolean isNeedProxy)
-	{
+	public void requestInterface(RequestModel model, boolean isAsyncRequest, SDAsyncHttpResponseHandler responseListener, boolean isNeedProxy) {
 		requestInterface(model, isAsyncRequest, responseListener, null, isNeedProxy);
 	}
 
@@ -124,73 +106,56 @@ public class InterfaceServer
 	 *            要产生AsyncHttpClient对象，调用HttpManager的静态方法产生。
 	 */
 //    requestInterface(model, true, responseListener, null, isNeedProxy);
-	public void requestInterface(RequestModel model, boolean isAsyncRequest, SDAsyncHttpResponseHandler responseListener, AsyncHttpClient httpClient, boolean isNeedProxy)
-	{
+	public void requestInterface(RequestModel model, boolean isAsyncRequest, SDAsyncHttpResponseHandler responseListener, AsyncHttpClient httpClient, boolean isNeedProxy) {
 		//model, true, handler, null, true
 
-		if (TANetWorkUtil.isNetworkAvailable(App.getApplication()))
-		{
-			if (model != null)
-			{
+		if (TANetWorkUtil.isNetworkAvailable(App.getApplication())) {
+			if (model != null) {
 				RequestParams requestParams = getRequestParamsNoJson(model);
 				SDAsyncHttpResponseHandler listener = null;
-				if (isNeedProxy)
-				{
+				if (isNeedProxy) {
 					listener = getDefaultProxy(responseListener, model);
 					// listener = responseListener;
-				} else
-				{
+				} else {
 					listener = responseListener;
 				}
-				if (httpClient != null)
-				{
+				if (httpClient != null) {
 					httpClient.post(ApkConstant.SERVER_API_URL, requestParams, listener);
-				} else
-				{
-					if (isAsyncRequest)
-					{
+				} else {
+					if (isAsyncRequest) {
 						HttpManager.getAsyncHttpClient().post(ApkConstant.SERVER_API_URL, requestParams, listener);
-					} else
-					{
+					} else {
 						HttpManager.getSyncHttpClient().post(ApkConstant.SERVER_API_URL, requestParams, listener);
 					}
 				}
 			}
-		} else
-		{
+		} else {
             ToastUtils.showToast("当前网络不可用!");
 			responseListener.onFinishInMainThread(null);
 		}
 	}
 
-	private SDAsyncHttpResponseHandlerProxy getDefaultProxy(SDAsyncHttpResponseHandler handler, RequestModel model)
-	{
+	private SDAsyncHttpResponseHandlerProxy getDefaultProxy(SDAsyncHttpResponseHandler handler, RequestModel model) {
 		return new SDAsyncHttpResponseHandlerProxy(new P2p_ISDAsyncHttpResponseHandlerProxyImpl(model), handler);
 	}
 
-	private RequestParams getRequestParamsNoJson(RequestModel model)
-	{
+	private RequestParams getRequestParamsNoJson(RequestModel model) {
 		RequestParams requestParams = new RequestParams();
 		Object data = model.getmData();
-		if (data != null)
-		{
+		if (data != null) {
 			Map<String, Object> mapData = (Map<String, Object>) data;
 			// printRequestUrl(model);
 			String act = null;
-			if (mapData.containsKey("act"))
-			{
+			if (mapData.containsKey("act")) {
 				act = String.valueOf(mapData.get("act"));//integral_mall
 			}
-			for (Entry<String, Object> entry : mapData.entrySet())
-			{
+			for (Entry<String, Object> entry : mapData.entrySet()) {
 				String key = (entry.getKey()) == null ? "" : (entry.getKey());
 				String value = (entry.getValue()) == null ? "" : (String.valueOf(entry.getValue()));
-				if (mListNoMd5Act.contains(act))
-				{
-				} else
-				{
-					if (key.equals("pwd"))
-					{
+				if (mListNoMd5Act.contains(act)) {
+
+				} else {
+					if (key.equals("pwd")) {
 						value = MD5Util.getMD5(value);
 //						Log.i(TAG, "act:" + act + "pwd:" + value);
 					}
@@ -207,15 +172,12 @@ public class InterfaceServer
 		return requestParams;
 	}
 
-	private void printRequestUrl(RequestModel model)
-	{
+	private void printRequestUrl(RequestModel model) {
 		String url = ApkConstant.SERVER_API_URL + "?";
-		if (model != null && model.getmData() != null)
-		{
+		if (model != null && model.getmData() != null) {
 			Map<String, Object> mapData = (Map<String, Object>) model.getmData();
 
-			for (Entry<String, Object> entry : mapData.entrySet())
-			{
+			for (Entry<String, Object> entry : mapData.entrySet()) {
 				url = url + entry.getKey() + "=" + entry.getValue() + "&";
 			}
 			url = url + "i_type=" + String.valueOf(model.getmRequestDataType()) + "&" + "r_type=2";
@@ -223,18 +185,14 @@ public class InterfaceServer
 		Log.i(TAG, url);
 	}
 
-	private RequestParams getRequestParams(RequestModel model)
-	{
+	private RequestParams getRequestParams(RequestModel model) {
 		RequestParams requestParams = new RequestParams();
 		Object data = model.getmData();
-		if (data != null)
-		{
+		if (data != null) {
 			String requestData = "";
-			if (model.getmRequestDataType() == Constant.RequestDataType.BASE64)
-			{
+			if (model.getmRequestDataType() == Constant.RequestDataType.BASE64) {
 				requestData = MiGBase64.encode(JSON.toJSONString(data));
-			} else if (model.getmRequestDataType() == Constant.RequestDataType.REQUEST)
-			{
+			} else if (model.getmRequestDataType() == Constant.RequestDataType.REQUEST) {
 				requestData = JSON.toJSONString(data);
 			}
 			requestParams.put("requestData", requestData);

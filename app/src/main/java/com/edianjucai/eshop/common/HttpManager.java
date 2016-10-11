@@ -3,15 +3,13 @@ package com.edianjucai.eshop.common;
 import com.ta.SyncHttpClient;
 import com.ta.util.http.AsyncHttpClient;
 
-public class HttpManager
-{
+public class HttpManager {
 	private static final int TIME_OUT = 7 * 1000;
 	
 	private static AsyncHttpClient mAsyncHttpClient = null;
 	private static SyncHttpClient mSyncHttpClient = null;
 	
-	static
-	{
+	static {
 		mAsyncHttpClient = new AsyncHttpClient();
 		mAsyncHttpClient.setTimeout(TIME_OUT);
 		mSyncHttpClient = new SyncHttpClient();
@@ -20,27 +18,22 @@ public class HttpManager
 	
 	
 
-	private HttpManager()
-	{
+	private HttpManager() {
 	}
 
-	public static AsyncHttpClient getAsyncHttpClient()
-	{
+	public static AsyncHttpClient getAsyncHttpClient() {
 		return mAsyncHttpClient;
 	}
 
-	public static AsyncHttpClient getSyncHttpClient()
-	{
+	public static AsyncHttpClient getSyncHttpClient() {
 		return mSyncHttpClient;
 	}
 
-	public static AsyncHttpClient newAsyncHttpClient()
-	{
+	public static AsyncHttpClient newAsyncHttpClient() {
 		return new AsyncHttpClient();
 	}
 
-	public static AsyncHttpClient newSyncHttpClient()
-	{
+	public static AsyncHttpClient newSyncHttpClient() {
 		return new SyncHttpClient();
 	}
 

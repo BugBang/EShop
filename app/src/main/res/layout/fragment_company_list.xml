@@ -26,6 +26,10 @@
     </RelativeLayout>
 
     <LinearLayout
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="10dp"
         android:visibility="gone"
         android:id="@+id/ll_edit_search"
         android:layout_width="match_parent"

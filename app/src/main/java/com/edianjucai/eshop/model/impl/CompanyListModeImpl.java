@@ -33,7 +33,7 @@ public class CompanyListModeImpl implements CompanyListMode {
 
             @Override
             public void onFinishInMainThread(Object result) {
-                onCompanyListListener.startRequest();
+                onCompanyListListener.finishRequest();
             }
 
             @Override
@@ -52,6 +52,18 @@ public class CompanyListModeImpl implements CompanyListMode {
                 if (model != null) {
                     onCompanyListListener.successRequest(model);
                 }
+            }
+
+            @Override
+            public Object onFailureInRequestThread(Throwable e, String responseBody) {
+                onCompanyListListener.failRequest("");
+                return super.onFailureInRequestThread(e, responseBody);
+            }
+
+            @Override
+            public void onFailureInMainThread(Throwable e, String responseBody, Object result) {
+                onCompanyListListener.failRequest("");
+                super.onFailureInMainThread(e, responseBody, result);
             }
         };
         InterfaceServer.getInstance().requestInterface(model, sdAsync, true);

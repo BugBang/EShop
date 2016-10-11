@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.edianjucai.eshop.R;
 import com.edianjucai.eshop.app.App;
 import com.edianjucai.eshop.base.BaseFragment;
@@ -121,8 +122,14 @@ public class MoreSettingFragment extends BaseFragment implements FeedBackView{
 
     private void clearCache() {
         ClearCacheUtil.clearAllCache(mActivity);
+        Glide.get(mActivity).clearMemory();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Glide.get(mActivity).clearDiskCache();
+            }
+        }).start();
         mTvClearCache.setText(ClearCacheUtil.getTotalCacheSize(mActivity));
-
     }
 
     private void clickServiceEmail() {

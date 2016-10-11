@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.edianjucai.eshop.CustomView.MyListView;
 import com.edianjucai.eshop.CustomView.TitleView;
 import com.edianjucai.eshop.R;
@@ -153,7 +154,6 @@ public class CompanyListFragment extends BaseFragment implements CompanyListView
     @Override
     public void failRequest(String showErr) {
         mPullRefresh.onRefreshComplete();
-
     }
 
     @Override
@@ -166,7 +166,8 @@ public class CompanyListFragment extends BaseFragment implements CompanyListView
             mBannerList = companyListModel.getDeal_cates();
             for (int i =0;i<mBannerList.size();i++){
                 if (mBannerList.get(i).getId().equals(mTypeId)){
-                    Glide.with(mActivity).load("http://" + ApkConstant.SERVER_API_URL_MID +mBannerList.get(i).getBanner()).into(mIvBanner);
+                    Glide.with(mActivity).load("http://" + ApkConstant.SERVER_API_URL_MID +mBannerList.get(i).getBanner())
+                            .diskCacheStrategy(DiskCacheStrategy.SOURCE).into(mIvBanner);
                 }
             }
         }
