@@ -1,6 +1,7 @@
 package com.edianjucai.eshop.ui.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTabHost;
 import android.view.LayoutInflater;
@@ -21,6 +22,8 @@ import butterknife.BindView;
  */
 public class HomeActivity extends BaseActivity {
 
+    public static final String NEED_LOGIN = "need_login";
+    private boolean mIsNeedLogin;
 
     @BindView(android.R.id.tabhost)
     FragmentTabHost mTabhost;
@@ -38,6 +41,13 @@ public class HomeActivity extends BaseActivity {
     @Override
     public void doBusiness(Context mContext) {
         addTab();
+        Intent intent = getIntent();
+        if (intent!=null){
+            mIsNeedLogin = intent.getBooleanExtra(NEED_LOGIN, false);
+            if (mIsNeedLogin){
+                setCurrentTab(1);
+            }
+        }
     }
 
     @Override
@@ -69,6 +79,11 @@ public class HomeActivity extends BaseActivity {
         TabHost.TabSpec more = mTabhost.newTabSpec("more");
         more.setIndicator(more_view);
         mTabhost.addTab(more, MoreSettingFragment.class, null);
+
+    }
+
+    public void setCurrentTab(int index){
+        mTabhost.setCurrentTab(index);
     }
 
 }

@@ -14,15 +14,19 @@ import com.edianjucai.eshop.CustomView.MyGridView;
 import com.edianjucai.eshop.R;
 import com.edianjucai.eshop.adapter.CarouselViewAdapter;
 import com.edianjucai.eshop.adapter.GridListAdapter;
+import com.edianjucai.eshop.app.App;
 import com.edianjucai.eshop.base.BaseFragment;
 import com.edianjucai.eshop.constant.ApkConstant;
 import com.edianjucai.eshop.dao.InitModelDao;
 import com.edianjucai.eshop.model.entity.InitModel;
+import com.edianjucai.eshop.model.entity.LocalUser;
 import com.edianjucai.eshop.presenter.impl.ProjectListPresenterlmpl;
 import com.edianjucai.eshop.presenter.usb.ProjectListPresenter;
 import com.edianjucai.eshop.ui.activity.CompanyActivity;
+import com.edianjucai.eshop.ui.activity.HomeActivity;
 import com.edianjucai.eshop.ui.activity.WebViewActivity;
 import com.edianjucai.eshop.ui.view.ProjectListView;
+import com.edianjucai.eshop.util.ToastUtils;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 
@@ -150,9 +154,16 @@ public class ProjectListFragment extends BaseFragment implements AdapterView.OnI
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    LocalUser localUser = App.getApplication().getmLocalUser();
+                    if (localUser==null){
+                        ToastUtils.showToast("请先登录");
+                        HomeActivity activity = (HomeActivity)mActivity;
+                        activity.setCurrentTab(1);
+                        return;
+                    }
                     Intent intent = new Intent(mActivity, WebViewActivity.class);
                     intent.putExtra(WebViewActivity.EXTRA_TITLE,mAdvs.get(position).getTitle());
-                    intent.putExtra(WebViewActivity.EXTRA_URL,mAdvs.get(position).getUrl());
+                    intent.putExtra(WebViewActivity.EXTRA_URL,mAdvs.get(position).getUrl()+"&email2="+localUser.getUserName()+"&pwd2="+localUser.getUserPassword()+"&from2=app");
                     startActivity(intent);
                 }
             });

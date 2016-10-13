@@ -131,7 +131,6 @@ public class MyCentreFragment extends BaseFragment implements MyCenterView {
             mTvUserName.setText(mLocalUser.getUserName());
             setTopSpaceZoomOut(0);
             setLoginSpaceGone();
-//            setTopColor();
         } else {
             AnimUtil.AlphaAnimator(0.0f,0.0f,mHandleSpace,0);
         }
@@ -140,10 +139,6 @@ public class MyCentreFragment extends BaseFragment implements MyCenterView {
         mActLoginEtPassword.addTextChangedListener(new TextWatcherImpl(mActLoginBtnLogin, mIvEyes, -1, -1));//-1 表示不改变按钮状态
     }
 
-//    private void setTopColor() {
-//        mTvTitle.setTextColor(Color.WHITE);
-//        mTopSpace.setBackgroundColor(Color.parseColor("#0080ff"));
-//    }
 
     private void setLoginSpaceGone() {
         mLoginSpace.setVisibility(View.GONE);
@@ -175,8 +170,6 @@ public class MyCentreFragment extends BaseFragment implements MyCenterView {
                 intent.putExtra(WebViewActivity.EXTRA_URL,
                         ApkConstant.SERVER_API_URL_PRE+ApkConstant.SERVER_API_URL_MID+
                                 "/wap/index.php?ctl=loan_order&email2="+mLocalUser.getUserName()+"&pwd2="+mLocalUser.getUserPassword()+"&from2=app");
-                $Log( ApkConstant.SERVER_API_URL_PRE+ApkConstant.SERVER_API_URL_MID+
-                        "/wap/index.php?ctl=loan_order&email2="+mLocalUser.getUserName()+"&pwd2="+mLocalUser.getUserPassword()+"&from2=app");
                 intent.putExtra(WebViewActivity.EXTRA_TITLE,"订单管理");
                 startActivity(intent);
                 break;
@@ -284,11 +277,13 @@ public class MyCentreFragment extends BaseFragment implements MyCenterView {
                 mActLoginEtPassword.requestFocus();
             }
         }, 800);
-
-//        setTitleColor(Color.parseColor("#0080ff"),Color.WHITE);
-//        setTopBackColor(Color.WHITE,Color.parseColor("#0080ff"));
         startAmin(mLoginSpaceHeight, 0, 1.0f, 0.0f);
         setTopSpaceZoomOut(800);
+        postMessage();
+    }
+
+    private void postMessage() {
+//        EventBus.getDefault().post(new EventMsg(null, EventTag.EVENT_LOGOUT_SUCCESS));
     }
 
     private void setUserName(LoginModel actModel) {
@@ -296,19 +291,6 @@ public class MyCentreFragment extends BaseFragment implements MyCenterView {
             mTvUserName.setText(actModel.getUser_name());
         }
     }
-
-//    private void setTopBackColor(final int startColor, final int endColor) {
-//        android.animation.ValueAnimator _valueAnimator = android.animation.ValueAnimator.ofFloat(0, 1).setDuration(800);
-//        _valueAnimator.addUpdateListener(new android.animation.ValueAnimator.AnimatorUpdateListener() {
-//            @Override
-//            public void onAnimationUpdate(android.animation.ValueAnimator animation) {
-//                float animatedFraction = (float) animation.getAnimatedValue();
-//                mTopSpace.setBackgroundColor((Integer) ColorUtil.evaluateColor(animatedFraction, startColor,endColor));
-//            }
-//        });
-//        _valueAnimator.start();
-//    }
-
 
     @Subscribe(threadMode = ThreadMode.MainThread)
     public void onMessageEventMainThread(EventMsg messageEvent) {
@@ -324,8 +306,6 @@ public class MyCentreFragment extends BaseFragment implements MyCenterView {
 
     private void doLogout() {
         initData();
-//        setTitleColor(Color.WHITE, Color.parseColor("#0080ff"));
-//        setTopBackColor(Color.parseColor("#0080ff"),Color.WHITE);
         EventBus.getDefault().post(new EventMsg(null, EventTag.EVENT_LOGOUT_SUCCESS));
         mLoginSpace.setVisibility(View.VISIBLE);
         startAmin(0, mLoginSpaceHeight, 0.0f, 1.0f);
@@ -333,22 +313,9 @@ public class MyCentreFragment extends BaseFragment implements MyCenterView {
         ToastUtils.showToast("成功退出帐号!");
     }
 
-//    private void setTitleColor(final int startColor, final int endColor) {
-//        android.animation.ValueAnimator _valueAnimator = android.animation.ValueAnimator.ofFloat(0, 1).setDuration(800);
-//        _valueAnimator.addUpdateListener(new android.animation.ValueAnimator.AnimatorUpdateListener() {
-//            @Override
-//            public void onAnimationUpdate(android.animation.ValueAnimator animation) {
-//                float animatedFraction = (float) animation.getAnimatedValue();
-//                mTvTitle.setTextColor((Integer) ColorUtil.evaluateColor(animatedFraction, startColor,endColor));
-//            }
-//        });
-//        _valueAnimator.start();
-//    }
-
 
     private void doRegisterSuccess() {
         initData();
-//        setTopColor();
         mLocalUser = App.getApplication().getmLocalUser();
         if (mLocalUser != null) {
             mTvUserName.setText(mLocalUser.getUserName());
@@ -359,14 +326,9 @@ public class MyCentreFragment extends BaseFragment implements MyCenterView {
     }
 
     private void doChangePasswordSuccess() {
-//        setTopColor2();
         initData();
         setLoginSpaceVisible();
     }
-//    private void setTopColor2() {
-//        mTvTitle.setTextColor(Color.parseColor("#0080ff"));
-//        mTopSpace.setBackgroundColor(Color.WHITE);
-//    }
 
     private void setLoginSpaceVisible() {
         EventBus.getDefault().post(new EventMsg(null, EventTag.EVENT_LOGOUT_SUCCESS));

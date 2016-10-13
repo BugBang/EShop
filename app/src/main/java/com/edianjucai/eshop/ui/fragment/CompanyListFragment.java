@@ -1,6 +1,7 @@
 package com.edianjucai.eshop.ui.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -16,12 +17,17 @@ import com.edianjucai.eshop.CustomView.MyListView;
 import com.edianjucai.eshop.CustomView.TitleView;
 import com.edianjucai.eshop.R;
 import com.edianjucai.eshop.adapter.CompanyListAdapter;
+import com.edianjucai.eshop.app.App;
 import com.edianjucai.eshop.base.BaseFragment;
 import com.edianjucai.eshop.constant.ApkConstant;
 import com.edianjucai.eshop.model.entity.CompanyListModel;
+import com.edianjucai.eshop.model.entity.LocalUser;
 import com.edianjucai.eshop.presenter.impl.CompanyListPresenterImpl;
 import com.edianjucai.eshop.presenter.usb.CompanyListPresenter;
+import com.edianjucai.eshop.ui.activity.HomeActivity;
+import com.edianjucai.eshop.ui.activity.WebViewActivity;
 import com.edianjucai.eshop.ui.view.CompanyListView;
+import com.edianjucai.eshop.util.ToastUtils;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 
@@ -134,9 +140,22 @@ public class CompanyListFragment extends BaseFragment implements CompanyListView
         mListCompany.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // TODO: 2016-10-09 跳转网页
-                $Log("postion" + mCompanyListAdapter.mListModel.get(position).getName());
-                mCompanyListModel.getList().get(position).getName();
+                LocalUser localUser = App.getApplication().getmLocalUser();
+                Intent intent = new Intent();
+                if (localUser==null){
+                    ToastUtils.showToast("请先登录才可以申请分期");
+                    intent.setClass(mActivity, HomeActivity.class);
+                    intent.putExtra(HomeActivity.NEED_LOGIN,true);
+                    startActivity(intent);
+                    return;
+                }
+                CompanyListModel.CompanyListModelDeal companyListModelDeal = mCompanyListModel.getList().get(position);
+
+                intent.setClass(mActivity, WebViewActivity.class);
+                intent.putExtra(WebViewActivity.EXTRA_URL, ApkConstant.SERVER_API_URL_PRE+ApkConstant.SERVER_API_URL_MID+
+                        "/wap/index.php?ctl=shop_mobile&"+"id="+companyListModelDeal.getId()+"&email2="+localUser.getUserName()+"&pwd2="+localUser.getUserPassword()+"&from2=app");
+                intent.putExtra(WebViewActivity.EXTRA_TITLE,companyListModelDeal.getName());
+                startActivity(intent);
             }
         });
     }
