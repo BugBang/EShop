@@ -99,8 +99,8 @@ public class ProjectListFragment extends BaseFragment implements AdapterView.OnI
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(mActivity, CompanyActivity.class);
-        intent.putExtra(CompanyListFragment.TYPE_ID,mInitModel.getCate_list().get(position).getId());
-        intent.putExtra(CompanyListFragment.TITLE,mInitModel.getCate_list().get(position).getName());
+        intent.putExtra(CompanyListFragment.COMPANY_TYPE_ID,mInitModel.getCate_list().get(position).getId());
+        intent.putExtra(CompanyListFragment.COMPANY_TITLE,mInitModel.getCate_list().get(position).getName());
         startActivity(intent);
     }
 
@@ -174,6 +174,5 @@ public class ProjectListFragment extends BaseFragment implements AdapterView.OnI
         public int getCount() {
             return mAdvs.size();
         }
-
     }
 }

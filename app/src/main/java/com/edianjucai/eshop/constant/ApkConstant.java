@@ -8,7 +8,6 @@ public class ApkConstant {
     // 正式环境
     public static final String SERVER_API_URL_MID = "www.edianjucai.com";
 
-
     public static final String SERVER_API_URL_PRE = "http://";
     public static final String SERVER_API_URL_END = "/mapi/index.php";
 

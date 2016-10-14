@@ -12,9 +12,18 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
+import com.edianjucai.eshop.app.App;
+import com.edianjucai.eshop.model.entity.LocalUser;
+import com.edianjucai.eshop.model.entity.RequestModel;
+import com.edianjucai.eshop.server.InterfaceServer;
+import com.ta.sunday.http.impl.SDAsyncHttpResponseHandler;
+
+import org.apache.http.Header;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by user on 2016-10-08.
@@ -54,7 +63,6 @@ public class LocationService extends Service implements AMapLocationListener{
         //取出手机标识码IMEI
         mTm = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
         mImei = mTm.getDeviceId();
-        System.out.println("mImei="+mImei);
 
         mlocationClient = new AMapLocationClient(this);
         //初始化定位参数
@@ -81,32 +89,24 @@ public class LocationService extends Service implements AMapLocationListener{
         if (amapLocation != null) {
             if (amapLocation.getErrorCode() == 0) {
                 //定位成功回调信息，设置相关消息
-                amapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见定位类型表
-                amapLocation.getLatitude();//获取纬度
-                amapLocation.getLongitude();//获取经度
-                amapLocation.getAccuracy();//获取精度信息
+//                amapLocation.getLocationType();//获取当前定位结果来源，如网络定位结果，详见定位类型表
+//                amapLocation.getLatitude();//获取纬度
+//                amapLocation.getLongitude();//获取经度
+//                amapLocation.getAccuracy();//获取精度信息
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 Date date = new Date(amapLocation.getTime());
-                String format = df.format(date);//定位时间
-                amapLocation.getAddress();//地址，如果option中设置isNeedAddress为false，则没有此结果，网络定位结果中会有地址信息，GPS定位不返回地址信息。
-                amapLocation.getCountry();//国家信息
-                amapLocation.getProvince();//省信息
-                amapLocation.getCity();//城市信息
-                amapLocation.getDistrict();//城区信息
-                amapLocation.getStreet();//街道信息
-                amapLocation.getStreetNum();//街道门牌号信息
-                amapLocation.getCityCode();//城市编码
-                amapLocation.getAdCode();//地区编码
-                System.out.println("format="+format+"-----"+ amapLocation.getAddress()+"---"+
-                        amapLocation.getCountry()+"---"+
-                        amapLocation.getProvince()+"---"+
-                        amapLocation.getCity()+"---"+
-                        amapLocation.getDistrict()+"---"+
-                        amapLocation.getStreet()+"---"+
-                        amapLocation.getStreetNum()+"---"+
-                        amapLocation.getCityCode()+"---"+
-                        amapLocation.getAdCode());
-                //                amapLocation.getAOIName();//获取当前定位点的AOI信息
+                String _date = df.format(date);//定位时间
+//                amapLocation.getAddress();//地址，如果option中设置isNeedAddress为false，则没有此结果，网络定位结果中会有地址信息，GPS定位不返回地址信息。
+//                amapLocation.getCountry();//国家信息
+//                amapLocation.getProvince();//省信息
+//                amapLocation.getCity();//城市信息
+//                amapLocation.getDistrict();//城区信息
+//                amapLocation.getStreet();//街道信息
+//                amapLocation.getStreetNum();//街道门牌号信息
+//                amapLocation.getCityCode();//城市编码
+//                amapLocation.getAdCode();//地区编码
+                System.out.println("format="+_date+"-----"+ amapLocation.getAddress());
+                postLocaltion(amapLocation.getAddress(),_date);
             } else {
                 //显示错误信息ErrCode是错误码，errInfo是错误信息，详见错误码表。
                 Log.e("AmapError","location Error, ErrCode:"
@@ -114,5 +114,50 @@ public class LocationService extends Service implements AMapLocationListener{
                         + amapLocation.getErrorInfo());
             }
         }
+    }
+
+    public void postLocaltion(String loca,String date) {
+        LocalUser localUser = App.getApplication().getmLocalUser();
+        Map<String, Object> mapData = new HashMap<String, Object>();
+        mapData.put("act", "dingwei");
+        mapData.put("position", loca);
+        mapData.put("mobile_id", mImei);
+        mapData.put("date", date);
+        if (localUser!=null){
+            mapData.put("user_id", localUser.getId());
+        }
+        RequestModel model = new RequestModel(mapData);
+
+        SDAsyncHttpResponseHandler sdAsync = new SDAsyncHttpResponseHandler() {
+
+            @Override
+            public void onStartInMainThread(Object result) {
+            }
+
+            @Override
+            public void onFinishInMainThread(Object result) {
+            }
+
+            @Override
+            public Object onSuccessInRequestThread(int statusCode, Header[] headers, String responseBody) {
+                return super.onSuccessInRequestThread(statusCode, headers, responseBody);
+            }
+
+            @Override
+            public void onSuccessInMainThread(int statusCode, Header[] headers, String content, Object result) {
+
+            }
+
+            @Override
+            public Object onFailureInRequestThread(Throwable e, String responseBody) {
+                return super.onFailureInRequestThread(e, responseBody);
+            }
+
+            @Override
+            public void onFailureInMainThread(Throwable e, String responseBody, Object result) {
+                super.onFailureInMainThread(e, responseBody, result);
+            }
+        };
+        InterfaceServer.getInstance().requestInterface(model, sdAsync, true);
     }
 }

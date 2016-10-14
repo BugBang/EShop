@@ -129,7 +129,8 @@ public class ResetPasswordFragment1 extends BaseFragment implements ResetPasswor
     private void setSendSmsState() {
         long endTime = System.currentTimeMillis();
         SharedPreferencesUtils.setParam(mActivity, Constant.SharedPreferencesKeyName.SMS_COUNT_DOWN, endTime);
-        CountDownTimerUtils mCountDownTimerUtils = new CountDownTimerUtils(mBtSendSmsCode, Constant.Sms.SMS_LIMIT_TIME, 1000);
+        CountDownTimerUtils mCountDownTimerUtils = new CountDownTimerUtils(mBtSendSmsCode,
+                Constant.Sms.SMS_LIMIT_TIME, 1000);
         mCountDownTimerUtils.start();
     }
 

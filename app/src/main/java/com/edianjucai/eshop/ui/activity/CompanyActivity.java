@@ -35,7 +35,7 @@ public class CompanyActivity extends BaseActivity{
 
     @Override
     protected BaseFragment getFirstFragment() {
-        mSendData = 1;
+        mSendData = 1; //1:带参数启动  2:不带参数
         return CompanyListFragment.newInstance();
     }
 }

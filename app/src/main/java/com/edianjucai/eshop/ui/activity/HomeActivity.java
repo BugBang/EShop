@@ -23,6 +23,7 @@ import butterknife.BindView;
 public class HomeActivity extends BaseActivity {
 
     public static final String NEED_LOGIN = "need_login";
+    public static final String WHICH_START = "which_start";
     private boolean mIsNeedLogin;
 
     @BindView(android.R.id.tabhost)

@@ -27,6 +27,7 @@ import com.edianjucai.eshop.presenter.usb.CompanyListPresenter;
 import com.edianjucai.eshop.ui.activity.HomeActivity;
 import com.edianjucai.eshop.ui.activity.WebViewActivity;
 import com.edianjucai.eshop.ui.view.CompanyListView;
+import com.edianjucai.eshop.util.SharedPreferencesUtils;
 import com.edianjucai.eshop.util.ToastUtils;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
@@ -64,8 +65,9 @@ public class CompanyListFragment extends BaseFragment implements CompanyListView
     private String mTypeId;
     private String mStringTitle;
 
-    public static final String TYPE_ID = "type_id";
-    public static final String TITLE = "title";
+    public static final String COMPANY_TYPE_ID = "type_id";
+    public static final String COMPANY_TITLE = "title";
+    public static final String NEED_REED_SP = "need_reed_sp";
     private List<CompanyListModel.CompanyListBannerModel> mBannerList;
 
     public static CompanyListFragment newInstance() {
@@ -89,8 +91,15 @@ public class CompanyListFragment extends BaseFragment implements CompanyListView
     }
 
     private void initParms() {
-        mTypeId = getArguments().getString(TYPE_ID);
-        mStringTitle = getArguments().getString(TITLE);
+        if (mActivity.getIntent().getBooleanExtra(NEED_REED_SP,false)){
+            mTypeId = (String) SharedPreferencesUtils.getParam(mActivity,COMPANY_TYPE_ID,"");
+            mStringTitle = (String) SharedPreferencesUtils.getParam(mActivity,COMPANY_TITLE,"");
+        }else {
+            mTypeId = getArguments().getString(COMPANY_TYPE_ID);
+            mStringTitle = getArguments().getString(COMPANY_TITLE);
+        }
+        SharedPreferencesUtils.setParam(mActivity, COMPANY_TYPE_ID,mTypeId);
+        SharedPreferencesUtils.setParam(mActivity, COMPANY_TITLE,mStringTitle);
     }
 
     private void intiEditView() {
@@ -146,6 +155,8 @@ public class CompanyListFragment extends BaseFragment implements CompanyListView
                     ToastUtils.showToast("请先登录才可以申请分期");
                     intent.setClass(mActivity, HomeActivity.class);
                     intent.putExtra(HomeActivity.NEED_LOGIN,true);
+                    // TODO: 2016-10-14 修改:传递URI 
+                    intent.putExtra(HomeActivity.WHICH_START,mActivity.getClass().getSimpleName());
                     startActivity(intent);
                     return;
                 }
@@ -153,7 +164,8 @@ public class CompanyListFragment extends BaseFragment implements CompanyListView
 
                 intent.setClass(mActivity, WebViewActivity.class);
                 intent.putExtra(WebViewActivity.EXTRA_URL, ApkConstant.SERVER_API_URL_PRE+ApkConstant.SERVER_API_URL_MID+
-                        "/wap/index.php?ctl=shop_mobile&"+"id="+companyListModelDeal.getId()+"&email2="+localUser.getUserName()+"&pwd2="+localUser.getUserPassword()+"&from2=app");
+                        "/wap/index.php?ctl=shop_mobile&"+"id="+companyListModelDeal.getId()+"&email2="+localUser.getUserName()
+                        +"&pwd2="+localUser.getUserPassword()+"&from2=app");
                 intent.putExtra(WebViewActivity.EXTRA_TITLE,companyListModelDeal.getName());
                 startActivity(intent);
             }

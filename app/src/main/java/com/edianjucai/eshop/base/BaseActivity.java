@@ -45,7 +45,7 @@ public abstract class BaseActivity extends FragmentActivity {
     public DialogUtil mDialogUtil = null;
     public Dialog mBaseDialog = null;
 
-    public int mSendData ;
+    public int mSendData ; //1:带参数启动  2:不带参数
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

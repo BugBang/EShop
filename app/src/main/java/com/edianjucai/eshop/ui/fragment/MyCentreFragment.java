@@ -26,6 +26,8 @@ import com.edianjucai.eshop.model.entity.LoginModel;
 import com.edianjucai.eshop.presenter.impl.MyCenterPersenterImpl;
 import com.edianjucai.eshop.presenter.usb.LoginPresenter;
 import com.edianjucai.eshop.ui.activity.ChangePasswordActivity;
+import com.edianjucai.eshop.ui.activity.CompanyActivity;
+import com.edianjucai.eshop.ui.activity.HomeActivity;
 import com.edianjucai.eshop.ui.activity.RegisterActivity;
 import com.edianjucai.eshop.ui.activity.ResetPasswordActivity;
 import com.edianjucai.eshop.ui.activity.WebViewActivity;
@@ -89,6 +91,8 @@ public class MyCentreFragment extends BaseFragment implements MyCenterView {
     private int mLoginSpaceHeight;
     private int mTopSpaceHeight;
 
+    private String mStartClassName;
+
     @Override
     public int bindLayout() {
         return R.layout.fragment_my_centre;
@@ -96,31 +100,32 @@ public class MyCentreFragment extends BaseFragment implements MyCenterView {
 
     @Override
     public void doBusiness(Context mContext) {
+        mStartClassName = mActivity.getIntent().getStringExtra(HomeActivity.WHICH_START);
         initData();
         initUI();
     }
 
     private void initData() {
 
-        int defult = (int) SharedPreferencesUtils.getParam(mActivity,Constant.View.MY_LOGIN_HEIGHT,-1);
-        if (defult == -1){
+        int defult = (int) SharedPreferencesUtils.getParam(mActivity, Constant.View.MY_LOGIN_HEIGHT, -1);
+        if (defult == -1) {
             mLoginSpace.post(new Runnable() {
                 @Override
                 public void run() {
                     mLoginSpaceHeight = mLoginSpace.getMeasuredHeight();
-                    SharedPreferencesUtils.setParam(mActivity, Constant.View.MY_LOGIN_HEIGHT,mLoginSpaceHeight);
+                    SharedPreferencesUtils.setParam(mActivity, Constant.View.MY_LOGIN_HEIGHT, mLoginSpaceHeight);
                 }
             });
             mTopSpace.post(new Runnable() {
                 @Override
                 public void run() {
                     mTopSpaceHeight = mTopSpace.getMeasuredHeight();
-                    SharedPreferencesUtils.setParam(mActivity, Constant.View.MY_TOP_HEIGHT,mTopSpaceHeight);
+                    SharedPreferencesUtils.setParam(mActivity, Constant.View.MY_TOP_HEIGHT, mTopSpaceHeight);
                 }
             });
-        }else {
-            mLoginSpaceHeight = (int) SharedPreferencesUtils.getParam(mActivity,Constant.View.MY_LOGIN_HEIGHT,-1);
-            mTopSpaceHeight = (int) SharedPreferencesUtils.getParam(mActivity,Constant.View.MY_TOP_HEIGHT,-1);
+        } else {
+            mLoginSpaceHeight = (int) SharedPreferencesUtils.getParam(mActivity, Constant.View.MY_LOGIN_HEIGHT, -1);
+            mTopSpaceHeight = (int) SharedPreferencesUtils.getParam(mActivity, Constant.View.MY_TOP_HEIGHT, -1);
         }
     }
 
@@ -132,7 +137,7 @@ public class MyCentreFragment extends BaseFragment implements MyCenterView {
             setTopSpaceZoomOut(0);
             setLoginSpaceGone();
         } else {
-            AnimUtil.AlphaAnimator(0.0f,0.0f,mHandleSpace,0);
+            AnimUtil.AlphaAnimator(0.0f, 0.0f, mHandleSpace, 0);
         }
         mLoginPresenter = new MyCenterPersenterImpl(this);
         mActLoginEtUsername.addTextChangedListener(new TextWatcherImpl(mActLoginBtnLogin, mLlEditClear, -1, -1));//-1 表示不改变按钮状态
@@ -168,13 +173,13 @@ public class MyCentreFragment extends BaseFragment implements MyCenterView {
                 mLocalUser = App.getApplication().getmLocalUser();
                 Intent intent = new Intent(mActivity, WebViewActivity.class);
                 intent.putExtra(WebViewActivity.EXTRA_URL,
-                        ApkConstant.SERVER_API_URL_PRE+ApkConstant.SERVER_API_URL_MID+
-                                "/wap/index.php?ctl=loan_order&email2="+mLocalUser.getUserName()+"&pwd2="+mLocalUser.getUserPassword()+"&from2=app");
-                intent.putExtra(WebViewActivity.EXTRA_TITLE,"订单管理");
+                        ApkConstant.SERVER_API_URL_PRE + ApkConstant.SERVER_API_URL_MID +
+                                "/wap/index.php?ctl=loan_order&email2=" + mLocalUser.getUserName() + "&pwd2=" + mLocalUser.getUserPassword() + "&from2=app");
+                intent.putExtra(WebViewActivity.EXTRA_TITLE, "订单管理");
                 startActivity(intent);
                 break;
             case R.id.item_modify_password:
-                UiUtils.showNormal(mActivity, ChangePasswordActivity.class,false);
+                UiUtils.showNormal(mActivity, ChangePasswordActivity.class, false);
                 break;
             case R.id.item_logout:
                 clickLogout();
@@ -204,7 +209,7 @@ public class MyCentreFragment extends BaseFragment implements MyCenterView {
         mUserName = mActLoginEtUsername.getText().toString().trim();
         mPassWord = mActLoginEtPassword.getText().toString().trim();
 
-        switch(DataUtil.checkData(mUserName,mPassWord)){
+        switch (DataUtil.checkData(mUserName, mPassWord)) {
             case 0:
                 ToastUtils.show(mActivity, "用户名不可为空");
                 return false;
@@ -227,9 +232,9 @@ public class MyCentreFragment extends BaseFragment implements MyCenterView {
      * 控制登录界面与控制界面的显示与隐藏
      */
     private void startAmin(int sHeight, int eHeight, float v, float v1) {
-        AnimUtil.ValueAnimator(sHeight,eHeight,mLoginSpace,800);
-        AnimUtil.AlphaAnimator(v,v1,mLoginSpace,800);
-        AnimUtil.AlphaAnimator(v1,v,mHandleSpace,800);
+        AnimUtil.ValueAnimator(sHeight, eHeight, mLoginSpace, 800);
+        AnimUtil.AlphaAnimator(v, v1, mLoginSpace, 800);
+        AnimUtil.AlphaAnimator(v1, v, mHandleSpace, 800);
     }
 
 
@@ -283,18 +288,24 @@ public class MyCentreFragment extends BaseFragment implements MyCenterView {
     }
 
     private void postMessage() {
-//        EventBus.getDefault().post(new EventMsg(null, EventTag.EVENT_LOGOUT_SUCCESS));
+        // TODO: 2016-10-14 修改:使用uri启动 
+        if (mStartClassName != null) {
+            Intent intent = new Intent(mActivity, CompanyActivity.class);
+            intent.putExtra(CompanyListFragment.NEED_REED_SP,true);
+            startActivity(intent);
+
+        }
     }
 
     private void setUserName(LoginModel actModel) {
-        if (actModel!=null){
+        if (actModel != null) {
             mTvUserName.setText(actModel.getUser_name());
         }
     }
 
     @Subscribe(threadMode = ThreadMode.MainThread)
     public void onMessageEventMainThread(EventMsg messageEvent) {
-        switch(messageEvent.getImsg()){
+        switch (messageEvent.getImsg()) {
             case EventTag.EVENT_REGISTER_AND_LOGIN_SUCCESS:
                 doRegisterSuccess();
                 break;
@@ -322,7 +333,7 @@ public class MyCentreFragment extends BaseFragment implements MyCenterView {
         }
         setLoginSpaceGone();
         setTopSpaceZoomOut(0);
-        AnimUtil.AlphaAnimator(1.0f,1.0f,mHandleSpace,0);
+        AnimUtil.AlphaAnimator(1.0f, 1.0f, mHandleSpace, 0);
     }
 
     private void doChangePasswordSuccess() {
@@ -338,25 +349,27 @@ public class MyCentreFragment extends BaseFragment implements MyCenterView {
         layoutParams.height = mLoginSpaceHeight;
         mLoginSpace.setLayoutParams(layoutParams);
         mLoginSpace.invalidate();
-        AnimUtil.AlphaAnimator(0.0f,1.0f,mLoginSpace,0);
-        AnimUtil.AlphaAnimator(0.0f,0.0f,mHandleSpace,0);
+        AnimUtil.AlphaAnimator(0.0f, 1.0f, mLoginSpace, 0);
+        AnimUtil.AlphaAnimator(0.0f, 0.0f, mHandleSpace, 0);
     }
 
     /**
      * 放大头部字体
+     *
      * @param duration 动画时间
      */
     private void setTopSpaceZoomIn(int duration) {
-        AnimUtil.ScaleAnimator(0.6f,1f,0.6f,1f,mTvTitle,duration);
-        AnimUtil.ValueAnimator((float)(mTopSpaceHeight*0.45),mTopSpaceHeight,mTopSpace,duration);
+        AnimUtil.ScaleAnimator(0.6f, 1f, 0.6f, 1f, mTvTitle, duration);
+        AnimUtil.ValueAnimator((float) (mTopSpaceHeight * 0.45), mTopSpaceHeight, mTopSpace, duration);
     }
 
     /**
      * 缩小头部字体
+     *
      * @param duration 动画时间
      */
     private void setTopSpaceZoomOut(int duration) {
-        AnimUtil.ScaleAnimator(1f,0.6f,1f,0.6f,mTvTitle,duration);
-        AnimUtil.ValueAnimator(mTopSpaceHeight,(float)(mTopSpaceHeight*0.45),mTopSpace,duration);
+        AnimUtil.ScaleAnimator(1f, 0.6f, 1f, 0.6f, mTvTitle, duration);
+        AnimUtil.ValueAnimator(mTopSpaceHeight, (float) (mTopSpaceHeight * 0.45), mTopSpace, duration);
     }
 }
