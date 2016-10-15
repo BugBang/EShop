@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -82,6 +83,8 @@ public class WebViewActivity extends BaseActivity {
     }
     @Override
     public int bindLayout() {
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE |
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         return R.layout.act_project_detail_webview;
     }
 
@@ -105,18 +108,14 @@ public class WebViewActivity extends BaseActivity {
             loadHtmlContent(mStrHtmlContent);
             return;
         }
-
         if (mStrArticleId != null) {
             loadArticleDetail(mStrArticleId);
             return;
-
         }
-
         if (mStrUrl != null) {
             loadUrl(mStrUrl);
             return;
         }
-
     }
 
     private void initIntentData() {

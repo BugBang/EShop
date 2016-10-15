@@ -108,6 +108,11 @@
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="com.edianjucai.eshop.ui.activity.CompanyActivity"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
         </activity>
 
         <service

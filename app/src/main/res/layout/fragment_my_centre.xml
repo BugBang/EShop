@@ -251,6 +251,7 @@
 
 
             <LinearLayout
+                android:layout_marginTop="40dp"
                 android:id="@+id/item_order_handle"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"

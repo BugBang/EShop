@@ -2,8 +2,6 @@ package com.edianjucai.eshop.constant;
 
 public class Constant{
 
-
-
 	public static final class RequestDataType {
 		public static final int BASE64 = 0;
 		public static final int REQUEST = 1;
@@ -11,6 +9,9 @@ public class Constant{
 
 	public static final class SharedTabNameId {
 		public static final String idForName = "sharedtabnameid";
+	}
+    public static final class UI {
+		public static final String NEED_REED_SP = "need_reed_sp";
 	}
 
     public static final class SharedPreferencesKeyName {

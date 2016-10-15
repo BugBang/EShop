@@ -11,64 +11,50 @@ public class LocalUserModelDao
 
 	private static LocalUserModelDao mDao = null;
 
-	private LocalUserModelDao()
-	{
+	private LocalUserModelDao() {
+
 	}
 
-	public static synchronized LocalUserModelDao getInstance()
-	{
-		if (mDao == null)
-		{
+	public static synchronized LocalUserModelDao getInstance() {
+		if (mDao == null) {
 			mDao = new LocalUserModelDao();
 		}
 		return mDao;
 	}
 
-	public boolean saveModel(LocalUser model)
-	{
-		if (model != null)
-		{
+	public boolean saveModel(LocalUser model) {
+		if (model != null) {
             LocalUser cloneModel = model.deepClone();
-			if (cloneModel != null)
-			{
+			if (cloneModel != null) {
 				DbManager.getFinalDb().deleteAll(LocalUser.class);
 				cloneModel.encryptModel();
 				DbManager.getFinalDb().save(cloneModel);
 				return true;
-			} else
-			{
+			} else {
 				return false;
 			}
-		} else
-		{
+		} else {
 			return false;
 		}
 	}
 
-	public LocalUser getModel()
-	{
-		List<LocalUser> listModel = DbManager.getFinalDb().findAll(LocalUser.class);
-		if (listModel != null && listModel.size() == 1)
-		{
+	public LocalUser getModel() {
+        List<LocalUser> listModel = DbManager.getFinalDb().findAll(LocalUser.class);
+		if (listModel != null && listModel.size() == 1) {
             LocalUser model = listModel.get(0);
 			model.decryptModel();
 			return model;
-		} else
-		{
+		} else {
 			return null;
 		}
 	}
 
-	public boolean deleteAllModel()
-	{
-		try
-		{
+	public boolean deleteAllModel() {
+		try {
 			DbManager.getFinalDb().deleteAll(LocalUser.class);
 			return true;
-		} catch (Exception e)
-		{
+		} catch (Exception e) {
 			return false;
 		}
 	}
-
 }

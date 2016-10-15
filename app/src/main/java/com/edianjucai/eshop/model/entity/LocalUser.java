@@ -48,70 +48,56 @@ public class LocalUser implements Serializable {
         this.mobile = mobile;
     }
 
-    public int get_id()
-    {
+    public int get_id() {
         return _id;
     }
 
-    public void set_id(int _id)
-    {
+    public void set_id(int _id) {
         this._id = _id;
     }
 
-    public String getId()
-    {
+    public String getId() {
         return id;
     }
 
-    public void setId(String id)
-    {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public String getUserName()
-    {
+    public String getUserName() {
         return userName;
     }
 
-    public void setUserName(String userName)
-    {
+    public void setUserName(String userName) {
         this.userName = userName;
     }
 
-    public String getUserPassword()
-    {
+    public String getUserPassword() {
         return userPassword;
     }
 
-    public void setUserPassword(String userPassword)
-    {
+    public void setUserPassword(String userPassword) {
         this.userPassword = userPassword;
     }
 
-    public String getUserMoney()
-    {
+    public String getUserMoney() {
         return userMoney;
     }
 
-    public void setUserMoney(String userMoney)
-    {
+    public void setUserMoney(String userMoney) {
         this.userMoney = userMoney;
     }
 
-    public String getUserMoneyFormat()
-    {
+    public String getUserMoneyFormat() {
         return userMoneyFormat;
     }
 
-    public void setUserMoneyFormat(String userMoneyFormat)
-    {
+    public void setUserMoneyFormat(String userMoneyFormat) {
         this.userMoneyFormat = userMoneyFormat;
     }
 
-    public LocalUser deepClone()
-    {
-        try
-        {
+    public LocalUser deepClone() {
+        try {
             // 将对象写到流里
             ByteArrayOutputStream bo = new ByteArrayOutputStream();
             ObjectOutputStream oo = new ObjectOutputStream(bo);
@@ -120,58 +106,45 @@ public class LocalUser implements Serializable {
             ByteArrayInputStream bi = new ByteArrayInputStream(bo.toByteArray());
             ObjectInputStream oi = new ObjectInputStream(bi);
             return (LocalUser) (oi.readObject());
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    public void encryptModel()
-    {
-        if (this.id != null)
-        {
+    public void encryptModel() {
+        if (this.id != null) {
             this.id = AESUtil.encrypt(this.id);
         }
-        if (this.userMoney != null)
-        {
+        if (this.userMoney != null) {
             this.userMoney = AESUtil.encrypt(this.userMoney);
         }
-        if (this.userMoneyFormat != null)
-        {
+        if (this.userMoneyFormat != null) {
             this.userMoneyFormat = AESUtil.encrypt(this.userMoneyFormat);
         }
-        if (this.userName != null)
-        {
+        if (this.userName != null) {
             this.userName = AESUtil.encrypt(this.userName);
         }
-        if (this.userPassword != null)
-        {
+        if (this.userPassword != null) {
             this.userPassword = AESUtil.encrypt(this.userPassword);
         }
 
     }
 
-    public void decryptModel()
-    {
-        if (this.id != null)
-        {
+    public void decryptModel() {
+        if (this.id != null) {
             this.id = AESUtil.decrypt(this.id);
         }
-        if (this.userMoney != null)
-        {
+        if (this.userMoney != null) {
             this.userMoney = AESUtil.decrypt(this.userMoney);
         }
-        if (this.userMoneyFormat != null)
-        {
+        if (this.userMoneyFormat != null) {
             this.userMoneyFormat = AESUtil.decrypt(this.userMoneyFormat);
         }
-        if (this.userName != null)
-        {
+        if (this.userName != null) {
             this.userName = AESUtil.decrypt(this.userName);
         }
-        if (this.userPassword != null)
-        {
+        if (this.userPassword != null) {
             this.userPassword = AESUtil.decrypt(this.userPassword);
         }
 

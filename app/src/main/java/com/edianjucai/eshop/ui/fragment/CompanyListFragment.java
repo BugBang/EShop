@@ -20,6 +20,7 @@ import com.edianjucai.eshop.adapter.CompanyListAdapter;
 import com.edianjucai.eshop.app.App;
 import com.edianjucai.eshop.base.BaseFragment;
 import com.edianjucai.eshop.constant.ApkConstant;
+import com.edianjucai.eshop.constant.Constant;
 import com.edianjucai.eshop.model.entity.CompanyListModel;
 import com.edianjucai.eshop.model.entity.LocalUser;
 import com.edianjucai.eshop.presenter.impl.CompanyListPresenterImpl;
@@ -67,7 +68,6 @@ public class CompanyListFragment extends BaseFragment implements CompanyListView
 
     public static final String COMPANY_TYPE_ID = "type_id";
     public static final String COMPANY_TITLE = "title";
-    public static final String NEED_REED_SP = "need_reed_sp";
     private List<CompanyListModel.CompanyListBannerModel> mBannerList;
 
     public static CompanyListFragment newInstance() {
@@ -91,7 +91,8 @@ public class CompanyListFragment extends BaseFragment implements CompanyListView
     }
 
     private void initParms() {
-        if (mActivity.getIntent().getBooleanExtra(NEED_REED_SP,false)){
+        $Log("need_sp="+mActivity.getIntent().getBooleanExtra(Constant.UI.NEED_REED_SP,false));
+        if (mActivity.getIntent().getBooleanExtra(Constant.UI.NEED_REED_SP,false)){
             mTypeId = (String) SharedPreferencesUtils.getParam(mActivity,COMPANY_TYPE_ID,"");
             mStringTitle = (String) SharedPreferencesUtils.getParam(mActivity,COMPANY_TITLE,"");
         }else {
@@ -155,8 +156,7 @@ public class CompanyListFragment extends BaseFragment implements CompanyListView
                     ToastUtils.showToast("请先登录才可以申请分期");
                     intent.setClass(mActivity, HomeActivity.class);
                     intent.putExtra(HomeActivity.NEED_LOGIN,true);
-                    // TODO: 2016-10-14 修改:传递URI 
-                    intent.putExtra(HomeActivity.WHICH_START,mActivity.getClass().getSimpleName());
+                    intent.putExtra(HomeActivity.WHICH_START,mActivity.getClass().getName());
                     startActivity(intent);
                     return;
                 }

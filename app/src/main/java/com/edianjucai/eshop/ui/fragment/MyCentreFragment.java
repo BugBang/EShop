@@ -26,7 +26,6 @@ import com.edianjucai.eshop.model.entity.LoginModel;
 import com.edianjucai.eshop.presenter.impl.MyCenterPersenterImpl;
 import com.edianjucai.eshop.presenter.usb.LoginPresenter;
 import com.edianjucai.eshop.ui.activity.ChangePasswordActivity;
-import com.edianjucai.eshop.ui.activity.CompanyActivity;
 import com.edianjucai.eshop.ui.activity.HomeActivity;
 import com.edianjucai.eshop.ui.activity.RegisterActivity;
 import com.edianjucai.eshop.ui.activity.ResetPasswordActivity;
@@ -91,7 +90,7 @@ public class MyCentreFragment extends BaseFragment implements MyCenterView {
     private int mLoginSpaceHeight;
     private int mTopSpaceHeight;
 
-    private String mStartClassName;
+    private String mStartClassUri;
 
     @Override
     public int bindLayout() {
@@ -100,7 +99,7 @@ public class MyCentreFragment extends BaseFragment implements MyCenterView {
 
     @Override
     public void doBusiness(Context mContext) {
-        mStartClassName = mActivity.getIntent().getStringExtra(HomeActivity.WHICH_START);
+        mStartClassUri = mActivity.getIntent().getStringExtra(HomeActivity.WHICH_START);
         initData();
         initUI();
     }
@@ -288,12 +287,12 @@ public class MyCentreFragment extends BaseFragment implements MyCenterView {
     }
 
     private void postMessage() {
-        // TODO: 2016-10-14 修改:使用uri启动 
-        if (mStartClassName != null) {
-            Intent intent = new Intent(mActivity, CompanyActivity.class);
-            intent.putExtra(CompanyListFragment.NEED_REED_SP,true);
+        if (mStartClassUri != null) {
+            Intent intent = new Intent();
+            intent.setAction(mStartClassUri);
+            intent.putExtra(Constant.UI.NEED_REED_SP,true);
             startActivity(intent);
-
+            mStartClassUri = null;
         }
     }
 
