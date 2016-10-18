@@ -122,7 +122,6 @@ public class MoreSettingFragment extends BaseFragment implements FeedBackView{
 
     private void clearCache() {
         ClearCacheUtil.clearAllCache(mActivity);
-        Glide.get(mActivity).clearMemory();
         new Thread(new Runnable() {
             @Override
             public void run() {

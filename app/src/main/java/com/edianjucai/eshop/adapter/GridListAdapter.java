@@ -29,16 +29,37 @@ public class GridListAdapter extends BXBaseAdapter<InitModel.CateListModel> {
     }
 
     @Override
+    public int getCount() {
+        if (mListModel != null) {
+            return mListModel.size();
+        } else {
+            return 0;
+        }
+    }
+
+    @Override
     public View getItemView(int position, View convertView, ViewGroup parent, InitModel.CateListModel model) {
         if (convertView == null) {
             convertView = mInflater.inflate(R.layout.item_grid_project_list, null);
         }
         ImageView ivIcon = ViewHolder.get(convertView, R.id.iv_icon);
         TextView tvTitle = ViewHolder.get(convertView, R.id.tv_title);
-
         if (model != null) {
-            Glide.with(mActivity).load("http://" + ApkConstant.SERVER_API_URL_MID +model.getIco()).into(ivIcon);
+            Glide.with(mActivity).load("http://" + ApkConstant.SERVER_API_URL_MID +
+                    "/wap/tpl/fanwe/images/commodity_type/type"+ model.getId()+".png").into(ivIcon);
             tvTitle.setText(model.getName());
+        }
+        if (position == mListModel.size()-1){
+            // TODO: 2016-10-18 修改高度 
+            TextView tvSubTitle = ViewHolder.get(convertView, R.id.tv_sub_title);
+//            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT);
+//            params.setMargins(0,50,0,0);
+//            tvTitle.setLayoutParams(params);
+//            tvTitle.setPadding(0,100,0,0);
+//            ivIcon.setPadding(0,0,0,50);
+            Glide.with(mActivity).load("http://" + ApkConstant.SERVER_API_URL_MID +
+                    "/wap/tpl/fanwe/images/commodity_type/type0.png").into(ivIcon);
+            tvSubTitle.setVisibility(View.INVISIBLE);
         }
         return convertView;
     }

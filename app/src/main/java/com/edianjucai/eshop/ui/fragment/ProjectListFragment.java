@@ -54,6 +54,7 @@ public class ProjectListFragment extends BaseFragment implements AdapterView.OnI
     private ProjectListPresenter mProjectListPresenter;
     private GridListAdapter mGridListAdapter;
     private InitModel mInitModel;
+    private InitModel.CateListModel mCateListModel;
 
 
     @Override
@@ -73,6 +74,8 @@ public class ProjectListFragment extends BaseFragment implements AdapterView.OnI
         mPosterAdapter = new PosterAdapter(mContext);
         mGvProjectList.setAdapter(mGridListAdapter);
         mTopAdView.setAdapter(mPosterAdapter);
+
+
     }
 
     private void initData() {
@@ -80,7 +83,14 @@ public class ProjectListFragment extends BaseFragment implements AdapterView.OnI
         if (mInitModel!=null){
             mAdvs = mInitModel.getAdvs();
             mCate_list = mInitModel.getCate_list();
+            addLastData(mCate_list);
         }
+    }
+
+    private void addLastData(List<InitModel.CateListModel> cate_list) {
+        mCateListModel = new InitModel.CateListModel();
+        mCateListModel.setName("敬请期待");
+        cate_list.add(mCateListModel);
     }
 
     private void initListener() {
@@ -98,6 +108,9 @@ public class ProjectListFragment extends BaseFragment implements AdapterView.OnI
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        if (position== mCate_list.size()-1){
+            return;
+        }
         Intent intent = new Intent(mActivity, CompanyActivity.class);
         intent.putExtra(CompanyListFragment.COMPANY_TYPE_ID,mInitModel.getCate_list().get(position).getId());
         intent.putExtra(CompanyListFragment.COMPANY_TITLE,mInitModel.getCate_list().get(position).getName());
@@ -107,7 +120,9 @@ public class ProjectListFragment extends BaseFragment implements AdapterView.OnI
 
     @Override
     public void setProjectListData(InitModel projectListModel) {
-        mGridListAdapter.setData(projectListModel.getCate_list());
+        mCate_list = projectListModel.getCate_list();
+        addLastData(mCate_list);
+        mGridListAdapter.setData(mCate_list);
         mGridListAdapter.notifyDataSetChanged();
     }
 
@@ -163,7 +178,8 @@ public class ProjectListFragment extends BaseFragment implements AdapterView.OnI
                     }
                     Intent intent = new Intent(mActivity, WebViewActivity.class);
                     intent.putExtra(WebViewActivity.EXTRA_TITLE,mAdvs.get(position).getTitle());
-                    intent.putExtra(WebViewActivity.EXTRA_URL,mAdvs.get(position).getUrl()+"&email2="+localUser.getUserName()+"&pwd2="+localUser.getUserPassword()+"&from2=app");
+                    intent.putExtra(WebViewActivity.EXTRA_URL,mAdvs.get(position).getUrl()+
+                            "&email2="+localUser.getUserName()+"&pwd2="+localUser.getUserPassword()+"&from2=app");
                     startActivity(intent);
                 }
             });

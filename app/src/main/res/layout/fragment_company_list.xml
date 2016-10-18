@@ -18,11 +18,10 @@
             android:layout_marginRight="8dp"
             android:layout_alignParentRight="true"
             android:id="@+id/iv_search"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:background="@mipmap/search_icon"
             />
-
     </RelativeLayout>
 
     <LinearLayout
@@ -43,7 +42,6 @@
             android:background="@drawable/bg_search_edit"
             android:textSize="15sp"
             />
-
     </LinearLayout>
 
 
@@ -73,6 +71,7 @@
                 android:background="#ffffff"
                 android:layout_marginTop="5dp"
                 android:id="@+id/list_company"
+                android:transcriptMode="normal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:divider="#efeff4"

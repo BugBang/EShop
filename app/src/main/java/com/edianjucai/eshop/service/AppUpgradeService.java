@@ -1,5 +1,6 @@
 package com.edianjucai.eshop.service;
 
+import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.app.Notification;
@@ -178,7 +179,7 @@ public class AppUpgradeService extends Service {
 
 	private void showDialogUpgrade(final InitActUpgradeModel model) {
 		final int forcedUpgrade = TypeParseUtil.getIntFromString(model.getForced_upgrade(), 0);
-		Builder builder = new Builder(getApplicationContext());
+		Builder builder = new Builder(getApplicationContext(), AlertDialog.THEME_HOLO_LIGHT);
 		builder.setTitle("更新内容");
 		builder.setMessage(model.getAndroid_upgrade());
 		builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -219,7 +220,7 @@ public class AppUpgradeService extends Service {
 		mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 		mNotification = new Notification();
         // TODO: 2016-09-26 添加图标和XML文件图标
-        mNotification.icon = R.mipmap.edian;
+        mNotification.icon = R.mipmap.icon;
 		mNotification.tickerText = mFileName + "正在下载中";
 		mNotification.contentView = new RemoteViews(getApplication().getPackageName(), R.layout.service_download_view);
 

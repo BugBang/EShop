@@ -130,9 +130,9 @@ public class WebViewActivity extends BaseActivity {
         settings.setJavaScriptEnabled(true);
         settings.setSupportZoom(true);
         settings.setBuiltInZoomControls(true);
-        //        settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
-        // settings.setUseWideViewPort(true);
-        //         settings.setLoadWithOverviewMode(true);
+                settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
+         settings.setUseWideViewPort(true);
+                 settings.setLoadWithOverviewMode(true);
         mActProjectDetailWebviewWeb.setWebViewClient(new ProjectDetailWebviewActivity_WebViewClient());
         mActProjectDetailWebviewWeb.setWebChromeClient(new ProjectDetailWebviewActivity_WebChromeClient());
     }
@@ -259,7 +259,11 @@ public class WebViewActivity extends BaseActivity {
 
     @Override
     protected void onDestroy() {
+         App.getApplication().getmRuntimeConfig().setProjectDetailWebviewActivity(null);
+        if(mActProjectDetailWebviewWeb != null) {
+            mActProjectDetailWebviewWeb.destroy();
+            mActProjectDetailWebviewWeb = null;
+        }
         super.onDestroy();
-        // App.getApplication().getmRuntimeConfig().setProjectDetailWebviewActivity(null);
     }
 }

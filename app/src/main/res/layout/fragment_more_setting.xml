@@ -202,7 +202,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:text="更新版本"
+            android:text="当前版本"
             android:textColor="#697d91"
             android:textSize="15sp"
             />
@@ -264,7 +264,7 @@
             android:layout_marginRight="15dp"
             android:textColor="#697d91"
             android:textSize="15sp"
-            android:text="5.00MB"
+            android:text="0.00MB"
             />
 
     </LinearLayout>

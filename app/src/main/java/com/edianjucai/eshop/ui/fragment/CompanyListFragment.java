@@ -91,7 +91,6 @@ public class CompanyListFragment extends BaseFragment implements CompanyListView
     }
 
     private void initParms() {
-        $Log("need_sp="+mActivity.getIntent().getBooleanExtra(Constant.UI.NEED_REED_SP,false));
         if (mActivity.getIntent().getBooleanExtra(Constant.UI.NEED_REED_SP,false)){
             mTypeId = (String) SharedPreferencesUtils.getParam(mActivity,COMPANY_TYPE_ID,"");
             mStringTitle = (String) SharedPreferencesUtils.getParam(mActivity,COMPANY_TITLE,"");
