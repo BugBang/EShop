@@ -31,7 +31,8 @@ public class SquareLayout extends LinearLayout {
         int childWidthSize = getMeasuredWidth();
         int childHeightSize = getMeasuredHeight();
         //高度和宽度一样
-        heightMeasureSpec = widthMeasureSpec = MeasureSpec.makeMeasureSpec(childWidthSize, MeasureSpec.EXACTLY);
+        widthMeasureSpec = MeasureSpec.makeMeasureSpec(childWidthSize, MeasureSpec.EXACTLY);
+        heightMeasureSpec = widthMeasureSpec;
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 }

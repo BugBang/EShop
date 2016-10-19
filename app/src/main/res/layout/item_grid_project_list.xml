@@ -8,6 +8,7 @@
               android:layout_height="match_parent"
     >
     <LinearLayout
+        android:background="#ffffff"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="horizontal"
@@ -21,6 +22,7 @@
             android:layout_height="28dp"
             />
         <LinearLayout
+            android:background="#ffffff"
             android:layout_marginLeft="18dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -46,7 +48,6 @@
                 android:textColor="#999999"
                 android:textSize="12sp"
                 />
-
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

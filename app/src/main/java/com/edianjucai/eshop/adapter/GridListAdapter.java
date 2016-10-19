@@ -52,14 +52,10 @@ public class GridListAdapter extends BXBaseAdapter<InitModel.CateListModel> {
         if (position == mListModel.size()-1){
             // TODO: 2016-10-18 修改高度 
             TextView tvSubTitle = ViewHolder.get(convertView, R.id.tv_sub_title);
-//            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT);
-//            params.setMargins(0,50,0,0);
-//            tvTitle.setLayoutParams(params);
-//            tvTitle.setPadding(0,100,0,0);
-//            ivIcon.setPadding(0,0,0,50);
             Glide.with(mActivity).load("http://" + ApkConstant.SERVER_API_URL_MID +
                     "/wap/tpl/fanwe/images/commodity_type/type0.png").into(ivIcon);
-            tvSubTitle.setVisibility(View.INVISIBLE);
+            tvTitle.setText("更多项目");
+            tvSubTitle.setText("敬请期待");
         }
         return convertView;
     }
