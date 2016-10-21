@@ -204,7 +204,6 @@ public class MyCentreFragment extends BaseFragment implements MyCenterView {
         }
     }
 
-
     private boolean checkLoginData() {
         mUserName = mActLoginEtUsername.getText().toString().trim();
         mPassWord = mActLoginEtPassword.getText().toString().trim();
@@ -236,7 +235,6 @@ public class MyCentreFragment extends BaseFragment implements MyCenterView {
         AnimUtil.AlphaAnimator(v, v1, mLoginSpace, 800);
         AnimUtil.AlphaAnimator(v1, v, mHandleSpace, 800);
     }
-
 
     private void clearEditText() {
         mActLoginEtUsername.setText("");

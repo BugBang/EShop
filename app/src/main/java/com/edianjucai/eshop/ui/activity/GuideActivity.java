@@ -62,7 +62,7 @@ public class GuideActivity extends BaseActivity {
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         flaggingWidth = dm.widthPixels / 3;
         imageResId = new int[]
-                {R.mipmap.image1, R.mipmap.image2, R.mipmap.image3, R.mipmap.image4, R.mipmap.image5};
+                {R.mipmap.guide, R.mipmap.guide_2, R.mipmap.image3, R.mipmap.image4, R.mipmap.image5};
         mImageViews = new ArrayList<View>();
         // 初始化图片资源
         LayoutInflater viewInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -71,30 +71,31 @@ public class GuideActivity extends BaseActivity {
         LinearLayout linearLayout0 = (LinearLayout) convertView0.findViewById(R.id.guide_item);
         linearLayout0.setBackgroundDrawable(new BitmapDrawable(readBitMap(this, imageResId[0])));
         mImageViews.add(linearLayout0);
+        initBt(convertView0);
         // 1
         View convertView1 = viewInflater.inflate(R.layout.guide_item, null);
         LinearLayout linearLayout1 = (LinearLayout) convertView1.findViewById(R.id.guide_item);
-        //		linearLayout1.setBackgroundResource(imageResId[1]);
         linearLayout1.setBackgroundDrawable(new BitmapDrawable(readBitMap(this, imageResId[1])));
         mImageViews.add(linearLayout1);
+        initBt(convertView1);
         // 2
         View convertView2 = viewInflater.inflate(R.layout.guide_item, null);
         LinearLayout linearLayout2 = (LinearLayout) convertView2.findViewById(R.id.guide_item);
-        //		linearLayout2.setBackgroundResource(imageResId[2]);
         linearLayout2.setBackgroundDrawable(new BitmapDrawable(readBitMap(this, imageResId[2])));
         mImageViews.add(linearLayout2);
+        initBt(convertView2);
         // 3
         View convertView3 = viewInflater.inflate(R.layout.guide_item, null);
         LinearLayout linearLayout3 = (LinearLayout) convertView3.findViewById(R.id.guide_item);
-        //		linearLayout3.setBackgroundResource(imageResId[3]);
         linearLayout3.setBackgroundDrawable(new BitmapDrawable(readBitMap(this, imageResId[3])));
         mImageViews.add(linearLayout3);
+        initBt(convertView3);
         // 4
         View convertView4 = viewInflater.inflate(R.layout.guide_item, null);
         LinearLayout linearLayout4 = (LinearLayout) convertView4.findViewById(R.id.guide_item);
-        //        linearLayout4.setBackgroundResource(imageResId[4]);
         linearLayout4.setBackgroundDrawable(new BitmapDrawable(readBitMap(this, imageResId[4])));
         mImageViews.add(linearLayout4);
+        initBt(convertView4);
         // button监听
         Button btn = (Button) convertView4.findViewById(R.id.start);
         btn.setVisibility(View.VISIBLE);
@@ -102,7 +103,6 @@ public class GuideActivity extends BaseActivity {
         btn.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-
                 GoToMainActivity();
             }
         });
@@ -110,6 +110,17 @@ public class GuideActivity extends BaseActivity {
         mGuideView.setAdapter(new MyAdapter());// 设置填充ViewPager页面的适配器
         // 设置一个监听器，当ViewPager中的页面改变时调用
         mGuideView.setOnPageChangeListener(new MyPageChangeListener());
+    }
+
+    private void initBt(View view) {
+        Button btn = (Button) view.findViewById(R.id.bt_pass);
+        btn.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                GoToMainActivity();
+            }
+        });
+
     }
 
     private Bitmap readBitMap(Context context, int resId) {
