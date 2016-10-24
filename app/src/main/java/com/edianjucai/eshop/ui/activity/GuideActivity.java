@@ -41,6 +41,8 @@ public class GuideActivity extends BaseActivity {
 
     private int currentItem = 0; // 当前图片的索引号
     private int flaggingWidth;// 互动翻页所需滚动的长度是当前屏幕宽度的1/3
+    private Button mBtnPass;
+
     @Override
     public void initParms(Bundle parms) {
 
@@ -62,7 +64,7 @@ public class GuideActivity extends BaseActivity {
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         flaggingWidth = dm.widthPixels / 3;
         imageResId = new int[]
-                {R.mipmap.guide, R.mipmap.guide_2, R.mipmap.image3, R.mipmap.image4, R.mipmap.image5};
+                {R.mipmap.guide_11, R.mipmap.guide_12, R.mipmap.guide_13, R.mipmap.guide_14, R.mipmap.guide_15};
         mImageViews = new ArrayList<View>();
         // 初始化图片资源
         LayoutInflater viewInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -101,7 +103,6 @@ public class GuideActivity extends BaseActivity {
         btn.setVisibility(View.VISIBLE);
 
         btn.setOnClickListener(new View.OnClickListener() {
-
             public void onClick(View v) {
                 GoToMainActivity();
             }
@@ -113,8 +114,8 @@ public class GuideActivity extends BaseActivity {
     }
 
     private void initBt(View view) {
-        Button btn = (Button) view.findViewById(R.id.bt_pass);
-        btn.setOnClickListener(new View.OnClickListener() {
+        mBtnPass = (Button) view.findViewById(R.id.bt_pass);
+        mBtnPass.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
                 GoToMainActivity();
@@ -214,7 +215,8 @@ public class GuideActivity extends BaseActivity {
     	private class GuideViewTouch extends GestureDetector.SimpleOnGestureListener {
     		@Override
     		public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-    			if (currentItem == 4) {
+    			if (currentItem == 3) {
+                    mBtnPass.setVisibility(View.INVISIBLE);
     				if (Math.abs(e1.getX() - e2.getX()) > Math.abs(e1.getY() - e2.getY()) && (e1.getX() - e2.getX() <= (-flaggingWidth) || e1.getX() - e2.getX() >= flaggingWidth)) {
     					if (e1.getX() - e2.getX() >= flaggingWidth) {
     						GoToMainActivity();

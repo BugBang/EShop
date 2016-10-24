@@ -9,8 +9,10 @@
         android:id="@+id/bt_pass"
         android:layout_gravity="right"
         android:layout_width="wrap_content"
+        android:background="@color/transparent"
         android:layout_height="wrap_content"
         android:text="跳过"
+        android:textColor="#4EACFE"
         />
 
     <TextView
