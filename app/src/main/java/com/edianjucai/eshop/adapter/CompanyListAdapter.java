@@ -52,7 +52,9 @@ public class CompanyListAdapter extends BXBaseAdapter<CompanyListModel.CompanyLi
         TextView tvSubTitle = ViewHolder.get(convertView, R.id.tv_sub_title);
 
         if (model != null) {
-            Glide.with(mActivity).load("http://" + ApkConstant.SERVER_API_URL_MID +model.getIco()).into(ivIcon);
+            Glide.with(mActivity)
+                    .load("http://" + ApkConstant.SERVER_API_URL_MID +model.getIco())
+                    .into(ivIcon);
             tvTitle.setText(model.getName());
             tvSubTitle.setText(model.getAddress());
         }

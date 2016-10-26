@@ -198,11 +198,8 @@ public class CompanyListFragment extends BaseFragment implements CompanyListView
                 if (mBannerList.get(i).getId().equals(mTypeId)){
                     Glide.with(mActivity).load
                             ("http://" + ApkConstant.SERVER_API_URL_MID +mBannerList.get(i).getBanner())
-//                            (R.mipmap.gif).asGif()
-//                            .placeholder(R.mipmap.gif)
-//                            .crossFade()
-//                            .error()
                             .thumbnail(Glide.with(this).load(R.mipmap.gif))
+//                            .error()
                             .fitCenter()
                             .crossFade()
                             .diskCacheStrategy(DiskCacheStrategy.SOURCE)
@@ -210,7 +207,6 @@ public class CompanyListFragment extends BaseFragment implements CompanyListView
                 }
             }
         }
-
         mPullRefresh.onRefreshComplete();
     }
 
