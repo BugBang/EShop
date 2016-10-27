@@ -198,8 +198,9 @@ public class CompanyListFragment extends BaseFragment implements CompanyListView
                 if (mBannerList.get(i).getId().equals(mTypeId)){
                     Glide.with(mActivity).load
                             ("http://" + ApkConstant.SERVER_API_URL_MID +mBannerList.get(i).getBanner())
-                            .thumbnail(Glide.with(this).load(R.mipmap.gif))
-//                            .error()
+                            .placeholder(R.mipmap.placeholder_img)
+//                          .thumbnail(Glide.with(this).load(R.mipmap.gif))
+                            .error(R.mipmap.load_error_img)
                             .fitCenter()
                             .crossFade()
                             .diskCacheStrategy(DiskCacheStrategy.SOURCE)

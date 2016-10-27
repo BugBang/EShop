@@ -356,8 +356,16 @@ public class MyCentreFragment extends BaseFragment implements MyCenterView {
      *
      * @param duration 动画时间
      */
-    private void setTopSpaceZoomIn(int duration) {
-        AnimUtil.ScaleAnimator(0.8f, 1f, 0.8f, 1f, mTvTitle, duration);
+    private void setTopSpaceZoomIn(final int duration) {
+        AnimUtil.AlphaAnimator(1,0,mTvTitle,duration/2);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mTvTitle.setText("壹点商城");
+                AnimUtil.AlphaAnimator(0,1,mTvTitle,duration/2);
+            }
+        },duration/2);
+        AnimUtil.ScaleAnimator(0.6f, 1f, 0.6f, 1f, mTvTitle, duration);
         AnimUtil.ValueAnimator((float) (mTopSpaceHeight * 0.45), mTopSpaceHeight, mTopSpace, duration);
     }
 
@@ -366,8 +374,16 @@ public class MyCentreFragment extends BaseFragment implements MyCenterView {
      *
      * @param duration 动画时间
      */
-    private void setTopSpaceZoomOut(int duration) {
-        AnimUtil.ScaleAnimator(1f, 0.8f, 1f, 0.8f, mTvTitle, duration);
+    private void setTopSpaceZoomOut(final int duration) {
+        AnimUtil.AlphaAnimator(1,0,mTvTitle,duration/2);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mTvTitle.setText("我的账户");
+                AnimUtil.AlphaAnimator(0,1,mTvTitle,duration/2);
+            }
+        },duration/2);
+        AnimUtil.ScaleAnimator(1f, 0.6f, 1f, 0.6f, mTvTitle, duration);
         AnimUtil.ValueAnimator(mTopSpaceHeight, (float) (mTopSpaceHeight * 0.45), mTopSpace, duration);
     }
 }

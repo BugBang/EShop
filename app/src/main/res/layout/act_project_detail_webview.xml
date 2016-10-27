@@ -12,13 +12,13 @@
         android:layout_height="wrap_content">
         <LinearLayout
             android:id="@+id/iv_back"
-            android:paddingTop="12dp"
-            android:paddingRight="12dp"
-            android:paddingBottom="12dp"
+            android:paddingTop="@dimen/view_12"
+            android:paddingRight="@dimen/view_12"
+            android:paddingBottom="@dimen/view_12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <ImageView
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="@dimen/view_10"
                 android:layout_width="12dp"
                 android:layout_height="20dp"
                 android:background="@mipmap/arrow_left"
@@ -27,16 +27,16 @@
 
         <TextView
             android:id="@+id/tv_title"
-            android:paddingTop="12dp"
-            android:paddingRight="12dp"
-            android:paddingBottom="12dp"
+            android:paddingTop="@dimen/view_12"
+            android:paddingRight="@dimen/view_12"
+            android:paddingBottom="@dimen/view_12"
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#4f4f4f"
             android:text="标题"
-            android:textSize="16sp"
-            android:layout_marginRight="22dp"
+            android:textSize="@dimen/text_title"
+            android:layout_marginRight="@dimen/view_22"
             />
 
     </LinearLayout>
@@ -44,7 +44,7 @@
         style="@android:style/Widget.ProgressBar.Horizontal"
         android:id="@+id/act_project_detail_webview_pgb_progress"
         android:layout_width="fill_parent"
-        android:layout_height="5dp" />
+        android:layout_height="@dimen/view_5" />
     <WebView
         android:id="@+id/act_project_detail_webview_web"
         android:layout_width="fill_parent"
