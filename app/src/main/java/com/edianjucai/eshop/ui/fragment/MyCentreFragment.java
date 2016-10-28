@@ -3,6 +3,7 @@ package com.edianjucai.eshop.ui.fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Handler;
 import android.text.InputType;
 import android.view.View;
@@ -32,6 +33,7 @@ import com.edianjucai.eshop.ui.activity.ResetPasswordActivity;
 import com.edianjucai.eshop.ui.activity.WebViewActivity;
 import com.edianjucai.eshop.ui.view.MyCenterView;
 import com.edianjucai.eshop.util.AnimUtil;
+import com.edianjucai.eshop.util.ColorUtil;
 import com.edianjucai.eshop.util.DataUtil;
 import com.edianjucai.eshop.util.DialogUtil;
 import com.edianjucai.eshop.util.SharedPreferencesUtils;
@@ -174,7 +176,8 @@ public class MyCentreFragment extends BaseFragment implements MyCenterView {
                 Intent intent = new Intent(mActivity, WebViewActivity.class);
                 intent.putExtra(WebViewActivity.EXTRA_URL,
                         ApkConstant.SERVER_API_URL_PRE + ApkConstant.SERVER_API_URL_MID +
-                                "/wap/index.php?ctl=loan_order&email2=" + mLocalUser.getUserName() + "&pwd2=" + mLocalUser.getUserPassword() + "&from2=app");
+                                "/wap/index.php?ctl=loan_order&email2=" + mLocalUser.getUserName() +
+                                "&pwd2=" + mLocalUser.getUserPassword() + "&from2=app");
                 intent.putExtra(WebViewActivity.EXTRA_TITLE, "订单管理");
                 startActivity(intent);
                 break;
@@ -357,6 +360,7 @@ public class MyCentreFragment extends BaseFragment implements MyCenterView {
      * @param duration 动画时间
      */
     private void setTopSpaceZoomIn(final int duration) {
+        setTopSpaceAndTitleColor(duration,"#ffffff","#007bff");
         AnimUtil.AlphaAnimator(1,0,mTvTitle,duration/2);
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -375,6 +379,7 @@ public class MyCentreFragment extends BaseFragment implements MyCenterView {
      * @param duration 动画时间
      */
     private void setTopSpaceZoomOut(final int duration) {
+        setTopSpaceAndTitleColor(duration,"#007bff","#ffffff");
         AnimUtil.AlphaAnimator(1,0,mTvTitle,duration/2);
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -386,4 +391,21 @@ public class MyCentreFragment extends BaseFragment implements MyCenterView {
         AnimUtil.ScaleAnimator(1f, 0.6f, 1f, 0.6f, mTvTitle, duration);
         AnimUtil.ValueAnimator(mTopSpaceHeight, (float) (mTopSpaceHeight * 0.45), mTopSpace, duration);
     }
+
+    /**
+     * 设置颜色动画
+     */
+    private void setTopSpaceAndTitleColor(int duration, final String start, final String end) {
+        android.animation.ValueAnimator _valueAnimator = android.animation.ValueAnimator.ofFloat(0, 1).setDuration(duration);
+        _valueAnimator.addUpdateListener(new android.animation.ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(android.animation.ValueAnimator animation) {
+                float animatedFraction = (float) animation.getAnimatedValue();
+                mTvTitle.setTextColor((Integer) ColorUtil.evaluateColor(animatedFraction, Color.parseColor(start),  Color.parseColor(end)));
+                mTopSpace.setBackgroundColor((Integer) ColorUtil.evaluateColor(animatedFraction, Color.parseColor(end),  Color.parseColor(start)));
+            }
+        });
+        _valueAnimator.start();
+    }
+
 }

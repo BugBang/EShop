@@ -64,7 +64,6 @@ public class AnimUtil {
         set.setDuration(duration).start();
     }
 
-
     public static void TogetherAnimator(float startRotationValueX, float endRotationValueX,
                                         float startRotationValueY, float endRotationValueY,
                                         float startRotation, float endRotation,

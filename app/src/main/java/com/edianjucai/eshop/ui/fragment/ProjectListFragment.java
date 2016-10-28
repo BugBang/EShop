@@ -165,7 +165,11 @@ public class ProjectListFragment extends BaseFragment implements AdapterView.OnI
         public View getView(final int position) {
             View view = inflater.inflate(R.layout.top_ad_item, null);
             ImageView imageView = (ImageView) view.findViewById(R.id.image);
-            Glide.with(mContext).load("http://" + ApkConstant.SERVER_API_URL_MID +mAdvs.get(position).getImg()).into(imageView);
+            Glide.with(mContext)
+                    .load("http://" + ApkConstant.SERVER_API_URL_MID + mAdvs.get(position).getImg())
+                    .placeholder(R.mipmap.placeholder_img)
+                    .error(R.mipmap.load_error_img )
+                    .into(imageView);
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

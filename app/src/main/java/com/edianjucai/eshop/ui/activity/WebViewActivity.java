@@ -152,7 +152,11 @@ public class WebViewActivity extends BaseActivity {
 
     @OnClick(R.id.iv_back)
     public void onClick() {
-        finish();
+        if (mActProjectDetailWebviewWeb.canGoBack()) {
+            mActProjectDetailWebviewWeb.goBack();
+        }else {
+            finish();
+        }
     }
 
 
@@ -160,8 +164,8 @@ public class WebViewActivity extends BaseActivity {
 
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            view.loadUrl(url);
-            return true;
+//            view.loadUrl(url);
+            return false;
         }
 
         @Override
