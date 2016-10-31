@@ -5,7 +5,7 @@ public class ApkConstant {
     // 打包时将这个值修改为客户的网址，测试环境
 //    public static final String SERVER_API_URL_MID = "112.74.194.230";
 
-    // 正式环境
+//     正式环境
     public static final String SERVER_API_URL_MID = "www.edianjucai.com";
 
     public static final String SERVER_API_URL_PRE = "http://";

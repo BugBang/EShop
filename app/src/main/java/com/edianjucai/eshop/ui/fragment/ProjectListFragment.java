@@ -71,7 +71,7 @@ public class ProjectListFragment extends BaseFragment implements AdapterView.OnI
         mScrollView.smoothScrollTo(0, 0); // 滑动到顶部
         initRefresh();
         initListener();
-        mPosterAdapter = new PosterAdapter(mContext);
+        mPosterAdapter = new PosterAdapter(mActivity);
         mGvProjectList.setAdapter(mGridListAdapter);
         mTopAdView.setAdapter(mPosterAdapter);
 

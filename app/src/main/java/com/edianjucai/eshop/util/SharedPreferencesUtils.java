@@ -38,7 +38,7 @@ public class SharedPreferencesUtils {
             editor.putLong(key, (Long) object);
         }
 
-        editor.commit();
+        editor.apply();
     }
 
 

@@ -155,12 +155,12 @@ public class CompanyListFragment extends BaseFragment implements CompanyListView
                     ToastUtils.showToast("请先登录才可以申请分期");
                     intent.setClass(mActivity, HomeActivity.class);
                     intent.putExtra(HomeActivity.NEED_LOGIN,true);
-                    intent.putExtra(HomeActivity.WHICH_START,mActivity.getClass().getName());
+//                    intent.putExtra(HomeActivity.WHICH_START,mActivity.getClass().getName());
+                    SharedPreferencesUtils.setParam(mActivity,HomeActivity.WHICH_START,mActivity.getClass().getName());
                     startActivity(intent);
                     return;
                 }
                 CompanyListModel.CompanyListModelDeal companyListModelDeal = mCompanyListModel.getList().get(position);
-
                 intent.setClass(mActivity, WebViewActivity.class);
                 intent.putExtra(WebViewActivity.EXTRA_URL, ApkConstant.SERVER_API_URL_PRE+ApkConstant.SERVER_API_URL_MID+
                         "/wap/index.php?ctl=shop_mobile&"+"id="+companyListModelDeal.getId()+"&email2="+localUser.getUserName()

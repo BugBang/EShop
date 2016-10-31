@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Handler;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -101,7 +102,8 @@ public class MyCentreFragment extends BaseFragment implements MyCenterView {
 
     @Override
     public void doBusiness(Context mContext) {
-        mStartClassUri = mActivity.getIntent().getStringExtra(HomeActivity.WHICH_START);
+//        mStartClassUri = mActivity.getIntent().getStringExtra(HomeActivity.WHICH_START);
+        mStartClassUri = (String) SharedPreferencesUtils.getParam(mActivity,HomeActivity.WHICH_START,"");
         initData();
         initUI();
 
@@ -285,16 +287,19 @@ public class MyCentreFragment extends BaseFragment implements MyCenterView {
         }, 800);
         startAmin(mLoginSpaceHeight, 0, 1.0f, 0.0f);
         setTopSpaceZoomOut(800);
+
         postMessage();
     }
 
     private void postMessage() {
-        if (mStartClassUri != null) {
+        if (!TextUtils.isEmpty(mStartClassUri)) {
+            SharedPreferencesUtils.setParam(mActivity,HomeActivity.WHICH_START,"");
+//            SharedPreferencesUtils.setParam(mActivity,HomeActivity.NEED_LOGIN,false);
             Intent intent = new Intent();
             intent.setAction(mStartClassUri);
             intent.putExtra(Constant.UI.NEED_REED_SP,true);
             startActivity(intent);
-            mStartClassUri = null;
+//            mStartClassUri=null;
         }
     }
 
@@ -408,4 +413,9 @@ public class MyCentreFragment extends BaseFragment implements MyCenterView {
         _valueAnimator.start();
     }
 
+    @Override
+    public void onStop() {
+        SharedPreferencesUtils.setParam(mActivity,HomeActivity.WHICH_START,"");
+        super.onStop();
+    }
 }

@@ -11,6 +11,8 @@ import com.edianjucai.eshop.event.EventTag;
 import com.edianjucai.eshop.model.entity.LocalUser;
 import com.edianjucai.eshop.model.entity.RuntimeConfigModel;
 import com.edianjucai.eshop.service.LocationService;
+import com.edianjucai.eshop.ui.activity.HomeActivity;
+import com.edianjucai.eshop.util.SharedPreferencesUtils;
 import com.ta.util.netstate.TANetChangeObserver;
 import com.ta.util.netstate.TANetWorkUtil;
 
@@ -42,6 +44,7 @@ public class App extends Application implements TANetChangeObserver{
         mContext = getApplicationContext();
         EventBus.getDefault().register(this);
         initLoginState();
+        SharedPreferencesUtils.setParam(this, HomeActivity.WHICH_START,"");
     }
 
     public static App getApplication() {

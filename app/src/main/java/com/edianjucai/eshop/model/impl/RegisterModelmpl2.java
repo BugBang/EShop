@@ -4,8 +4,6 @@ import android.app.Dialog;
 
 import com.alibaba.fastjson.JSON;
 import com.edianjucai.eshop.app.App;
-import com.edianjucai.eshop.event.EventMsg;
-import com.edianjucai.eshop.event.EventTag;
 import com.edianjucai.eshop.model.entity.LocalUser;
 import com.edianjucai.eshop.model.entity.RegisterModel;
 import com.edianjucai.eshop.model.entity.RequestModel;
@@ -18,8 +16,6 @@ import org.apache.http.Header;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import de.greenrobot.event.EventBus;
 
 /**
  * Created by user on 2016-09-20.
@@ -92,6 +88,5 @@ public class RegisterModelmpl2 implements RegisterMode2 {
         user.setUserMoney(actModel.getUser_money());
         user.setMobile(actModel.getMobile());
         App.getApplication().setmLocalUser(user);
-        EventBus.getDefault().post(new EventMsg(null, EventTag.EVENT_REGISTER_AND_LOGIN_SUCCESS));
     }
 }

@@ -13,6 +13,8 @@ import com.edianjucai.eshop.FunctionImpl.TextWatcherImpl;
 import com.edianjucai.eshop.R;
 import com.edianjucai.eshop.base.BaseFragment;
 import com.edianjucai.eshop.constant.Constant;
+import com.edianjucai.eshop.event.EventMsg;
+import com.edianjucai.eshop.event.EventTag;
 import com.edianjucai.eshop.presenter.impl.RegisterPersenterlmpl2;
 import com.edianjucai.eshop.presenter.usb.RegisterPresenter2;
 import com.edianjucai.eshop.ui.activity.WebViewActivity;
@@ -22,6 +24,7 @@ import com.edianjucai.eshop.util.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by user on 2016-09-14.
@@ -139,6 +142,7 @@ public class RegisterFragment2 extends BaseFragment implements RegisterView2{
 
     @Override
     public void registerSuccess() {
+        EventBus.getDefault().post(new EventMsg(null, EventTag.EVENT_REGISTER_AND_LOGIN_SUCCESS));
         hideLoadingDialog();
         mActivity.finish();
     }

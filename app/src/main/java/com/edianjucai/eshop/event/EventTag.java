@@ -1,7 +1,6 @@
 package com.edianjucai.eshop.event;
 
-public class EventTag
-{
+public class EventTag {
 	/** 退出app事件 */
 	public static final int EVENT_EXIT_APP = 0;
 	/** 投标成功事件 */
