@@ -203,7 +203,7 @@ public class CompanyListFragment extends BaseFragment implements CompanyListView
                             .error(R.mipmap.load_error_img)
                             .fitCenter()
                             .crossFade()
-                            .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
                             .into(mIvBanner);
                 }
             }

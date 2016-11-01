@@ -16,6 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.webkit.DownloadListener;
+import android.webkit.JavascriptInterface;
+import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -91,6 +93,7 @@ public class WebViewActivity extends BaseActivity {
 
 
     private ProgressDialog mDialog;
+    private String mFileName;
 
     private void init() {
         App.getApplication().getmRuntimeConfig().setProjectDetailWebviewActivity(this);
@@ -204,8 +207,119 @@ public class WebViewActivity extends BaseActivity {
             super.onPageFinished(view, url);
         }
     }
+    private ValueCallback<Uri> mUploadMessage;
+    private ValueCallback<Uri[]> mValueCallback;
+    private int selectImgMax = 1;//选取图片最大数量
+    private int photosType = 0;//图库类型
+    private static int FILECHOOSER_RESULTCODE = 1;
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        if (requestCode == FILECHOOSER_RESULTCODE) {
+//            if (this.photosType <= 0) {//调用自定义图库
+//                uploadImgFromMyPhotos();
+//            } else {//调用系统图库
+                uploadImgFromSysPhotos(resultCode, intent);
+//            }
+        }
+    }
+
+    /**
+     * 上传图片,调用系统图库 与h5 file标签交互
+     * @param resultCode
+     * @param intent
+     */
+    private void uploadImgFromSysPhotos(int resultCode, Intent intent) {
+        if (mUploadMessage != null) {//5.0以下
+            Uri result = intent == null || resultCode != RESULT_OK ? null
+                    : intent.getData();
+            mUploadMessage.onReceiveValue(result);
+            mUploadMessage = null;
+        } else if (mValueCallback != null) {//5.0+
+            Uri[] uris = new Uri[1];
+            uris[0] = intent == null || resultCode != RESULT_OK ? null
+                    : intent.getData();
+            if (uris[0]!=null){
+                mValueCallback.onReceiveValue(uris);
+            }
+            mValueCallback.onReceiveValue(null);
+            mValueCallback = null;
+        }
+    }
+
+
+    /**
+     * 上传图片，调用自己图库 与h5 file标签交互
+     */
+//    private void uploadImgFromMyPhotos() {
+//        if (mValueCallback != null) {//5.0+
+//            Uri[] uris = MediaSelectHelper.getImgPathToUriArray();
+//            if (uris != null){
+//                mValueCallback.onReceiveValue(uris);
+//            }
+//            mValueCallback = null;
+//        } else if (mUploadMessage != null) {//5.0及以下
+//            Uri uri = MediaSelectHelper.getImgPathToUri();
+//            mUploadMessage.onReceiveValue(uri);
+//            mUploadMessage = null;
+//        }
+//    }
+
+
+    /**
+     * js调用 setSelectImgMax 设置本地图片选取图片数量的最大值
+     * @param selectImgMax 默认值为1
+     * @param photosType   type<=0?调用自己的图库:调用系统图库
+     */
+
+    @JavascriptInterface
+    public void setSelectImgMax(int selectImgMax, int photosType) {
+        this.selectImgMax = selectImgMax;
+        this.photosType = photosType;
+    }
 
     class ProjectDetailWebviewActivity_WebChromeClient extends WebChromeClient {
+
+        // For Android 5.0+
+        @Override
+        public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> valueCallback,android.webkit.WebChromeClient.FileChooserParams fileChooserParams) {
+            mValueCallback = valueCallback;
+            selectImgMax = selectImgMax > 1 ? selectImgMax : 1;
+            goToPhotos(selectImgMax);
+            return true;
+        }
+        // For Android 3.0+
+        public void openFileChooser(ValueCallback uploadMsg) {
+            mUploadMessage = uploadMsg;
+            selectImgMax = 1;
+            goToPhotos(selectImgMax);
+        }
+        //3.0--版本
+        public void openFileChooser(ValueCallback uploadMsg, String acceptType) {
+            openFileChooser(uploadMsg);
+        }
+
+        // For Android 4.1
+        public void openFileChooser(ValueCallback uploadMsg, String acceptType,String capture) {
+            openFileChooser(uploadMsg);
+        }
+        /**
+         * 进入本地图库
+         * @param select_image_max //设置选取最大值
+         */
+        private void goToPhotos(int select_image_max) {
+            Intent i;
+//            if (photosType <= 0) {//进入自定义图库
+//                i = new Intent(WebViewActivity.this, MediaSelectActivity.class);
+//                i.putExtra("select_mode", 2);
+//                i.putExtra("select_image_max", select_image_max);
+//                WebViewActivity.this.startActivityForResult(i, FILECHOOSER_RESULTCODE);
+//            } else {//进入系统图库
+                i = new Intent(Intent.ACTION_GET_CONTENT);
+                i.addCategory(Intent.CATEGORY_OPENABLE);
+                i.setType("image/*");
+                WebViewActivity.this.startActivityForResult(Intent.createChooser(i, "File Chooser"), FILECHOOSER_RESULTCODE);
+//            }
+        }
 
         @Override
         public void onProgressChanged(WebView view, int newProgress) {
@@ -319,13 +433,13 @@ public class WebViewActivity extends BaseActivity {
         @Override
         protected String doInBackground(String... params) {
             String url=params[0];
-            String fileName=url.substring(url.lastIndexOf("&")+1);
-            fileName= URLDecoder.decode(fileName);
+            mFileName = url.substring(url.lastIndexOf("&")+1);
+            mFileName = URLDecoder.decode(mFileName);
 
             File directory=Environment.getExternalStorageDirectory();
-            File file=new File(directory,fileName);
+            File file=new File(directory, mFileName);
             if(file.exists()){
-                return fileName;
+                return mFileName;
             }
             try {
                 HttpClient client = new DefaultHttpClient();
@@ -335,10 +449,10 @@ public class WebViewActivity extends BaseActivity {
                     HttpEntity entity = response.getEntity();
                     InputStream input = entity.getContent();
 
-                    writeToSDCard(fileName,input);
+                    writeToSDCard(mFileName,input);
 
                     input.close();
-                    return fileName;
+                    return mFileName;
                 }else{
                     return null;
                 }
@@ -361,7 +475,7 @@ public class WebViewActivity extends BaseActivity {
                 ToastUtils.showToast("连接错误！请稍后再试！");
                 return;
             }
-            ToastUtils.showToast("已保存到SD卡");
+            ToastUtils.showToast("文件 "+mFileName+" 已保存到SD卡");
             File directory=Environment.getExternalStorageDirectory();
             File file=new File(directory,result);
             Intent intent = getFileIntent(file);
@@ -407,7 +521,6 @@ public class WebViewActivity extends BaseActivity {
 
         if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)){
             File directory=Environment.getExternalStorageDirectory();
-            $Log("directory="+directory);
             File file=new File(directory,fileName);
             try {
                 FileOutputStream fos = new FileOutputStream(file);
